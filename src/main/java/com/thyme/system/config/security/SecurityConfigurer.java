@@ -46,7 +46,6 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
                 .cors();
     }
 
-
     /**
      * 密码加密算法
      */
