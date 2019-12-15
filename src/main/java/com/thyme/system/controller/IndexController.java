@@ -24,6 +24,18 @@ public class IndexController {
     public String index(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         System.out.println(authentication);
+        return "main";
+    }
+
+    @RequestMapping("/main")
+    public String main(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return "views/home";
+    }
+
+    @RequestMapping("/index")
+    public String index2(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return "index";
     }
 
