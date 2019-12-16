@@ -32,7 +32,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 //放行所有的 css和js文件
-                .antMatchers("/static/**","/favicon.ico","/actuator/**").permitAll()
+                .antMatchers("/static/**","/favicon.ico","/actuator/**","/code").permitAll()
                 .anyRequest().authenticated()
                 .and()
             .formLogin()

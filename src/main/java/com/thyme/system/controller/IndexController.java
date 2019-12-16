@@ -1,6 +1,8 @@
 package com.thyme.system.controller;
 
-import jdk.nashorn.internal.objects.annotations.Getter;
+import cn.hutool.core.util.IdUtil;
+import com.thyme.system.vo.ImgResult;
+import com.wf.captcha.ArithmeticCaptcha;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -8,8 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import javax.swing.plaf.PanelUI;
 
 /**
  * @author thyme
@@ -19,6 +19,19 @@ import javax.swing.plaf.PanelUI;
  */
 @Controller
 public class IndexController {
+
+    @GetMapping("/code")
+    @ResponseBody
+    public ImgResult getCode() {
+        // 算术类型 https://gitee.com/whvse/EasyCaptcha
+        ArithmeticCaptcha captcha = new ArithmeticCaptcha(111, 36);
+        // 几位数运算，默认是两位
+        captcha.setLen(2);
+        // 获取运算的结果：5
+        String result = captcha.text();
+        String uuid = IdUtil.simpleUUID();
+        return new ImgResult(captcha.toBase64(),uuid);
+    }
 
     @RequestMapping("/")
     public String index(){

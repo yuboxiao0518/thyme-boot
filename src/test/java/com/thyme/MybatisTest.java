@@ -47,4 +47,5 @@ public class MybatisTest {
         String encode = new BCryptPasswordEncoder().encode("123");
         System.out.println(encode);
     }
+
 }
