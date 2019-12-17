@@ -26,11 +26,17 @@
     <link rel="stylesheet" th:href="@{static/plugins/daterangepicker/daterangepicker.css}">
     <!-- summernote -->
     <link rel="stylesheet" th:href="@{static/plugins/summernote/summernote-bs4.css}">
+    <link th:href="@{static/css/element-ui.2.13.0.css}" rel="stylesheet">
     <!-- Google Font: Source Sans Pro -->
     <!--<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">-->
+    <style type="text/css">
+        [v-cloak] {
+            display: none !important;
+        }
+    </style>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
-<div class="wrapper">
+<div class="wrapper" id="app" v-cloak>
 
     <!-- Navbar -->
     <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -191,16 +197,16 @@
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a th:onclick="|javascript:jump('@{/index}')|" class="nav-link">
+                            <li class="nav-item" @click="getValue($event)">
+                                <a id="yhgl" th:onclick="|javascript:jump('@{/index}')|" class="nav-link">
                                     <i class="far fa-user nav-icon"></i>
-                                    <p>用户管理</p>
+                                    <p value="用户管理">用户管理</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a th:onclick="|javascript:jump('')|" class="nav-link">
+                            <li class="nav-item" @click="getValue($event)">
+                                <a id="gwgl" th:onclick="|javascript:jump('@{/position}')|" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>岗位管理</p>
+                                    <p value="岗位管理">岗位管理</p>
                                 </a>
                             </li>
                         </ul>
@@ -214,10 +220,10 @@
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
+                            <li class="nav-item" @click="getValue($event)">
+                                <a id="jsgl" th:onclick="|javascript:jump('@{/role}')|" href="#" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>角色管理</p>
+                                    <p value="角色管理">角色管理</p>
                                 </a>
                             </li>
                         </ul>
@@ -231,10 +237,10 @@
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
+                            <li class="nav-item" @click="getValue($event)">
+                                <a id="cdgl" th:onclick="|javascript:jump('@{/menu}')|" href="#" class="nav-link">
                                     <i class="nav-icon far fa-circle"></i>
-                                    <p>菜单管理</p>
+                                    <p value="菜单管理">菜单管理</p>
                                 </a>
                             </li>
                         </ul>
@@ -319,14 +325,28 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">Dashboard</h1>
+                        <span class="m-0 text-dark el-tag" th:onclick="|javascript:jump('@{/main}')|">首页</span>
+                        <el-tag
+                                :key="tag"
+                                v-for="tag in dynamicTags"
+                                closable
+                                :disable-transitions="false"
+                                @close="handleClose(tag)"
+                                @click="qiehuan($event)">
+                            {{tag}}
+                        </el-tag>
+                        <el-input
+                                class="input-new-tag"
+                                v-if="inputVisible"
+                                v-model="inputValue"
+                                ref="saveTagInput"
+                                size="small"
+                                @keyup.enter.native="handleInputConfirm"
+                                @blur="handleInputConfirm"
+                        >
+                        </el-input>
                     </div><!-- /.col -->
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Dashboard v1</li>
-                        </ol>
-                    </div><!-- /.col -->
+
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->
         </div>
@@ -358,6 +378,9 @@
 
 <!-- jQuery -->
 <script th:src="@{static/plugins/jquery/jquery.js}"></script>
+<script th:src="@{static/js/vue.2.6.11.js}"></script>
+<script th:src="@{static/js/element-ui.2.13.0.js}"></script>
+
 <!-- jQuery UI 1.11.4 -->
 <script th:src="@{static/plugins/jquery-ui/jquery-ui.js}"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -391,6 +414,7 @@
 <!--<script th:src="@{static/plugins/dist/js/pages/dashboard.js}"></script>-->
 <!-- AdminLTE for demo purposes -->
 <script th:src="@{static/plugins/dist/js/demo.js}"></script>
+<script th:src="@{static/views/main.js}"></script>
 <script>
     function jump(str){
         $("#iframeId").attr("src",str);
@@ -398,5 +422,22 @@
 
 
 </script>
+<style>
+    .el-tag + .el-tag {
+        margin-left: 10px;
+    }
+    .button-new-tag {
+        margin-left: 10px;
+        height: 32px;
+        line-height: 30px;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+    .input-new-tag {
+        width: 90px;
+        margin-left: 10px;
+        vertical-align: bottom;
+    }
+</style>
 </body>
 </html>
