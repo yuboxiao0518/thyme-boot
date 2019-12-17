@@ -5,11 +5,11 @@
     <title>登录</title>
     <style>
         body {
-            background-color: #304156
+            background-color: #F0F2F5
         }
     </style>
     <link rel="shortcut icon" th:href="@{favicon.ico}">
-    <link th:href="@{static/css/element-ui.css}" rel="stylesheet">
+    <link th:href="@{static/css/element-ui.2.13.0.css}" rel="stylesheet">
     <style type="text/css">
         .login {
             display: flex;
@@ -19,31 +19,26 @@
             background-size: cover;
             margin: 9% auto;
         }
-
         .title {
             margin: 0px auto 30px auto;
             text-align: center;
             color: #707070;
         }
-
         .login-form {
             border-radius: 6px;
             background: #ffffff;
             width: 385px;
             padding: 25px 25px 5px 25px;
         }
-
         input {
             height: 38px;
         }
-
         .login-code {
             width: 33%;
             display: inline-block;
             height: 38px;
             float: right;
         }
-
         img {
             cursor: pointer;
             vertical-align: middle
@@ -67,12 +62,12 @@
                 <el-input v-model='code' placeholder="验证码" style="width: 63%">
                 </el-input>
                 <div class="login-code">
-                    <img :src='codeUrl'>
+                    <img :src='codeUrl' @click="getCode()">
                 </div>
             </el-form-item>
             <el-checkbox style="margin:0px 0px 25px 0px;">记住我</el-checkbox>
             <el-form-item style="width:100%;">
-                <el-button size="medium" type="primary" style="width:100%;">
+                <el-button size="medium" type="primary" style="width:100%;" @click="login()">
                     <span>登 录</span>
                 </el-button>
             </el-form-item>
@@ -85,11 +80,10 @@
     </div>
 </div>
 <script th:src="@{static/js/jquery.1.12.4.min.js}"></script>
-<script th:src="@{static/js/vue-2.6.11.js}"></script>
-<script th:src="@{static/js/element-ui.js}"></script>
+<script th:src="@{static/js/vue.2.6.11.js}"></script>
+<script th:src="@{static/js/element-ui.2.13.0.js}"></script>
 <script type="text/javascript">
     var vm = new Vue({
-
         el:'#app',
         data: {
             username: '',
@@ -105,6 +99,26 @@
                     success: function (res) {
                         console.log(res);
                         vm.codeUrl = res.img;
+                    }
+                })
+            },
+            login: function () {
+                var localObj = window.location;
+                var contextPath = localObj.pathname.split("/")[1];
+                $.ajax({
+                    url: 'login',
+                    type: 'POST',
+                    data: {
+                        username: vm.username,
+                        password: vm.password,
+                        code : vm.code
+                    },
+                    success: function (res) {
+                        if (res.code === 200) {
+                            location.href = 'http://' + location.host + "/" + contextPath;
+                        } else {
+                            vm.$message.error('错了哦，这是一条错误消息');
+                        }
                     }
                 })
             }
@@ -123,35 +137,14 @@
             height: 2,	//小球高宽，其实为正方形，所以不宜太大
             width: 2,
             count: 300,		//点个数
-            color: "121, 162, 185", 	//点颜色
-            stroke: "130,255,255", 		//线条颜色
+            color: "64,158,255", 	//点颜色
+            stroke: "64,158,255", 		//线条颜色
             dist: 6000, 	//点吸附距离
             e_dist: 20000, 	//鼠标吸附加速距离
             max_conn: 10 	//点到点最大连接数
         };
         //调用
         CanvasParticle(config);
-    }
-</script>
-<script type="text/javascript">
-    function login() {
-        $.ajax({
-            url: 'login',
-            type: 'POST',
-            data: {
-                username: $('#username').val(),
-                password: $('#password').val()
-            },
-            success: function (res) {
-                console.log(res);
-                if (res.code === 200) {
-                    location.href = 'http://' + location.host + context;
-                } else {
-                    alert(res.message);
-                }
-
-            }
-        })
     }
 </script>
 <script th:src="@{static/js/canvas-particle.js}"></script>
