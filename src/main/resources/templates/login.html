@@ -79,6 +79,7 @@
         </div>
     </div>
 </div>
+<script th:src="@{static/js/sha256.js}"></script>
 <script th:src="@{static/js/jquery.1.12.4.min.js}"></script>
 <script th:src="@{static/js/vue.2.6.11.js}"></script>
 <script th:src="@{static/js/element-ui.2.13.0.js}"></script>
@@ -89,7 +90,8 @@
             username: '',
             password: '',
             code: '',
-            codeUrl: ''
+            codeUrl: '',
+            uuidCode: ''
         },
         methods: {
             getCode :function() {
@@ -97,33 +99,37 @@
                     url: 'code',
                     type: 'GET',
                     success: function (res) {
-                        console.log(res);
                         vm.codeUrl = res.img;
+                        vm.uuidCode = res.uuid;
                     }
                 })
             },
             login: function () {
                 var localObj = window.location;
                 var contextPath = localObj.pathname.split("/")[1];
+                var password = CryptoJS.SHA256(vm.password).toString();
+                console.log(password);
                 $.ajax({
                     url: 'login',
                     type: 'POST',
                     data: {
                         username: vm.username,
-                        password: vm.password,
-                        code : vm.code
+                        password: password,
+                        code : vm.code,
+                        uuidCode: vm.uuidCode
                     },
                     success: function (res) {
                         if (res.code === 200) {
-                            location.href = 'http://' + location.host + "/" + contextPath;
+                            location.href = 'http://' + location.host + "/" + contextPath + "/index";
                         } else {
-                            vm.$message.error('错了哦，这是一条错误消息');
+                            vm.$message.error(res.message);
+                            vm.getCode();
                         }
                     }
                 })
             }
         },
-        created: function () {
+        mounted: function () {
             this.getCode();
         }
     })
@@ -138,7 +144,7 @@
             width: 2,
             count: 300,		//点个数
             color: "64,158,255", 	//点颜色
-            stroke: "64,158,255", 		//线条颜色
+            stroke: "64,158,255", 	//线条颜色
             dist: 6000, 	//点吸附距离
             e_dist: 20000, 	//鼠标吸附加速距离
             max_conn: 10 	//点到点最大连接数

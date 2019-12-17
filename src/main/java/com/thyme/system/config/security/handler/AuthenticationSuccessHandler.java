@@ -6,6 +6,7 @@ import com.thyme.common.utils.RequestUtils;
 import com.thyme.common.utils.ResponseUtils;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +20,7 @@ import java.io.IOException;
  * @Date 2019/12/11 10:56
  */
 public class AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
+
 
     private static final String LOGIN_SUCCESS = JSON.toJSONString(ApiResponse.success("登录成功"));
 

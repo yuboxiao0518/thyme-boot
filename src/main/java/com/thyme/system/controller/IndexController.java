@@ -21,19 +21,6 @@ import java.util.Map;
 @Controller
 public class IndexController {
 
-    @GetMapping("/code")
-    @ResponseBody
-    public ImgResult getCode() {
-        // 算术类型 https://gitee.com/whvse/EasyCaptcha
-        ArithmeticCaptcha captcha = new ArithmeticCaptcha(111, 36);
-        // 几位数运算，默认是两位
-        captcha.setLen(2);
-        // 获取运算的结果：5
-        String result = captcha.text();
-        String uuid = IdUtil.simpleUUID();
-        return new ImgResult(captcha.toBase64(),uuid);
-    }
-
     @RequestMapping("/")
     public String index(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

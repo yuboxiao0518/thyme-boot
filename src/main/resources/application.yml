@@ -15,3 +15,9 @@ mybatis-plus:
   # 关闭mybatis-plus的banner打印
   global-config:
     banner: false
+#登录图形验证码有效时间(单位分钟)/宽度/高度/位数
+loginCode:
+  expiration: 2
+  width: 111
+  height: 36
+  digit: 2

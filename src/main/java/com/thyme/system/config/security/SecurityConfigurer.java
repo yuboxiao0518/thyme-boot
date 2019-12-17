@@ -1,5 +1,6 @@
 package com.thyme.system.config.security;
 
+import com.thyme.system.config.filter.ValidateCodeFilter;
 import com.thyme.system.config.security.handler.AuthenticationFailureHandler;
 import com.thyme.system.config.security.handler.AuthenticationSuccessHandler;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
  * @author thyme
@@ -28,9 +30,15 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 
     private final UserDetailServiceImpl userDetailService;
 
+    private final CustomAuthenticationProvider customAuthenticationProvider;
+
+    private final  ValidateCodeFilter validateCodeFilter;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
+
+        http    .addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)
+                .authorizeRequests()
                 //放行所有的 css和js文件
                 .antMatchers("/static/**","/favicon.ico","/actuator/**","/code").permitAll()
                 .anyRequest().authenticated()
@@ -48,19 +56,12 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
     }
 
     /**
-     * 密码加密算法
-     */
-    @Bean
-    public PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
-
-    /**
      * 校验用户信息
      */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailService).passwordEncoder(passwordEncoder());
+        auth.authenticationProvider(customAuthenticationProvider);
+        //auth.userDetailsService(userDetailService).passwordEncoder(passwordEncoder());
     }
 
 
