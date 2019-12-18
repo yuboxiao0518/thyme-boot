@@ -9,7 +9,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Font Awesome -->
     <link rel="stylesheet" th:href="@{static/plugins/fontawesome-free/css/all.css}">
-
     <!-- Ionicons -->
     <link rel="stylesheet" th:href="@{static/css/ionicons.min.css}">
     <!-- Tempusdominus Bbootstrap 4 -->
@@ -26,7 +25,8 @@
     <link rel="stylesheet" th:href="@{static/plugins/daterangepicker/daterangepicker.css}">
     <!-- summernote -->
     <link rel="stylesheet" th:href="@{static/plugins/summernote/summernote-bs4.css}">
-    <link th:href="@{static/css/element-ui.2.13.0.css}" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{static/css/element-ui.2.13.0.css}" >
+    <link rel="shortcut icon" th:href="@{favicon.ico}">
     <!-- Google Font: Source Sans Pro -->
     <!--<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">-->
     <style type="text/css">
@@ -342,8 +342,7 @@
                                 ref="saveTagInput"
                                 size="small"
                                 @keyup.enter.native="handleInputConfirm"
-                                @blur="handleInputConfirm"
-                        >
+                                @blur="handleInputConfirm">
                         </el-input>
                     </div><!-- /.col -->
 

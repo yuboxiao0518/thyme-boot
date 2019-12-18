@@ -7,6 +7,7 @@ import com.thyme.common.utils.ResponseUtils;
 import com.thyme.system.config.exception.ValidateCodeException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
+import org.springframework.security.web.authentication.session.SessionAuthenticationException;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;
@@ -28,6 +29,9 @@ public class AuthenticationFailureHandler extends SimpleUrlAuthenticationFailure
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) throws IOException, ServletException {
         if (RequestUtils.isAjax(request)) {
+            if (e instanceof SessionAuthenticationException) {
+                ResponseUtils.print(response, JSON.toJSONString(ApiResponse.fail("超出最大登录限制")));
+            }
             ResponseUtils.print(response, JSON.toJSONString(ApiResponse.fail(e.getMessage())));
         } else {
             super.onAuthenticationFailure(request, response, e);

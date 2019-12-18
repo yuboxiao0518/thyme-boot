@@ -6,6 +6,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.session.SessionRegistryImpl;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,6 +21,9 @@ import java.util.List;
  */
 @Controller
 public class IndexController {
+
+    @Autowired
+    private SessionRegistry sessionRegistry;
 
     @RequestMapping("/")
     public String index(){
@@ -54,7 +58,13 @@ public class IndexController {
 
     @RequestMapping("/index")
     public String index2(){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        List<Object> allPrincipals = sessionRegistry.getAllPrincipals();
+        for (Object principal : allPrincipals) {
+            if (principal instanceof User) {
+                final User user = (User)principal;
+                System.out.println(user.getUsername());
+            }
+        }
         return "index";
     }
 
@@ -63,7 +73,7 @@ public class IndexController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String admin(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
+        
         return "是管理员";
     }
 

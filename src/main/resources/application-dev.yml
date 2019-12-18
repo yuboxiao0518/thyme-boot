@@ -16,7 +16,7 @@ spring:
     password: root
     type: com.alibaba.druid.pool.DruidDataSource
   redis:
-    host: 192.168.208.102
-    port: 29638
-    password: ahhx@9637
+    host: 192.168.220.22
+    port: 31843
+    password: UcJyWk6GEKUx6p6V
     timeout: 5000
