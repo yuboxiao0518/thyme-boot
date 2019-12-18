@@ -32,11 +32,11 @@ public class ValidateCodeFilter extends OncePerRequestFilter {
 
     private final AuthenticationFailureHandler authenticationFailureHandler;
 
-    private static final PathMatcher pathMatcher = new AntPathMatcher();
+    private static final PathMatcher PATHMATCHER = new AntPathMatcher();
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        if ("POST".equals(request.getMethod()) && pathMatcher.match("/login",request.getServletPath())){
+        if ("POST".equals(request.getMethod()) && PATHMATCHER.match("/login",request.getServletPath())){
             try {
                 codeValidate(request);
             } catch (ValidateCodeException e){

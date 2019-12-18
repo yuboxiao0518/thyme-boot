@@ -32,6 +32,18 @@ public class IndexController {
         return "main";
     }
 
+    @RequestMapping("/invalid_session")
+    public String invalidSession(){
+        System.out.println("session过期了");
+        return "invalid";
+    }
+
+    @RequestMapping("/expired")
+    public String expired(){
+        System.out.println("expired过期了");
+        return "expired";
+    }
+
     @RequestMapping("/main")
     public String main(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
