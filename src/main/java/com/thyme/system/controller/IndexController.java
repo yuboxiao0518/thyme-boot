@@ -34,6 +34,24 @@ public class IndexController {
         return "views/home";
     }
 
+    @RequestMapping("/position")
+    public String position(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return "views/position";
+    }
+
+    @RequestMapping("/role")
+    public String role(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return "views/role";
+    }
+
+    @RequestMapping("/menu")
+    public String menu(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return "views/menu";
+    }
+
     @RequestMapping("/index")
     public String index2(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
