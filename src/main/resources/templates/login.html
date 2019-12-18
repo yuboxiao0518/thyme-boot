@@ -120,7 +120,7 @@
                     },
                     success: function (res) {
                         if (res.code === 200) {
-                            location.href = 'http://' + location.host + "/" + contextPath + "/index";
+                            location.href = 'http://' + location.host + "/" + contextPath;
                         } else {
                             vm.$message.error(res.message);
                             vm.getCode();

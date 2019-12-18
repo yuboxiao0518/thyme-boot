@@ -1,16 +1,16 @@
 package com.thyme.system.controller;
 
-import cn.hutool.core.util.IdUtil;
-import com.thyme.common.base.ApiResponse;
-import com.thyme.system.vo.ImgResult;
-import com.wf.captcha.ArithmeticCaptcha;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.Map;
+import java.util.List;
 
 /**
  * @author thyme
@@ -45,6 +45,7 @@ public class IndexController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String admin(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
         return "是管理员";
     }
 
