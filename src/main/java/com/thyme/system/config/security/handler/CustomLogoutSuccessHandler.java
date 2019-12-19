@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.session.SessionInformation;
 import org.springframework.security.core.session.SessionRegistry;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.stereotype.Component;
 
@@ -32,11 +31,13 @@ public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
         List<Object> o = sessionRegistry.getAllPrincipals();
         // 退出成功后删除当前用户session
         for (Object principal : o) {
-            if (authentication.getName().equals(principal)) {
-                List<SessionInformation> sessionsInfo = sessionRegistry.getAllSessions(principal, false);
-                if (null != sessionsInfo && sessionsInfo.size() > 0) {
-                    for (SessionInformation sessionInformation : sessionsInfo) {
-                        sessionInformation.expireNow();
+            if (principal != null){
+                if (authentication.getName().equals(principal)) {
+                    List<SessionInformation> sessionsInfo = sessionRegistry.getAllSessions(principal, false);
+                    if (null != sessionsInfo && sessionsInfo.size() > 0) {
+                        for (SessionInformation sessionInformation : sessionsInfo) {
+                            sessionInformation.expireNow();
+                        }
                     }
                 }
             }

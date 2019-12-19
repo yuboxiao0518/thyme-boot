@@ -23,3 +23,10 @@ loginCode:
   width: 111
   height: 36
   digit: 2
+# security 配置
+security:
+  #同一账号，最大登录数
+  max-session: 10
+  # 超出最大登录数，是否阻止登录
+  prevents-login: false
+  # 放行url
