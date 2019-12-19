@@ -32,19 +32,16 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 
     /**
-     * 验证码 宽度
+     * 最大登录数
      */
     @Value("${security.max-session}")
     private Integer maxSession;
 
     /**
-     * 验证码 宽度
+     * 超出最大登录数，是否阻止登录
      */
     @Value("${security.prevents-login}")
     private Boolean preventsLogin;
-
-
-
 
     private final UserDetailServiceImpl userDetailService;
 
