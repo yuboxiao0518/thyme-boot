@@ -11,6 +11,7 @@
     <link rel="stylesheet" th:href="@{static/dist/css/ionicons.min.css}">
     <link rel="stylesheet" th:href="@{static/dist/css/AdminLTE.2.0.min.css}">
     <link rel="stylesheet" th:href="@{static/dist/css/skins/all-skins.min.css}">
+    <link rel="stylesheet" th:href="@{static/css/iconfont.css}">
     <style type="text/css">
         html {
             overflow: hidden;
@@ -254,38 +255,26 @@
                             <span class="hidden-xs">thyme</span>
                         </a>
                         <ul class="dropdown-menu">
-                            <!-- User image -->
-                            <li class="user-header">
-                                <img th:src="@{static/dist/img/user2-160x160.jpg}" class="img-circle" alt="User Image">
-
-                                <p>
-                                    Alexander Pierce - Web Developer
-                                    <small>Member since Nov. 2012</small>
-                                </p>
-                            </li>
-                            <!-- Menu Body -->
                             <li class="user-body">
-                                <div class="row">
-                                    <div class="col-xs-4 text-center">
-                                        <a href="#">Followers</a>
-                                    </div>
-                                    <div class="col-xs-4 text-center">
-                                        <a href="#">Sales</a>
-                                    </div>
-                                    <div class="col-xs-4 text-center">
-                                        <a href="#">Friends</a>
-                                    </div>
-                                </div>
-                                <!-- /.row -->
+                                <a class="ainfo">
+                                    <span class="iconfont icon-yonghudianji">
+                                        <span class="spaninfo">个人中心</span>
+                                    </span>
+                                </a>
                             </li>
-                            <!-- Menu Footer-->
-                            <li class="user-footer">
-                                <div class="pull-left">
-                                    <a href="#" class="btn btn-default btn-flat">Profile</a>
-                                </div>
-                                <div class="pull-right">
-                                    <a href="#" class="btn btn-default btn-flat">Sign out</a>
-                                </div>
+                            <li class="user-body">
+                                <a class="ainfo">
+                                    <span class="iconfont icon-yuechi">
+                                        <span class="spaninfo">修改密码</span>
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="user-body">
+                                <a class="ainfo">
+                                    <span class="iconfont icon-tuichu">
+                                        <span class="spaninfo">退出登录</span>
+                                    </span>
+                                </a>
                             </li>
                         </ul>
                     </li>
@@ -555,9 +544,6 @@
 <script type="text/javascript" th:src="@{static/plugins/slimScroll/jquery.slimscroll.min.js}"></script>
 <!-- FastClick -->
 <script th:src="@{static/plugins/fastclick/fastclick.js}"></script>
-<script>
-    $.widget.bridge('uibutton', $.ui.button)
-</script>
 <script th:src="@{static/plugins/dist/js/demo.js}"></script>
 <script th:src="@{static/plugins/dist/js/app.js}"></script>
 <script th:src="@{static/plugins/dist/js/app_iframe.js}"></script>
