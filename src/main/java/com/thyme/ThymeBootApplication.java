@@ -11,6 +11,4 @@ public class ThymeBootApplication {
     public static void main(String[] args) {
         SpringApplication.run(ThymeBootApplication.class, args);
     }
-
-
 }

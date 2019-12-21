@@ -29,54 +29,6 @@ public class IndexController {
     public String index(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         System.out.println(authentication);
-        return "index_iframe";
-    }
-
-    @RequestMapping("/invalid_session")
-    public String invalidSession(){
-        System.out.println("session过期了");
-        return "invalid";
-    }
-
-    @RequestMapping("/expired")
-    public String expired(){
-        System.out.println("expired过期了");
-        return "expired";
-    }
-
-    @RequestMapping("/main")
-    public String main(){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return "views/home";
-    }
-
-    @RequestMapping("/position")
-    public String position(){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return "views/position";
-    }
-
-    @RequestMapping("/role")
-    public String role(){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return "views/role";
-    }
-
-    @RequestMapping("/menu")
-    public String menu(){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return "views/menu";
-    }
-
-    @RequestMapping("/index")
-    public String index2(){
-        List<Object> allPrincipals = sessionRegistry.getAllPrincipals();
-        for (Object principal : allPrincipals) {
-            if (principal instanceof User) {
-                final User user = (User)principal;
-                System.out.println(user.getUsername());
-            }
-        }
         return "index";
     }
 
