@@ -11,12 +11,13 @@
   <link rel="shortcut icon" th:href="@{favicon.ico}">
   <link th:href="@{static/css/layui/layui.css}" rel="stylesheet">
   <link th:href="@{static/css/layui/admin.css}" rel="stylesheet">
+  <style type="text/css">
+    .layui-side-menu,.layadmin-pagetabs .layui-tab-title li:after,.layadmin-pagetabs .layui-tab-title li.layui-this:after,.layui-layer-admin .layui-layer-title,.layadmin-side-shrink .layui-side-menu .layui-nav>.layui-nav-item>.layui-nav-child{background-color:#344058 !important;}.layui-nav-tree .layui-this,.layui-nav-tree .layui-this>a,.layui-nav-tree .layui-nav-child dd.layui-this,.layui-nav-tree .layui-nav-child dd.layui-this a{background-color:#1E9FFF !important;}.layui-layout-admin .layui-logo{background-color:#1E9FFF !important;}  </style>
 <!--  <link th:href="@{static/css/layui/theme-white.css}" rel="stylesheet">-->
   <script>
   /^http(s*):\/\//.test(location.href) || alert('请先部署到 localhost 下再访问');
   </script>
 </head>
-<body class="layui-layout-body">
   <div id="LAY_app">
     <div class="layui-layout layui-layout-admin">
       <div class="layui-header">
@@ -91,10 +92,10 @@
                 <dd data-name="console" class="layui-this">
                   <a lay-href="/console">控制台</a>
                 </dd>
-                <!--<dd data-name="console">
-                  <a lay-href="home/homepage1.html">主页一</a>
-                </dd>
                 <dd data-name="console">
+                  <a lay-href="/home">主页一</a>
+                </dd>
+                <!--<dd data-name="console">
                   <a lay-href="home/homepage2.html">主页二</a>
                 </dd>-->
               </dl>

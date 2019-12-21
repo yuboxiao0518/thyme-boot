@@ -39,6 +39,13 @@ public class IndexController {
         return "console";
     }
 
+    @RequestMapping("/home")
+    public String ds(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        System.out.println(authentication);
+        return "console";
+    }
+
     @RequestMapping("/admin")
     @ResponseBody
     @PreAuthorize("hasRole('ROLE_ADMIN')")
