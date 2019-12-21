@@ -1,9 +1,10 @@
 .skin-blue .main-header .navbar {
-    background-color: #66b1ff;
+    background-color: #fff;
+    border-bottom: solid 1px #000
 }
 
 .skin-blue .main-header .navbar .nav > li > a {
-    color: #fff
+    color: #000
 }
 
 .skin-blue .main-header .navbar .nav > li > a:hover, .skin-blue .main-header .navbar .nav > li > a:active, .skin-blue .main-header .navbar .nav > li > a:focus, .skin-blue .main-header .navbar .nav .open > a, .skin-blue .main-header .navbar .nav .open > a:hover, .skin-blue .main-header .navbar .nav .open > a:focus, .skin-blue .main-header .navbar .nav > .active > a {
@@ -21,7 +22,7 @@
 }
 
 .skin-blue .main-header .navbar .sidebar-toggle {
-    color: #fff
+    color: #000
 }
 
 .skin-blue .main-header .navbar .sidebar-toggle:hover {
@@ -43,13 +44,15 @@
 }
 
 .skin-blue .main-header .logo {
-    background-color: #304a56;
-    color: #fff;
-    border-bottom: 0 solid transparent
+    background-color: #fff;
+    color: #000;
+    border-bottom: 0 solid transparent;
+    border-right: solid 1px #2c3e50;
+    border-bottom: solid 1px #2c3e50;
 }
 
 .skin-blue .main-header .logo:hover {
-    background-color: #304a56
+    background-color: #fff;
 }
 
 .skin-blue .main-header li.user-header {
@@ -59,13 +62,13 @@
 .skin-blue .content-header {
     background: transparent
 }
-
+/*左边菜单栏底色*/
 .skin-blue .wrapper, .skin-blue .main-sidebar, .skin-blue .left-side {
-    background-color: #304a56
+    background-color: #fff
 }
 
 .skin-blue .user-panel > .info, .skin-blue .user-panel > .info > a {
-    color: #fff
+    color: #000
 }
 
 .skin-blue .sidebar-menu > li.header {
@@ -78,18 +81,17 @@
 }
 
 .skin-blue .sidebar-menu > li:hover > a, .skin-blue .sidebar-menu > li.active > a {
-    color: #fff;
-    background: #304a56;
-    border-left-color: #3c8dbc
+    color: #000;
+    background: #eff1f4;
 }
 
 .skin-blue .sidebar-menu > li > .treeview-menu {
     margin: 0 1px;
-    background: #2c3b41
+    background: #fff
 }
 
 .skin-blue .sidebar a {
-    color: #b8c7ce
+    color: #000
 }
 
 .skin-blue .sidebar a:hover {
@@ -97,16 +99,17 @@
 }
 
 .skin-blue .treeview-menu > li > a {
-    color: #fff;
-    background-color: #304156;
-}
-
-.skin-blue .treeview-menu > li > a:hovewr {
+    color: #000;
     background-color: #fff;
 }
 
+.skin-blue .treeview-menu > li > a:hovewr {
+    background-color: #eff1f4;
+}
+
 .skin-blue .treeview-menu > li.active > a, .skin-blue .treeview-menu > li > a:hover {
-    color: #fff
+    color: #000;
+    background-color: #eff1f4;
 }
 
 .skin-blue .sidebar-form {

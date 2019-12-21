@@ -461,7 +461,7 @@ a:hover, a:active, a:focus {
 
 .sidebar {
     padding-bottom: 10px;
-    background-color: #304a56;
+    background-color: #fff;
 }
 
 .sidebar-form input:focus {
