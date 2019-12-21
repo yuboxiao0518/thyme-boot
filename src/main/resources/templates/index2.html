@@ -1,63 +1,50 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link href="${ctxPath}/assets/expand/images/favicon.ico" rel="icon">
-    <title>${constants.getSystemName()}</title>
-    <link rel="stylesheet" href="${ctxPath}/assets/common/libs/layui/css/layui.css?v=${constants.getReleaseVersion()}"/>
-    <link rel="stylesheet" href="${ctxPath}/assets/common/module/admin.css?v=${constants.getReleaseVersion()}"/>
+    <link rel="shortcut icon" th:href="@{favicon.ico}">
+    <link th:href="@{static/css/layui/layui.css}" rel="stylesheet">
+    <link th:href="@{static/css/module/admin.css}" rel="stylesheet">
 </head>
 
 <body class="layui-layout-body">
 
 <div class="layui-layout layui-layout-admin">
-
-    <!-- 头部 -->
-    @include("/common/_header.html"){}
-
-    <!-- 侧边栏 -->
-    @include("/common/_sidebar.html"){}
-
-    <!-- 主体部分 -->
-    @include("/common/_body.html"){}
-
-    <!-- 底部 -->
-    @include("/common/_footer.html"){}
-
+    <div th:include="/common/_header.html"></div>
+    <div th:include="/common/_sidebar.html"></div>
+    <div th:include="/common/_body.html"></div>
+    <div th:include="/common/_footer.html"></div>
+    <div th:include="/common/loading.html"></div>
 </div>
 
 <!-- 加载动画，移除位置在common.js中 -->
-@include("/common/loading.html"){}
-
-@/* 加入contextPath属性和session超时的配置 */
 <script type="text/javascript">
     var Feng = {
-        ctxPath: "${ctxPath}",
-        version: '${constants.getReleaseVersion()}'
+        ctxPath: "",
+        version: ''
     };
 </script>
-<script type="text/javascript" src="${ctxPath}/assets/common/libs/layui/layui.js?v=${constants.getReleaseVersion()}"></script>
-<script type="text/javascript" src="${ctxPath}/assets/common/js/common.js?v=${constants.getReleaseVersion()}"></script>
-
+<script th:src="@{static/js/layui/layui.js}"></script>
+<script th:src="@{static/js/common/common.js}"></script>
 <script>
-    layui.use(['layer', 'element', 'admin', 'index', 'ax'], function () {
-        var $ = layui.jquery;
-        var layer = layui.layer;
-        var admin = layui.admin;
-        var index = layui.index;
-        var $ax = layui.ax;
-
-        // 默认加载主页
-        index.loadHome({
-            menuPath: $("#firstPageAction").attr('lay-href'),
-            menuName: '<i class="layui-icon layui-icon-home"></i>'
-        });
+    /*layui.use(['layer', 'element', 'admin', 'index', 'ax'], function () {
+        // var $ = layui.jquery;
+        // var layer = layui.layer;
+        // var admin = layui.admin;
+        // var index = layui.index;
+        // var $ax = layui.ax;
+        //
+        // // 默认加载主页
+        // index.loadHome({
+        //     menuPath: $("#firstPageAction").attr('lay-href'),
+        //     menuName: '<i class="layui-icon layui-icon-home"></i>'
+        // });
 
         // 修改密码点击事件
-        $('#setPsw').click(function () {
+        /!*$('#setPsw').click(function () {
             admin.open({
                 id: 'pswForm',
                 type: 2,
@@ -65,10 +52,10 @@
                 shade: 0,
                 content: '${ctxPath}/system/user_chpwd'
             });
-        });
+        });*!/
 
         // 退出登录点击事件
-        $('#btnLogout').click(function () {
+        /!*$('#btnLogout').click(function () {
             var ajax = new $ax(Feng.ctxPath + "/logout", function (data) {
                 Feng.success("退出成功!");
                 window.location.href = Feng.ctxPath + "/";
@@ -76,8 +63,8 @@
                 layer.msg("退出失败！" + data.responseJSON.message, {icon: 5, anim: 6});
             });
             ajax.start();
-        });
-    });
+        });*!/
+    });*/
 </script>
 </body>
 

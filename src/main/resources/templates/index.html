@@ -11,6 +11,7 @@
   <link rel="shortcut icon" th:href="@{favicon.ico}">
   <link th:href="@{static/css/layui/layui.css}" rel="stylesheet">
   <link th:href="@{static/css/layui/admin.css}" rel="stylesheet">
+<!--  <link th:href="@{static/css/layui/theme-white.css}" rel="stylesheet">-->
   <script>
   /^http(s*):\/\//.test(location.href) || alert('请先部署到 localhost 下再访问');
   </script>
@@ -30,7 +31,7 @@
         <ul class="layui-nav layui-layout-right" lay-filter="layadmin-layout-right">
           
           <li class="layui-nav-item" lay-unselect>
-            <a lay-href="app/message/index.html" layadmin-event="message" lay-text="消息中心">
+            <a lay-href="" layadmin-event="message" lay-text="消息中心">
               <i class="layui-icon layui-icon-notice"></i>  
               
               <!-- 如果有新消息，则显示小圆点 -->
@@ -57,8 +58,8 @@
               <cite>贤心</cite>
             </a>
             <dl class="layui-nav-child">
-              <dd><a lay-href="set/user/info.html">基本资料</a></dd>
-              <dd><a lay-href="set/user/password.html">修改密码</a></dd>
+              <dd><a lay-href="">基本资料</a></dd>
+              <dd><a lay-href="">修改密码</a></dd>
               <hr>
               <dd layadmin-event="logout" style="text-align: center;"><a>退出</a></dd>
             </dl>
@@ -76,7 +77,7 @@
       <!-- 侧边菜单 -->
       <div class="layui-side layui-side-menu">
         <div class="layui-side-scroll">
-          <div class="layui-logo" lay-href="home/console.html">
+          <div class="layui-logo" lay-href="/console.html">
             <span>layuiAdmin</span>
           </div>
           
@@ -88,14 +89,14 @@
               </a>
               <dl class="layui-nav-child">
                 <dd data-name="console" class="layui-this">
-                  <a lay-href="home/console.html">控制台</a>
+                  <a lay-href="/console">控制台</a>
                 </dd>
-                <dd data-name="console">
+                <!--<dd data-name="console">
                   <a lay-href="home/homepage1.html">主页一</a>
                 </dd>
                 <dd data-name="console">
                   <a lay-href="home/homepage2.html">主页二</a>
-                </dd>
+                </dd>-->
               </dl>
             </li>
           </ul>
@@ -129,7 +130,7 @@
       <!-- 主体内容 -->
       <div class="layui-body" id="LAY_app_body">
         <div class="layadmin-tabsbody-item layui-show">
-          <iframe src="home/console.html" frameborder="0" class="layadmin-iframe"></iframe>
+          <iframe src="console" frameborder="0" class="layadmin-iframe"></iframe>
         </div>
       </div>
       
@@ -138,13 +139,6 @@
     </div>
   </div>
   <script th:src="@{static/js/layui/layui.js}"></script>
-  <script>
-  layui.config({
-    base: '../layuiadmin/' //静态资源所在路径
-  }).extend({
-    index: 'lib/index' //主入口模块
-  }).use('index');
-  </script>
 </body>
 </html>
 
