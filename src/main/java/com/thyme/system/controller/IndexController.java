@@ -43,7 +43,14 @@ public class IndexController {
     public String ds(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         System.out.println(authentication);
-        return "console";
+        return "home";
+    }
+
+    @RequestMapping("/home2")
+    public String ds2(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        System.out.println(authentication);
+        return "home2";
     }
 
     @RequestMapping("/admin")
