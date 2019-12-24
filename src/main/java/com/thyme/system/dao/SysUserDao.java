@@ -15,6 +15,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface SysUserDao extends BaseMapper<SysUser> {
 
+    /**
+     * 根据姓名查询
+     */
     @Select("SELECT * FROM sys_user WHERE name= #{name}")
     SysUser findByName(@Param("name") String name);
 

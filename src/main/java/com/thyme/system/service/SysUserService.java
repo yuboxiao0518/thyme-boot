@@ -11,5 +11,8 @@ import org.apache.ibatis.annotations.Param;
  */
 public interface SysUserService {
 
+    /**
+     * 根据姓名查询
+     */
     SysUser findByName(@Param("name") String name);
 }

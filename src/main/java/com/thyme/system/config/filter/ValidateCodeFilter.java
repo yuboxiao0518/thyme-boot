@@ -1,5 +1,6 @@
 package com.thyme.system.config.filter;
 
+import com.thyme.common.base.Constants;
 import com.thyme.system.config.exception.ValidateCodeException;
 import com.thyme.system.config.security.handler.AuthenticationFailureHandler;
 import com.thyme.system.service.RedisService;
@@ -36,7 +37,7 @@ public class ValidateCodeFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        if ("POST".equals(request.getMethod()) && PATHMATCHER.match("/login",request.getServletPath())){
+        if (Constants.REQUEST_MODE_POST.equals(request.getMethod()) && PATHMATCHER.match(Constants.LOGIN_URL,request.getServletPath())){
             try {
                 codeValidate(request);
             } catch (ValidateCodeException e){

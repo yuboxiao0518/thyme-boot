@@ -19,4 +19,6 @@ public class Constants {
     public static final String STRING_PAGE_ERROR = "500";
 
     public static final String STRING_PAGE_NOT_FOUND = "404";
+
+    public static final String REQUEST_MODE_POST = "post";
 }

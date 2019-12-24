@@ -90,11 +90,15 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
                 .and()
                 .sessionManagement()
                     //.invalidSessionUrl("/invalid_session")
-                    .invalidSessionStrategy(customInvalidSessionStrategy)   //失效处理
-                    .maximumSessions(maxSession)  //同一账号同时允许多个设备在线
-                    .maxSessionsPreventsLogin(preventsLogin)  //新用户挤走前用户
+                    //失效处理
+                    .invalidSessionStrategy(customInvalidSessionStrategy)
+                    //同一账号同时允许多个设备在线
+                    .maximumSessions(maxSession)
+                    //新用户挤走前用户
+                    .maxSessionsPreventsLogin(preventsLogin)
                     //.expiredUrl("/expired")
-                    .expiredSessionStrategy(customExpiredSessionStrategy)   //超时处理
+                    //超时处理
+                    .expiredSessionStrategy(customExpiredSessionStrategy)
                     .sessionRegistry(sessionRegistry);
     }
 
