@@ -28,28 +28,21 @@ public class IndexController {
     @RequestMapping("/")
     public String index(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        System.out.println(authentication);
         return "index";
     }
 
     @RequestMapping("/console")
     public String home(){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        System.out.println(authentication);
         return "console";
     }
 
     @RequestMapping("/home")
     public String ds(){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        System.out.println(authentication);
         return "home";
     }
 
     @RequestMapping("/home2")
     public String ds2(){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        System.out.println(authentication);
         return "home2";
     }
 
@@ -57,8 +50,6 @@ public class IndexController {
     @ResponseBody
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String admin(){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        
         return "是管理员";
     }
 
@@ -66,7 +57,6 @@ public class IndexController {
     @ResponseBody
     @PreAuthorize("hasRole('ROLE_USER')")
     public String user(){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return "是普通用户";
     }
 }

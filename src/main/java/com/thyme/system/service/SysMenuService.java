@@ -1,5 +1,10 @@
 package com.thyme.system.service;
 
+import com.thyme.system.entity.SysMenu;
+import com.thyme.system.vo.MenuVo;
+
+import java.util.List;
+
 /**
  * @author thyme
  * @ClassName SysMenuService
@@ -7,4 +12,6 @@ package com.thyme.system.service;
  * @Date 2019/12/19 15:43
  */
 public interface SysMenuService {
+
+    public List<MenuVo> getMenuByUser(String username);
 }

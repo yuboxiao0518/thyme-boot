@@ -1,6 +1,8 @@
 package com.thyme.system.config.security.handler;
 
+import com.thyme.common.base.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.session.SessionInformation;
 import org.springframework.security.core.session.SessionRegistry;
@@ -22,25 +24,11 @@ import java.util.List;
 @Component
 public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
 
-    @Autowired
-    private SessionRegistry sessionRegistry;
-
+    @Value("${server.servlet.context-path}")
+    private String path;
 
     @Override
     public void onLogoutSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
-        List<Object> o = sessionRegistry.getAllPrincipals();
-        // 退出成功后删除当前用户session
-        for (Object principal : o) {
-            if (principal != null){
-                if (authentication.getName().equals(principal)) {
-                    List<SessionInformation> sessionsInfo = sessionRegistry.getAllSessions(principal, false);
-                    if (null != sessionsInfo && sessionsInfo.size() > 0) {
-                        for (SessionInformation sessionInformation : sessionsInfo) {
-                            sessionInformation.expireNow();
-                        }
-                    }
-                }
-            }
-        }
+        httpServletResponse.sendRedirect(path==null? Constants.LOGIN_URL :path + Constants.LOGIN_URL);
     }
 }

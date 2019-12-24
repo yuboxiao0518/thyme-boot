@@ -25,7 +25,6 @@ public class CustomExpiredSessionStrategy implements SessionInformationExpiredSt
 
     @Override
     public void onExpiredSessionDetected(SessionInformationExpiredEvent sessionInformationExpiredEvent) throws IOException, ServletException {
-        System.out.println("session 超时了....");
         HttpServletResponse response = sessionInformationExpiredEvent.getResponse();
         HttpServletRequest request = sessionInformationExpiredEvent.getRequest();
         request.getRequestDispatcher("/expired").forward(request,response);

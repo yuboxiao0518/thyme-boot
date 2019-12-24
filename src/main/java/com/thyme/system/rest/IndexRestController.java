@@ -1,12 +1,15 @@
 package com.thyme.system.rest;
 
 import cn.hutool.core.util.IdUtil;
+import com.thyme.common.base.ApiResponse;
 import com.thyme.system.service.RedisService;
 import com.thyme.system.vo.ImgResult;
 import com.wf.captcha.ArithmeticCaptcha;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -53,4 +56,10 @@ public class IndexRestController {
         redisService.saveCode(uuid,result);
         return new ImgResult(captcha.toBase64(),uuid);
     }
+    
+    /*@GetMapping("/getUserInfo")
+    public ApiResponse getUserInfo(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        authentication.getName()
+    }*/
 }

@@ -62,6 +62,8 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
+        http.headers().frameOptions().disable();
+
         http.addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
                 //放行所有的 css和js文件
@@ -80,12 +82,11 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
                 .and()
             .logout()
                 .logoutUrl(Constants.LOGOUT_URL)
-                .logoutSuccessUrl(Constants.LOGIN_URL)
-                .invalidateHttpSession(true)
                 .logoutSuccessHandler(customLogoutSuccessHandler)
-                .and()
-                     // 防止iframe 造成跨域
-        .headers().frameOptions().sameOrigin()
+                //.logoutSuccessUrl(Constants.LOGIN_URL)
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")
+                .logoutSuccessHandler(customLogoutSuccessHandler)
                 .and()
                 .sessionManagement()
                     //.invalidSessionUrl("/invalid_session")

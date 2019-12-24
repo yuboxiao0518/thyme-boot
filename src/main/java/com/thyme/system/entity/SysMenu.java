@@ -33,6 +33,11 @@ public class SysMenu implements Serializable {
     private String menuName;
 
     /**
+     * 菜单别名
+     */
+    private String menuCode;
+
+    /**
      * 菜单链接
      */
     private String menuHref;

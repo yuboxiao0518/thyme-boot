@@ -24,7 +24,6 @@ public class CustomInvalidSessionStrategy implements InvalidSessionStrategy {
 
     @Override
     public void onInvalidSessionDetected(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        System.out.println("session 失效了");
         request.getRequestDispatcher("/invalid_session").forward(request,response);
     }
 }

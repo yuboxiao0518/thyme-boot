@@ -18,4 +18,9 @@ public interface SysRoleDao extends BaseMapper<SysRole> {
     @Select("SELECT * FROM sys_role WHERE id =(SELECT role_id FROM sys_user_role WHERE user_id = #{userId})")
     SysRole findByUserId(@Param("userId") String userId);
 
+
+    @Select("SELECT r.* FROM sys_role AS r LEFT JOIN sys_user_role as u ON r.id = u.role_id " +
+            "WHERE u.user_id = (SELECT id FROM sys_user WHERE name = #{name})")
+    SysRole findByName(@Param("name") String name);
+
 }
