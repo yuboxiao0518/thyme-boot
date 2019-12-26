@@ -19,7 +19,6 @@ public class SysUserServiceImpl implements SysUserService {
 
     private final SysUserDao sysUserDao;
 
-
     @Override
     public SysUser findByName(String name) {
         return sysUserDao.findByName(name);

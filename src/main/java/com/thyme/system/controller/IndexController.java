@@ -33,17 +33,7 @@ public class IndexController {
 
     @RequestMapping("/console")
     public String home(){
-        return "console";
-    }
-
-    @RequestMapping("/home")
-    public String ds(){
         return "home";
-    }
-
-    @RequestMapping("/home2")
-    public String ds2(){
-        return "home2";
     }
 
     @RequestMapping("/admin")
