@@ -42,34 +42,6 @@ public class JvmInfo {
      */
     private String home;
 
-    public double getTotal() {
-        return NumberUtil.div(total, (1024 * 1024), 2);
-    }
-
-    public double getMax() {
-        return NumberUtil.div(max, (1024 * 1024), 2);
-    }
-
-    public double getFree() {
-        return NumberUtil.div(free, (1024 * 1024), 2);
-    }
-
-    public double getUsed() {
-        return NumberUtil.div(total - free, (1024 * 1024), 2);
-    }
-
-    public String getVersion() {
-        return version;
-    }
-
-    public String getHome() {
-        return home;
-    }
-
-    public double getUsage() {
-        return NumberUtil.mul(NumberUtil.div(total - free, total, 4), 100);
-    }
-
     /**
      * 获取JDK名称
      */
@@ -106,5 +78,33 @@ public class JvmInfo {
         long min = runMS % nd % nh / nm;
 
         return day + "天" + hour + "小时" + min + "分钟";
+    }
+
+    public double getTotal() {
+        return NumberUtil.div(total, (1024 * 1024), 2);
+    }
+
+    public double getMax() {
+        return NumberUtil.div(max, (1024 * 1024), 2);
+    }
+
+    public double getFree() {
+        return NumberUtil.div(free, (1024 * 1024), 2);
+    }
+
+    public double getUsed() {
+        return NumberUtil.div(total - free, (1024 * 1024), 2);
+    }
+
+    public String getVersion() {
+        return version;
+    }
+
+    public String getHome() {
+        return home;
+    }
+
+    public double getUsage() {
+        return NumberUtil.mul(NumberUtil.div(total - free, total, 4), 100);
     }
 }

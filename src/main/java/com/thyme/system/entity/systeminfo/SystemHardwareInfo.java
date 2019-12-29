@@ -3,8 +3,6 @@ package com.thyme.system.entity.systeminfo;
 import cn.hutool.core.net.NetUtil;
 import cn.hutool.core.util.NumberUtil;
 import com.thyme.common.utils.IpInfoUtils;
-import com.zaxxer.hikari.util.FastList;
-import lombok.Builder;
 import lombok.Getter;
 import oshi.hardware.CentralProcessor;
 import oshi.hardware.GlobalMemory;
@@ -13,8 +11,10 @@ import oshi.software.os.OSFileStore;
 import oshi.software.os.OperatingSystem;
 import oshi.util.Util;
 
+import java.lang.management.ManagementFactory;
+import java.lang.management.MemoryMXBean;
+import java.lang.management.MemoryUsage;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
 
@@ -84,6 +84,12 @@ public class SystemHardwareInfo {
      * 设置内存信息
      */
     public void setMemInfo(GlobalMemory memory) {
+        MemoryMXBean memoryMXBean = ManagementFactory.getMemoryMXBean();
+        MemoryUsage heapMemoryUsage = memoryMXBean.getHeapMemoryUsage();
+        heapMemoryUsage.getInit();
+        heapMemoryUsage.getMax();
+        heapMemoryUsage.getUsed();
+        heapMemoryUsage.getCommitted();
         mem = new MemInfo();
         mem.setTotal(memory.getTotal());
         mem.setUsed(memory.getTotal() - memory.getAvailable());
