@@ -210,6 +210,9 @@
 
     </div>
 </div>
+<script th:inline="javascript">
+    var context = [[@{/}]];
+</script>
 <script th:src="@{/static/js/jquery.1.12.4.min.js}"></script>
     <script th:src="@{/static/js/layui/layui.js}"></script>
     <script th:src="@{/static/js/vue.2.6.11.js}"></script>
@@ -231,7 +234,7 @@
             methods: {
                 getServerDynamicInfo: function () {
                     $.ajax({
-                        url: '../system/rest/getServerDynamicInfo',
+                        url: context +'system/rest/getServerDynamicInfo',
                         type: 'GET',
                         success: function (res) {
                             vm.cpuInfo = res.data.cpuInfo;
@@ -263,7 +266,7 @@
                     vm.getServerDynamicInfo();
                 },5000);
                 $.ajax({
-                    url: '../system/rest/getServerStaticInfo',
+                    url: context +'system/rest/getServerStaticInfo',
                     type: 'GET',
                     success: function (res) {
                         vm.sysFileInfoList = res.data.sysFileInfo;

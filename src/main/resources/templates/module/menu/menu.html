@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link th:href="@{/static/css/layui/layui.css}" rel="stylesheet">
+    <link th:href="@{/static/css/layui/admin.css}" rel="stylesheet">
+    <link th:href="@{/static/css/element-ui.2.13.0.css}" rel="stylesheet">
+    <link th:href="@{/static/css/font-awesome.min.css}" rel="stylesheet">
+</head>
+<body>
+<div class="layui-fluid" id="app">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-sm12 layui-col-md12 layui-col-lg12">
+            <div class="layui-card">
+                <div class="layui-card-body">
+                    <el-table
+                            :data="tableData"
+                            style="width: 100%;margin-bottom: 20px;"
+                            row-key="id"
+                            border
+                            default-expand-all
+                            :tree-props="{children: 'children', hasChildren: 'hasChildren'}">
+                        <el-table-column
+                                prop="date"
+                                label="日期"
+                                sortable
+                                width="180">
+                        </el-table-column>
+                        <el-table-column
+                                prop="name"
+                                label="姓名"
+                                sortable
+                                width="180">
+                        </el-table-column>
+                        <el-table-column
+                                prop="address"
+                                label="地址">
+                        </el-table-column>
+                    </el-table>
+                    <el-pagination
+                            background
+                            layout="prev, pager, next"
+                            :page-size="5"
+                            :total="total">
+                    </el-pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:inline="javascript">
+    var context = [[@{/}]];
+</script>
+<script th:src="@{/static/js/jquery.1.12.4.min.js}"></script>
+<script th:src="@{/static/js/layui/layui.js}"></script>
+<script th:src="@{/static/js/vue.2.6.11.js}"></script>
+<script th:src="@{/static/js/element-ui.2.13.0.js}"></script>
+    <script type="text/javascript">
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                tableData: '',
+                total: 50
+            },
+            methods: {
+
+            },
+            mounted: function () {
+
+            }
+        });
+    </script>
+</body>
+</html>
