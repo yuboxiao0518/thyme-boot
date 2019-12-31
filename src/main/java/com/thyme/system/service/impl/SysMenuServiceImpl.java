@@ -1,5 +1,7 @@
 package com.thyme.system.service.impl;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.thyme.system.dao.SysMenuDao;
 import com.thyme.system.dao.SysRoleDao;
 import com.thyme.system.dao.SysUserDao;
@@ -61,5 +63,15 @@ public class SysMenuServiceImpl implements SysMenuService {
                     .build());
         }
         return menuVoList;
+    }
+
+    @Override
+    public IPage<SysMenu> findFirstMenu(Page page) {
+        return sysMenuDao.findFirstMenu(page);
+    }
+
+    @Override
+    public List<SysMenu> findByParentId(String parentId) {
+        return sysMenuDao.findByParentId(parentId);
     }
 }

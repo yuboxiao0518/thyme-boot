@@ -1,7 +1,10 @@
 package com.thyme.system.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.thyme.system.entity.SysMenu;
 import com.thyme.system.vo.MenuVo;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -14,4 +17,8 @@ import java.util.List;
 public interface SysMenuService {
 
     public List<MenuVo> getMenuByUser(String username);
+
+    IPage<SysMenu> findFirstMenu(Page page);
+
+    List<SysMenu> findByParentId(String parentId);
 }
