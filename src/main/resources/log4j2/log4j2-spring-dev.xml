@@ -8,6 +8,7 @@
         <!-- 定义日志存储的路径 -->
         <property name="FILE_PATH" value="applogs"/>
         <property name="FILE_NAME" value="thyme"/>
+
         <!--<springProperty scope="context" name="FILE_PATH" source="log:path"/>-->
     </Properties>
     <appenders>
