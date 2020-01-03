@@ -1,5 +1,6 @@
 package com.thyme.system.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -18,6 +19,7 @@ import java.util.List;
  * @Date 2019/12/11 10:50
  */
 @Controller
+@Slf4j
 public class IndexController {
 
     @Autowired
@@ -27,6 +29,9 @@ public class IndexController {
     public String index(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         List<Object> allPrincipals = sessionRegistry.getAllPrincipals();
+        log.info("info.........");
+        log.debug("debug..........");
+        log.error("error..........");
         return "index";
     }
 
