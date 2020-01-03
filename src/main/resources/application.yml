@@ -1,6 +1,9 @@
 server:
   servlet:
     context-path: /thyme
+    session:
+      timeout: 1800
+  connection-timeout: 10000
   port: 8600
 spring:
   profiles:
