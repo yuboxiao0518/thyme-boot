@@ -1,20 +1,13 @@
-package com.thyme.system.entity;
-
-import lombok.Builder;
-import lombok.Data;
+package com.thyme.system.vo;
 
 import java.io.Serializable;
 import java.util.Date;
 
 /**
- * @author thyme
- * @ClassName SysMenu
- * @Description TODO
- * @Date 2019/12/19 15:37
+ * @author cuiyating
+ * @date 2020/1/5 17:38
  */
-@Data
-@Builder
-public class SysMenu implements Serializable {
+public class SysMenuVO implements Serializable {
 
     static final long serialVersionUID = 1L;
 
@@ -61,7 +54,7 @@ public class SysMenu implements Serializable {
     /**
      * 菜单是否显示
      */
-    private Boolean isShow;
+    private String isShow;
 
     /**
      * 菜单创建时间
@@ -73,8 +66,8 @@ public class SysMenu implements Serializable {
      */
     private String createBy;
 
-    public SysMenu(String id, String parentId, String menuName, String menuCode, String menuHref, String menuIcon,
-                   String menuLevel, String menuWeight, Boolean isShow, Date createDate, String createBy){
+    public SysMenuVO(String id, String parentId, String menuName, String menuCode, String menuHref, String menuIcon,
+                   String menuLevel, String menuWeight, String isShow, Date createDate, String createBy) {
         this.id = id;
         this.parentId = parentId;
         this.menuName = menuName;

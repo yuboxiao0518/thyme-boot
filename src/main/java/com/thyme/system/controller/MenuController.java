@@ -18,4 +18,14 @@ public class MenuController {
     public String index(){
         return "module/menu/menu";
     }
+
+    @GetMapping("/update")
+    public String update(){
+        return "module/menu/updateMenu";
+    }
+
+    @GetMapping("/add")
+    public String add(){
+        return "module/menu/addMenu";
+    }
 }

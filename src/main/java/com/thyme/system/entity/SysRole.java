@@ -26,4 +26,11 @@ public class SysRole implements Serializable {
 
     private Date createTime;
 
+    public SysRole(String id, String name, String authority, Date createTime){
+        this.id = id;
+        this.name = name;
+        this.authority = authority;
+        this.createTime = createTime;
+    }
+
 }

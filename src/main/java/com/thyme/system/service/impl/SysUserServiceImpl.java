@@ -1,5 +1,7 @@
 package com.thyme.system.service.impl;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.thyme.system.dao.SysUserDao;
 import com.thyme.system.entity.SysUser;
 import com.thyme.system.service.SysUserService;
@@ -22,5 +24,35 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     public SysUser findByName(String name) {
         return sysUserDao.findByName(name);
+    }
+
+    @Override
+    public IPage<SysUser> getAll(Page page) {
+        return sysUserDao.getAll(page);
+    }
+
+    @Override
+    public int deleteUser(String id) {
+        return sysUserDao.deleteRole(id);
+    }
+
+    @Override
+    public SysUser getById(String id) {
+        return sysUserDao.getById(id);
+    }
+
+    @Override
+    public int updateUser(SysUser sysUser) {
+        return sysUserDao.updateUser(sysUser);
+    }
+
+    @Override
+    public int addUser(SysUser sysUser) {
+        return sysUserDao.addUser(sysUser);
+    }
+
+    @Override
+    public SysUser getByName(String name) {
+        return sysUserDao.getByName(name);
     }
 }

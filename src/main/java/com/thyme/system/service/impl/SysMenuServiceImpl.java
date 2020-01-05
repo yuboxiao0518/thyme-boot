@@ -10,6 +10,7 @@ import com.thyme.system.entity.SysRole;
 import com.thyme.system.entity.SysUser;
 import com.thyme.system.service.SysMenuService;
 import com.thyme.system.vo.MenuVo;
+import com.thyme.system.vo.SysMenuVO;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,5 +74,25 @@ public class SysMenuServiceImpl implements SysMenuService {
     @Override
     public List<SysMenu> findByParentId(String parentId) {
         return sysMenuDao.findByParentId(parentId);
+    }
+
+    @Override
+    public int deleteMenu(String id) {
+        return sysMenuDao.deleteMenu(id);
+    }
+
+    @Override
+    public int updateMenu(SysMenu sysMenu) {
+        return sysMenuDao.updateMenu(sysMenu);
+    }
+
+    @Override
+    public int addMenu(SysMenuVO sysMenu) {
+        return sysMenuDao.addMenu(sysMenu);
+    }
+
+    @Override
+    public SysMenu getByName(String menuName, String menuCode, String menuHref) {
+        return sysMenuDao.getByName(menuName, menuCode, menuHref);
     }
 }

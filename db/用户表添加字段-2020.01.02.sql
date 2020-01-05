@@ -1,0 +1,18 @@
+ALTER TABLE `sys_user`
+ADD COLUMN `live_address` VARCHAR(500) DEFAULT NULL COMMENT '现居地' AFTER `password`;
+ALTER TABLE `sys_user`
+ADD COLUMN `hobby` VARCHAR(255) DEFAULT NULL COMMENT '爱好' AFTER `password`;
+ALTER TABLE `sys_user`
+ADD COLUMN `birthday` VARCHAR(10) DEFAULT NULL COMMENT '出生日期' AFTER `password`;
+ALTER TABLE `sys_user`
+ADD COLUMN `email` VARCHAR(100) DEFAULT NULL COMMENT '邮箱'  AFTER `password`;
+ALTER TABLE `sys_user`
+ADD COLUMN `mobile` VARCHAR(100) DEFAULT NULL COMMENT '手机号' AFTER `password`;
+ALTER TABLE `sys_user`
+ADD COLUMN `sex` CHAR(1) DEFAULT NULL COMMENT '性别'  AFTER `password` ;
+ALTER TABLE `sys_user`
+ADD COLUMN `nickname` VARCHAR(50) DEFAULT NULL COMMENT '用户昵称' AFTER `password`;
+ALTER TABLE `sys_user`
+ADD COLUMN `update_time` DATETIME DEFAULT NULL COMMENT '修改时间' AFTER `create_time`;
+
+COMMIT

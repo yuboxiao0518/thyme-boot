@@ -1,14 +1,17 @@
 package com.thyme.system.rest;
+import	java.util.Date;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.thyme.common.base.ApiResponse;
 import com.thyme.common.utils.SecurityUtils;
+import com.thyme.common.utils.UUIDUtils;
 import com.thyme.system.entity.SysMenu;
 import com.thyme.system.service.SysMenuService;
 import com.thyme.system.vo.MenuListVo;
 import com.thyme.system.vo.MenuVo;
+import com.thyme.system.vo.SysMenuVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -74,5 +77,66 @@ public class MenuRestController {
         jsonObject.put("menuList",listVoList);
         return ApiResponse.ofSuccess(jsonObject);
 
+    }
+
+    @GetMapping("/deleteMenu")
+    public ApiResponse deleteMenu(@RequestParam("id")String id){
+        JSONObject jsonObject = new JSONObject();
+        try{
+            if (sysMenuService.deleteMenu(id) > 0){
+                jsonObject.put("code",200);
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+            jsonObject.put("code",500);
+        }
+        return ApiResponse.ofSuccess(jsonObject);
+    }
+
+    @GetMapping("/updateMenu")
+    public ApiResponse updateMenu(@RequestParam("id")String id,
+                                  @RequestParam("parentId")String parentId,
+                                  @RequestParam("menuName")String menuName,
+                                  @RequestParam("menuCode")String menuCode,
+                                  @RequestParam("menuHref")String menuHref,
+                                  @RequestParam("menuLevel")String menuLevel,
+                                  @RequestParam("menuWeight")String menuWeight,
+                                  @RequestParam("isShow")String isShow){
+        JSONObject jsonObject = new JSONObject();
+        SysMenu sysMenu = new SysMenu(id,parentId,menuName,menuCode,menuHref,null,menuLevel,menuWeight,"1".equals(isShow),null,null);
+        try{
+            if (sysMenuService.updateMenu(sysMenu) > 0){
+                jsonObject.put("code",200);
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+            jsonObject.put("code",500);
+        }
+        return ApiResponse.ofSuccess(jsonObject);
+    }
+
+    @GetMapping("/addMenu")
+    public ApiResponse addMenu(@RequestParam("menuName")String menuName,
+                               @RequestParam("menuCode")String menuCode,
+                               @RequestParam("menuHref")String menuHref,
+                               @RequestParam("menuLevel")String menuLevel,
+                               @RequestParam("menuWeight")String menuWeight,
+                               @RequestParam("isShow")String isShow){
+        JSONObject jsonObject = new JSONObject();
+        SysMenu menu = sysMenuService.getByName(menuName, menuCode, menuHref);
+        if (menu == null) {
+            SysMenuVO sysMenuVO = new SysMenuVO(UUIDUtils.getSixteenUUID(),null,menuName,menuCode,menuHref,null,menuLevel,menuWeight,isShow,new Date(),"admin");
+            try{
+                if (sysMenuService.addMenu(sysMenuVO) > 0){
+                    jsonObject.put("code",200);
+                }
+            }catch (Exception e) {
+                e.printStackTrace();
+                jsonObject.put("code",500);
+            }
+        } else {
+            jsonObject.put("code",501);
+        }
+        return ApiResponse.ofSuccess(jsonObject);
     }
 }
