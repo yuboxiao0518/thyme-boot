@@ -82,7 +82,7 @@ public class SysMenuServiceImpl implements SysMenuService {
     }
 
     @Override
-    public int updateMenu(SysMenu sysMenu) {
+    public int updateMenu(SysMenuVO sysMenu) {
         return sysMenuDao.updateMenu(sysMenu);
     }
 
@@ -94,5 +94,10 @@ public class SysMenuServiceImpl implements SysMenuService {
     @Override
     public SysMenu getByName(String menuName, String menuCode, String menuHref) {
         return sysMenuDao.getByName(menuName, menuCode, menuHref);
+    }
+
+    @Override
+    public SysMenu getById(String id) {
+        return sysMenuDao.getById(id);
     }
 }

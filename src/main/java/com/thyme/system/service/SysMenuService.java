@@ -35,7 +35,7 @@ public interface SysMenuService {
      * @param sysMenu 菜单
      * @return 返回值
      */
-    int updateMenu(SysMenu sysMenu);
+    int updateMenu(SysMenuVO sysMenu);
 
     /**
      * 添加菜单
@@ -52,4 +52,11 @@ public interface SysMenuService {
      * @return 返回值
      */
     SysMenu getByName(String menuName, String menuCode, String menuHref);
+
+    /**
+     * 根据id查询菜单
+     * @param id id
+     * @return 菜单
+     */
+    SysMenu getById(String id);
 }

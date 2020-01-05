@@ -44,8 +44,8 @@ public interface SysMenuDao extends BaseMapper<SysMenu> {
      * @return 返回值
      */
     @Update("update sys_menu set menu_name = #{menuName}, menu_code = #{menuCode}, menu_href = #{menuHref}, " +
-            "menu_level = #{menuLevel}, is_show = #{isShow} where id = #{id} and parent_id = #{parentId}")
-    int updateMenu(SysMenu sysMenu);
+            "menu_level = #{menuLevel}, is_show = #{isShow} where id = #{id}")
+    int updateMenu(SysMenuVO sysMenu);
 
     /**
      * 添加菜单
@@ -65,4 +65,13 @@ public interface SysMenuDao extends BaseMapper<SysMenu> {
      */
     @Select("select * from sys_menu where menu_name = #{menuName} or menu_code = #{menuCode} or menu_href = #{menuHref}")
     SysMenu getByName(@Param("menuName")String menuName, @Param("menuCode")String menuCode, @Param("menuHref")String menuHref);
+
+
+    /**
+     * 根据id查询菜单
+     * @param id id
+     * @return 菜单
+     */
+    @Select("select * from sys_menu where id = #{id}")
+    SysMenu getById(@Param("id")String id);
 }

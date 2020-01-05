@@ -103,7 +103,7 @@ public class MenuRestController {
                                   @RequestParam("menuWeight")String menuWeight,
                                   @RequestParam("isShow")String isShow){
         JSONObject jsonObject = new JSONObject();
-        SysMenu sysMenu = new SysMenu(id,parentId,menuName,menuCode,menuHref,null,menuLevel,menuWeight,"1".equals(isShow),null,null);
+        SysMenuVO sysMenu = new SysMenuVO(id,parentId,menuName,menuCode,menuHref,null,menuLevel,menuWeight,isShow,null,null);
         try{
             if (sysMenuService.updateMenu(sysMenu) > 0){
                 jsonObject.put("code",200);

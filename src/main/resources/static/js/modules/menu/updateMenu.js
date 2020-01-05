@@ -74,43 +74,17 @@ function validateRule() {
     })
 }
 
-function isMobileEmailDate(mobile,email,birthday) {
-    var flag = true;
-    if (mobile !== ""){
-        var phoneReg = /^[1][3,4,5,7,8][0-9]{9}$/;
-        if (!phoneReg.test(mobile)) {
-            layer.msg("手机号格式不正确，请重新输入！");
-            document.getElementById("mobile").value = "";
-            flag =  false;
-        }
-    }
-    if(email !== "") {
-        var reg = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
-        //调用正则验证test()函数
-        isok= reg.test(email);
-        if(!isok) {
-            layer.msg("邮箱格式不正确，请重新输入！");
-            document.getElementById("email").value = "";
-            flag = false;
-        }
-    }
-    if (birthday !== ""){
-        var dataReg = /^(\d{4})-(\d{2})-(\d{2})$/
-        if (!dataReg.test(birthday)) {
-            layer.msg("邮箱格式不正确，请重新输入！(日期格式:yyyy-MM-dd)");
-            document.getElementById("birthday").value = "";
-            flag = false;
-        }
-    }
-    return flag;
-}
-
 function initradio(rName,rValue){
+    if (rValue === "true"){
+        rValue = 1;
+    } else {
+        rValue = 0;
+    }
     var rObj = document.getElementsByName(rName);
-
     for(var i = 0;i < rObj.length;i++){
         if(rObj[i].value == rValue){
             rObj[i].checked =  'checked';
         }
     }
+
 }
