@@ -39,8 +39,8 @@
         }(), index: e.layer && e.layer.v ? 1e5 : 0, path: o.getPath, config: function (e, t) {
             return e = e || {}, r.cache = o.config = i.extend({}, o.config, e), r.path = o.config.path || r.path, "string" == typeof e.extend && (e.extend = [e.extend]), o.config.path && r.ready(), e.extend ? (a ? layui.addcss("modules/layer/" + e.extend) : o.link("theme/" + e.extend), this) : this
         }, ready: function (e) {
-            var t = "layer", i = "", n = (a ? "modules/layer/" : "theme/") + "default/layer.css?v=" + r.v + i;
-            return a ? layui.addcss(n, e, t) : o.link(n, e, t), this
+           /* var t = "layer", i = "", n = (a ? "modules/layer/" : "theme/") + "default/layer.css?v=" + r.v + i;
+            return a ? layui.addcss(n, e, t) : o.link(n, e, t), this*/
         }, alert: function (e, t, n) {
             var a = "function" == typeof t;
             return a && (n = t), r.open(i.extend({content: e, yes: n}, a ? {} : t))
