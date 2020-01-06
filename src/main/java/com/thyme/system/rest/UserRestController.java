@@ -5,11 +5,10 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.thyme.common.base.ApiResponse;
 import com.thyme.common.utils.UUIDUtils;
-import com.thyme.system.entity.SysMenu;
-import com.thyme.system.entity.SysRole;
 import com.thyme.system.entity.SysUser;
+import com.thyme.system.service.SysRoleService;
 import com.thyme.system.service.SysUserService;
-import com.thyme.system.vo.MenuListVo;
+import com.thyme.system.vo.UserVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -18,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -33,16 +32,32 @@ public class UserRestController {
 
     private final SysUserService userService;
 
+    private final SysRoleService sysRoleService;
 
     @GetMapping("/getUserInfo")
     public ApiResponse getUserInfo(@RequestParam("page") int page,
                                    @RequestParam("page_size") int pageSize) {
         JSONObject jsonObject = new JSONObject();
+        List<UserVO> userList = new ArrayList<>(16);
         IPage<SysUser> sysUserList = userService.getAll(new Page(page, pageSize));
+        if (sysUserList.getRecords() != null && sysUserList.getRecords().size() > 0){
+            for (SysUser sysUser : sysUserList.getRecords()){
+                //根据用户id查询角色名称
+                String roleName = sysRoleService.getById(sysUser.getId());
+                UserVO userVO = new UserVO(roleName);
+                userVO.setId(sysUser.getId());
+                userVO.setName(sysUser.getName());
+                userVO.setNickName(sysUser.getNickName());
+                userVO.setSex(sysUser.getSex());
+                userVO.setMobile(sysUser.getMobile());
+                userVO.setEmail(sysUser.getEmail());
+                userList.add(userVO);
+            }
+        }
         jsonObject.put("total",sysUserList.getTotal());
         jsonObject.put("page",sysUserList.getCurrent());
         jsonObject.put("page_size",sysUserList.getSize());
-        jsonObject.put("sysUserList",sysUserList.getRecords());
+        jsonObject.put("sysUserList",userList);
         return ApiResponse.ofSuccess(jsonObject);
     }
 

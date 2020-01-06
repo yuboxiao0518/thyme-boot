@@ -1,5 +1,8 @@
 package com.thyme.system.vo;
 
+import lombok.Builder;
+import lombok.Data;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -7,6 +10,8 @@ import java.util.Date;
  * @author cuiyating
  * @date 2020/1/5 17:38
  */
+@Data
+@Builder
 public class SysMenuVO implements Serializable {
 
     static final long serialVersionUID = 1L;

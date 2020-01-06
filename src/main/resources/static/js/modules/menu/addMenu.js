@@ -34,6 +34,7 @@ function addMenu(){
             if (data.code === 200) {
                 if (data.data.code === 200){
                     parent.layer.msg("操作成功");
+                    parent.location.reload();
                 } else if(data.data.code === 501){
                     parent.layer.msg("该菜单已存在，操作失败");
                 } else if(data.data.code === 500){

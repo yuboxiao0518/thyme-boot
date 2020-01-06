@@ -51,4 +51,11 @@ public interface SysRoleService {
      * @return 角色
      */
     SysRole getByName(String name);
+
+    /**
+     * 根据id查角色名称
+     * @param id id
+     * @return 角色名称
+     */
+    String getById(String id);
 }

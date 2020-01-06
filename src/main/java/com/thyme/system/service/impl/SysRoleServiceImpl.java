@@ -50,4 +50,9 @@ public class SysRoleServiceImpl implements SysRoleService {
     public SysRole getByName(String name) {
         return sysRoleDao.getByName(name);
     }
+
+    @Override
+    public String getById(String id) {
+        return sysRoleDao.getById(id);
+    }
 }

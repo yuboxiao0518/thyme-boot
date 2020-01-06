@@ -1,5 +1,6 @@
 package com.thyme.system.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 import lombok.Data;
 
@@ -38,9 +39,15 @@ public class SysUser implements Serializable {
 
     private String liveAddress;
 
+    @JsonFormat(timezone = "GMT+8", shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
+    @JsonFormat(timezone = "GMT+8", shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
+
+    public SysUser(){
+
+    }
 
     public SysUser(String id, String name, String password, String nickName, String sex, String mobile,
                    String email, String birthday, String hobby, String liveAddress, Date createTime, Date updateTime){

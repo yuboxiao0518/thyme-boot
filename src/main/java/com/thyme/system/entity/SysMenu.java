@@ -1,5 +1,6 @@
 package com.thyme.system.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 import lombok.Data;
 
@@ -66,6 +67,7 @@ public class SysMenu implements Serializable {
     /**
      * 菜单创建时间
      */
+    @JsonFormat(timezone = "GMT+8", shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createDate;
 
     /**

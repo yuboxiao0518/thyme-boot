@@ -65,4 +65,13 @@ public interface SysRoleDao extends BaseMapper<SysRole> {
      */
     @Select("select * from sys_role where name = #{name}")
     SysRole getByName(@Param("name")String name);
+
+    /**
+     * 根据id查角色名称
+     * @param id id
+     * @return 角色名称
+     */
+    @Select("select r.name from sys_role r left join sys_user_role ur on r.id = ur.role_id where ur.role_id = (\n" +
+            "select urs.role_id from sys_user u left join sys_user_role urs on u.id = urs.user_id where u.id = #{id})")
+    String getById(@Param("id") String id);
 }

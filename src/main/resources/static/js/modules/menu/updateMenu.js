@@ -39,13 +39,12 @@ function updateUser(){
             if (data.code === 200) {
                 if (data.data.code === 200){
                     parent.layer.msg("操作成功");
-                    var index = parent.layer.getFrameIndex(window.name); // 获取窗口索引
-                    parent.layer.close(index);
+                    parent.location.reload();
                 } else if(data.data.code === 200){
                     parent.layer.msg("操作失败");
-                    var index = parent.layer.getFrameIndex(window.name); // 获取窗口索引
-                    parent.layer.close(index);
                 }
+                var index = parent.layer.getFrameIndex(window.name); // 获取窗口索引
+                parent.layer.close(index);
             }
             // window.location.reload();
         }

@@ -1,4 +1,10 @@
 $().ready(function(){
+    var app = new Vue({
+        el: '#app',
+        data:{
+            value1: ''
+        }
+    });
     validateRule();
 });
 
@@ -41,6 +47,7 @@ function addUser(){
                 if (data.code === 200) {
                     if (data.data.code === 200){
                         parent.layer.msg("操作成功");
+                        parent.location.reload();
                     } else if(data.data.code === 501){
                         parent.layer.msg("该用户已存在，操作失败");
                     } else if(data.data.code === 500){
