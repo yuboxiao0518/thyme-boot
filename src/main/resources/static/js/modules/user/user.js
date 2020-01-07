@@ -26,7 +26,10 @@ $().ready(function(){
                     maxmin: true,
                     shadeClose: false, // 点击遮罩关闭层
                     area: ['800px', '520px'],
-                    content: context + 'user/update?id='+row.id
+                    content: context + 'user/update?id='+row.id,
+                    end: function () {
+                        this.getMenuList();
+                    }
                 });
             },
             handleDelete:function(row) {
