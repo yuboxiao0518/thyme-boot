@@ -59,4 +59,17 @@ public interface SysMenuService {
      * @return 菜单
      */
     SysMenu getById(String id);
+
+    /**
+     * 获取一级菜单
+     * @return 一级菜单
+     */
+    List<SysMenu> getFirstMenu();
+
+    /**
+     * 根据角色id查询所有菜单
+     * @param roleId 角色id
+     * @return 菜单
+     */
+    List<String> getRoleMenu(String roleId);
 }

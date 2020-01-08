@@ -1,4 +1,5 @@
 $().ready(function(){
+    app.getData();
     validateRule();
 });
 
@@ -8,10 +9,50 @@ $.validator.setDefaults({
     }
 });
 
+var id=$("#id").val();
+var app = new Vue({
+    el:"#app",
+    data:{
+        data: [],
+        defaultProps: {
+            children: 'children',
+            label: 'menuName'
+        },
+        expandAll:true,
+        expandedKeys:[],
+        checkedKeys:[]
+    },
+    methods:{
+        getData: function() {
+            $.ajax({
+                cache : true,
+                type : "GET",
+                url : context + 'role/getRoleMenu',
+                data:{
+                    "roleId":id
+                },
+                error : function(request) {
+                    parent.layer.alert("Connection error");
+                },
+                success : function(data) {
+                    if (data.code === 200) {
+                        app.data = data.data.menuList;
+                        app.expandedKeys = data.data.ids;
+                        app.checkedKeys = data.data.ids;
+                    }
+                }
+            });
+        },
+        getCheckedKeys:function () {
+            return this.$refs.tree.getCheckedKeys();
+        }
+    }
+});
+
 function updateRole(){
-    var id=$("#id").val();
     var name=$("#name").val();
     var authority=$("#authority").val();
+    var ids = app.getCheckedKeys();
     $.ajax({
         cache : true,
         type : "GET",
@@ -19,7 +60,8 @@ function updateRole(){
         data :{
             "id":id,
             "name":name,
-            "authority":authority
+            "authority":authority,
+            "ids":ids
         },
         error : function(request) {
             parent.layer.alert("Connection error");
@@ -28,14 +70,12 @@ function updateRole(){
             if (data.code === 200) {
                if (data.data.code === 200){
                    parent.layer.msg("操作成功");
-                   parent.location.reload();
                } else if (data.data.code === 500){
                    parent.layer.msg("操作失败");
                }
                 var index = parent.layer.getFrameIndex(window.name); // 获取窗口索引
                 parent.layer.close(index);
             }
-            // window.location.reload();
         }
     });
 }

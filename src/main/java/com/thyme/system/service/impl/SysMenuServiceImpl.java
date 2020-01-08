@@ -100,4 +100,14 @@ public class SysMenuServiceImpl implements SysMenuService {
     public SysMenu getById(String id) {
         return sysMenuDao.getById(id);
     }
+
+    @Override
+    public List<SysMenu> getFirstMenu() {
+        return sysMenuDao.getFirstMenu();
+    }
+
+    @Override
+    public List<String> getRoleMenu(String roleId) {
+        return sysMenuDao.getRoleMenu(roleId);
+    }
 }

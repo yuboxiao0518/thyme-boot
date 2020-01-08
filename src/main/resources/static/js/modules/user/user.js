@@ -15,7 +15,10 @@ $().ready(function(){
                     maxmin: true,
                     shadeClose: false, // 点击遮罩关闭层
                     area: ['800px', '520px'],
-                    content: context + 'user/add'
+                    content: context + 'user/add',
+                    end: function () {
+                        vm.getUserList();
+                    }
                 });
             },
             handleEdit: function(row) {
@@ -28,7 +31,7 @@ $().ready(function(){
                     area: ['800px', '520px'],
                     content: context + 'user/update?id='+row.id,
                     end: function () {
-                        this.getMenuList();
+                        vm.getUserList();
                     }
                 });
             },
@@ -41,7 +44,7 @@ $().ready(function(){
                             if (res.code === 200){
                                if (res.data.code === 200){
                                    layer.msg("操作成功");
-                                   tableData.splice(index, 1);
+                                   vm.getUserList();
                                } else if(res.data.code === 500){
                                    layer.msg("操作失败");
                                }
@@ -52,14 +55,14 @@ $().ready(function(){
             },
             handleSizeChange: function (val) {
                 vm.page_size = val;
-                this.getMenuList();
+                this.getUserList();
             },
             handleCurrentChange: function (val) {
                 vm.current_page = val;
-                this.getMenuList();
+                this.getUserList();
             },
 
-            getMenuList: function () {
+            getUserList: function () {
                 $.ajax({
                     url: context + 'user/getUserInfo?page=' + this.current_page + '&page_size=' + this.page_size,
                     type: 'GET',
@@ -74,7 +77,7 @@ $().ready(function(){
 
         },
         mounted: function () {
-            this.getMenuList();
+            this.getUserList();
         }
     });
 });

@@ -74,4 +74,21 @@ public interface SysMenuDao extends BaseMapper<SysMenu> {
      */
     @Select("select * from sys_menu where id = #{id}")
     SysMenu getById(@Param("id")String id);
+
+    /**
+     * 获取一级菜单
+     * @return 一级菜单
+     */
+    @Select("SELECT * FROM sys_menu WHERE menu_level = 1 ORDER BY menu_weight")
+    List<SysMenu> getFirstMenu();
+
+    /**
+     * 根据角色id查询所有菜单
+     * @param roleId 角色id
+     * @return 菜单
+     */
+    @Select("SELECT id FROM sys_menu sm WHERE sm.menu_level = 1 and id in " +
+            "(select mr.menu_id from sys_menu_role mr left join sys_menu m on mr.menu_id = m.id where mr.role_id = #{roleId})" +
+            " ORDER BY menu_weight")
+    List<String> getRoleMenu(@Param("roleId")String roleId);
 }

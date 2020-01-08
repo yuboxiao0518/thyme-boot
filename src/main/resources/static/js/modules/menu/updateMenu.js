@@ -39,7 +39,6 @@ function updateUser(){
             if (data.code === 200) {
                 if (data.data.code === 200){
                     parent.layer.msg("操作成功");
-                    parent.location.reload();
                 } else if(data.data.code === 200){
                     parent.layer.msg("操作失败");
                 }
