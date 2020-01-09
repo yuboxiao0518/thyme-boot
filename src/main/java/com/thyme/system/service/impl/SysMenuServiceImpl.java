@@ -110,4 +110,19 @@ public class SysMenuServiceImpl implements SysMenuService {
     public List<String> getRoleMenu(String roleId) {
         return sysMenuDao.getRoleMenu(roleId);
     }
+
+    @Override
+    public List<String> getMenuLevel() {
+        return sysMenuDao.getMenuLevel();
+    }
+
+    @Override
+    public List<String> getPreviousMenu(String menuLevel) {
+        return sysMenuDao.getPreviousMenu(menuLevel);
+    }
+
+    @Override
+    public String getByMenuName(String menuNames) {
+        return sysMenuDao.getByMenuName(menuNames);
+    }
 }

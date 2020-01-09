@@ -1,4 +1,6 @@
 $().ready(function(){
+    getMenuLevel();
+    getValue();
     initradio("isShow",$("#isShow").val());
     validateRule();
 });
@@ -9,26 +11,86 @@ $.validator.setDefaults({
     }
 });
 
+function getMenuLevel(){
+    $.ajax({
+        cache : true,
+        type : "GET",
+        url : context + 'menu/getMenuLevel',
+        error : function(request) {
+            parent.layer.alert("Connection error");
+        },
+        success : function(data) {
+            if (data.code === 200) {
+                $("#menuLevel").html("");
+                $("#menuLevel").append("<option value='0'>请选择菜单层级</option>");
+                for (var i = 0; i < data.data.menuLevel.length; i++) {
+                    var level = "";
+                    level += "<option value='"+data.data.menuLevel[i]+"'>"+data.data.menuLevel[i]+"</option>";
+                    $("#menuLevel").append(level);
+                    level = "";
+                }
+            }
+            document.getElementById("menuLevel")[ $("#menuLevels").val()].selected=true;
+        }
+    });
+}
+
+function getValue() {
+    $("#menuLevel").change(function(){
+        var menuLevel =  $(this).children('option:selected').val();
+        if (menuLevel !== "1") {
+            $.ajax({
+                cache: true,
+                type: "GET",
+                url: context + 'menu/getPreviousMenu?menuLevel=' + menuLevel,
+                error: function (request) {
+                    parent.layer.alert("Connection error");
+                },
+                success: function (data) {
+                    if (data.code === 200) {
+                        $("#menuNames").show();
+                        $("#menuNames").html("");
+                        $("#menuNames").append("<label class='col-sm-3 control-label'>一级菜单：</label>");
+                        $("#menuNames").append("<div class='col-sm-8'>");
+                        for (var i = 0; i < data.data.menuNames.length; i++){
+                            var level = "";
+                            level += "<input type='radio' name='menuName' checked='' style='margin-left: 2%;margin-top: 1.3%' value='"+data.data.menuNames[i]+"'>"+data.data.menuNames[i];
+                            $("#menuNames").append(level);
+                            level = "";
+                        }
+                        $("#menuNames").append("</div></div>");
+                    }
+                }
+            });
+        } else {
+            $("#menuNames").hide();
+        }
+    });
+}
+
 function updateUser(){
     var id=$("#id").val();
-    var parentId=$("#parentId").val();
     var menuName=$("#menuName").val();
     var menuCode=$("#menuCode").val();
     var menuHref=$("#menuHref").val();
     var menuLevel=$("#menuLevel").val();
+    var menuNames = "";
+    if (menuLevel !== "1"){
+        menuNames = $('#menuNames input:radio:checked').val();
+    }
     var menuWeight=$("#menuWeight").val();
-    var isShow=$('input:radio:checked').val()===undefined?"":$('input:radio:checked').val();
+    var isShow=$('#isShow input:radio:checked').val()===undefined?"":$('input:radio:checked').val();
     $.ajax({
         cache : true,
         type : "GET",
         url : context + 'menu/updateMenu',
         data :{
             "id":id,
-            "parentId":parentId,
             "menuName":menuName,
             "menuCode":menuCode,
             "menuHref":menuHref,
             "menuLevel":menuLevel,
+            "menuNames":menuNames,
             "menuWeight":menuWeight,
             "isShow":isShow
         },
@@ -45,11 +107,10 @@ function updateUser(){
                 var index = parent.layer.getFrameIndex(window.name); // 获取窗口索引
                 parent.layer.close(index);
             }
-            // window.location.reload();
         }
     });
-
 }
+
 function validateRule() {
     var icon = "<i class='fa fa-times-circle'></i> ";
     $("#signupForm").validate({
@@ -80,9 +141,8 @@ function initradio(rName,rValue){
     }
     var rObj = document.getElementsByName(rName);
     for(var i = 0;i < rObj.length;i++){
-        if(rObj[i].value == rValue){
+        if(rObj[i].value === rValue){
             rObj[i].checked =  'checked';
         }
     }
-
 }

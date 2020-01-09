@@ -95,15 +95,15 @@ public class MenuRestController {
 
     @GetMapping("/updateMenu")
     public ApiResponse updateMenu(@RequestParam("id")String id,
-                                  @RequestParam("parentId")String parentId,
                                   @RequestParam("menuName")String menuName,
                                   @RequestParam("menuCode")String menuCode,
                                   @RequestParam("menuHref")String menuHref,
                                   @RequestParam("menuLevel")String menuLevel,
+                                  @RequestParam("menuNames")String menuNames,
                                   @RequestParam("menuWeight")String menuWeight,
                                   @RequestParam("isShow")String isShow){
         JSONObject jsonObject = new JSONObject();
-        SysMenuVO sysMenu = new SysMenuVO(id,parentId,menuName,menuCode,menuHref,null,menuLevel,menuWeight,isShow,null,null);
+        SysMenuVO sysMenu = new SysMenuVO(id,sysMenuService.getByMenuName(menuNames),menuName,menuCode,menuHref,null,menuLevel,menuWeight,isShow,null,null);
         try{
             if (sysMenuService.updateMenu(sysMenu) > 0){
                 jsonObject.put("code",200);
@@ -120,12 +120,13 @@ public class MenuRestController {
                                @RequestParam("menuCode")String menuCode,
                                @RequestParam("menuHref")String menuHref,
                                @RequestParam("menuLevel")String menuLevel,
+                               @RequestParam("menuNames")String menuNames,
                                @RequestParam("menuWeight")String menuWeight,
                                @RequestParam("isShow")String isShow){
         JSONObject jsonObject = new JSONObject();
         SysMenu menu = sysMenuService.getByName(menuName, menuCode, menuHref);
         if (menu == null) {
-            SysMenuVO sysMenuVO = new SysMenuVO(UUIDUtils.getSixteenUUID(),null,menuName,menuCode,menuHref,null,menuLevel,menuWeight,isShow,new Date(),"admin");
+            SysMenuVO sysMenuVO = new SysMenuVO(UUIDUtils.getSixteenUUID(),sysMenuService.getByMenuName(menuNames),menuName,menuCode,menuHref,null,menuLevel,menuWeight,isShow,new Date(),"admin");
             try{
                 if (sysMenuService.addMenu(sysMenuVO) > 0){
                     jsonObject.put("code",200);
@@ -137,6 +138,22 @@ public class MenuRestController {
         } else {
             jsonObject.put("code",501);
         }
+        return ApiResponse.ofSuccess(jsonObject);
+    }
+
+    @GetMapping("/getMenuLevel")
+    public ApiResponse getMenuLevel(){
+        JSONObject jsonObject = new JSONObject();
+        List<String> menuLevel = sysMenuService.getMenuLevel();
+        jsonObject.put("menuLevel",menuLevel);
+        return ApiResponse.ofSuccess(jsonObject);
+    }
+
+    @GetMapping("/getPreviousMenu")
+    public ApiResponse getPreviousMenu(@RequestParam("menuLevel")String menuLevel){
+        JSONObject jsonObject = new JSONObject();
+        List<String> menuNames = sysMenuService.getPreviousMenu(String.valueOf((Integer.parseInt(menuLevel) - 1)));
+        jsonObject.put("menuNames",menuNames);
         return ApiResponse.ofSuccess(jsonObject);
     }
 }

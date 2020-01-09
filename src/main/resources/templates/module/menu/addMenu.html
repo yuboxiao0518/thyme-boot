@@ -43,10 +43,13 @@
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">菜单层级：</label>
                                     <div class="col-sm-8">
-                                        <input id="menuLevel" name="menuLevel" class="form-control"
-                                               type="text">
+                                        <div class="layui-input-inline">
+                                            <select id="menuLevel" name="modules" lay-verify="required" lay-search="" style="width: 235px;height: 33.9px;border: 1px solid #ccc;border-radius: 4px;">
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
+                                <div class="form-group" id="menuNames" style="display: none"></div>
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">排序：</label>
                                     <div class="col-sm-8">
@@ -56,7 +59,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">状态：</label>
-                                    <div class="col-sm-8">
+                                    <div class="col-sm-8" id="isShow">
                                         <input type="radio" name="isShow" value="1" title="显示" checked="">显示
                                         <input type="radio" name="isShow" value="0" title="隐藏">隐藏
                                     </div>
@@ -84,5 +87,14 @@
         <script th:src="@{/static/js/vue.2.6.11.js}"></script>
         <script th:src="@{/static/js/element-ui.2.13.0.js}"></script>
         <script th:src="@{/static/js/modules/menu/addMenu.js}"></script>
+        <style>
+            .el-dropdown-link {
+                cursor: pointer;
+                color: #409EFF;
+            }
+            .el-icon-arrow-down {
+                font-size: 12px;
+            }
+        </style>
     </body>
 </html>

@@ -43,7 +43,7 @@ public interface SysMenuDao extends BaseMapper<SysMenu> {
      * @param sysMenu 菜单
      * @return 返回值
      */
-    @Update("update sys_menu set menu_name = #{menuName}, menu_code = #{menuCode}, menu_href = #{menuHref}, " +
+    @Update("update sys_menu set parent_id = #{parentId}, menu_name = #{menuName}, menu_code = #{menuCode}, menu_href = #{menuHref}, " +
             "menu_level = #{menuLevel}, is_show = #{isShow} where id = #{id}")
     int updateMenu(SysMenuVO sysMenu);
 
@@ -52,8 +52,8 @@ public interface SysMenuDao extends BaseMapper<SysMenu> {
      * @param sysMenu 菜单
      * @return 返回值
      */
-    @Insert("insert into sys_menu (`id`,`menu_name`,`menu_code`,`menu_href`,`menu_level`,`menu_weight`,`is_show`,`create_date`,`create_by`) values" +
-            "(#{id}, #{menuName}, #{menuCode}, #{menuHref}, #{menuLevel}, #{menuWeight}, ${isShow}, #{createDate}, #{createBy})")
+    @Insert("insert into sys_menu (`id`,`parent_id`,`menu_name`,`menu_code`,`menu_href`,`menu_level`,`menu_weight`,`is_show`,`create_date`,`create_by`) values" +
+            "(#{id}, #{parentId}, #{menuName}, #{menuCode}, #{menuHref}, #{menuLevel}, #{menuWeight}, ${isShow}, #{createDate}, #{createBy})")
     int addMenu(SysMenuVO sysMenu);
 
     /**
@@ -91,4 +91,27 @@ public interface SysMenuDao extends BaseMapper<SysMenu> {
             "(select mr.menu_id from sys_menu_role mr left join sys_menu m on mr.menu_id = m.id where mr.role_id = #{roleId})" +
             " ORDER BY menu_weight")
     List<String> getRoleMenu(@Param("roleId")String roleId);
+
+    /**
+     * 获取菜单层级
+     * @return 菜单登记
+     */
+    @Select("select distinct menu_level from sys_menu order by menu_level asc")
+    List<String> getMenuLevel();
+
+    /**
+     * 查询当前菜单的上级菜单
+     * @param menuLevel 上级菜单层级
+     * @return 上级菜单名称
+     */
+    @Select("select menu_name from sys_menu where menu_level = #{menuLevel} order by create_date")
+    List<String> getPreviousMenu(@Param("menuLevel")String menuLevel);
+
+    /**
+     * 根据菜单名称查询菜单id
+     * @param menuNames 菜单名称
+     * @return 菜单id
+     */
+    @Select("select id from sys_menu where menu_name = #{menuNames}")
+    String getByMenuName(@Param("menuNames")String menuNames);
 }

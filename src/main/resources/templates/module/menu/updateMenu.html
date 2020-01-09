@@ -44,10 +44,13 @@
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">菜单层级：</label>
                                     <div class="col-sm-8">
-                                        <input id="menuLevel" name="menuLevel" class="form-control"
-                                               type="text"  th:value="${sysMenu.menuLevel}">
+                                        <input id="menuLevels" name="isShow" type="hidden"
+                                               th:value="${sysMenu.menuLevel}">
+                                        <select id="menuLevel" th:value="${sysMenu.menuLevel}" name="modules" lay-verify="required" lay-search="" style="width: 235px;height: 33.9px;border: 1px solid #ccc;border-radius: 4px;">
+                                        </select>
                                     </div>
                                 </div>
+                                <div class="form-group" id="menuNames" style="display: none"></div>
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">排序：</label>
                                     <div class="col-sm-8">

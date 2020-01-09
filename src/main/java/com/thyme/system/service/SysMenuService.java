@@ -72,4 +72,24 @@ public interface SysMenuService {
      * @return 菜单
      */
     List<String> getRoleMenu(String roleId);
+
+    /**
+     * 获取菜单层级
+     * @return 菜单登记
+     */
+    List<String> getMenuLevel();
+
+    /**
+     * 查询当前菜单的上级菜单
+     * @param menuLevel 上级菜单层级
+     * @return 上级菜单名称
+     */
+    List<String> getPreviousMenu(String menuLevel);
+
+    /**
+     * 根据菜单名称查询菜单id
+     * @param menuNames 菜单名称
+     * @return 菜单id
+     */
+    String getByMenuName(String menuNames);
 }

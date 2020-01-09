@@ -1,6 +1,64 @@
 $().ready(function(){
+    getMenuLevel();
+    getValue();
     validateRule();
 });
+
+function getMenuLevel(){
+    $.ajax({
+        cache : true,
+        type : "GET",
+        url : context + 'menu/getMenuLevel',
+        error : function(request) {
+            parent.layer.alert("Connection error");
+        },
+        success : function(data) {
+            if (data.code === 200) {
+                $("#menuLevel").html("");
+                $("#menuLevel").append("<option>请选择菜单层级</option>");
+                for (var i = 0; i < data.data.menuLevel.length; i++) {
+                    var level = "";
+                    level += "<option value='"+data.data.menuLevel[i]+"'>"+data.data.menuLevel[i]+"</option>";
+                    $("#menuLevel").append(level);
+                    level = "";
+                }
+            }
+
+        }
+    });
+}
+
+function getValue() {
+    $("#menuLevel").change(function(){
+        var menuLevel =  $(this).children('option:selected').val();
+        if (menuLevel !== "1") {
+            $.ajax({
+                cache: true,
+                type: "GET",
+                url: context + 'menu/getPreviousMenu?menuLevel=' + menuLevel,
+                error: function (request) {
+                    parent.layer.alert("Connection error");
+                },
+                success: function (data) {
+                    if (data.code === 200) {
+                        $("#menuNames").show();
+                        $("#menuNames").html("");
+                        $("#menuNames").append("<label class='col-sm-3 control-label'>一级菜单：</label>");
+                        for (var i = 0; i < data.data.menuNames.length; i++){
+                            var level = "";
+                            level += "<input type='radio' name='menuName' checked='' style='margin-left: 2%;margin-top: 1.3%' value='"+data.data.menuNames[i]+"'>"+data.data.menuNames[i];
+                            $("#menuNames").append(level);
+                            level = "";
+                        }
+                        $("#menuNames").append("</div></div>");
+                    }
+                }
+            });
+        } else {
+            $("#menuNames").hide();
+        }
+    });
+}
 
 $.validator.setDefaults({
     submitHandler : function() {
@@ -13,8 +71,12 @@ function addMenu(){
     var menuCode=$("#menuCode").val();
     var menuHref=$("#menuHref").val();
     var menuLevel=$("#menuLevel").val();
+    var menuNames = "";
+    if (menuLevel !== "1"){
+        menuNames = $('#menuNames input:radio:checked').val();
+    }
     var menuWeight=$("#menuWeight").val();
-    var isShow=$('input:radio:checked').val();
+    var isShow=$('#isShow input:radio:checked').val();
     $.ajax({
         cache : true,
         type : "GET",
@@ -24,6 +86,7 @@ function addMenu(){
             "menuCode":menuCode,
             "menuHref":menuHref,
             "menuLevel":menuLevel,
+            "menuNames":menuNames,
             "menuWeight":menuWeight,
             "isShow":isShow
         },
@@ -43,7 +106,6 @@ function addMenu(){
                 parent.layer.close(index);
 
             }
-            // window.location.reload();
         }
     });
 }
