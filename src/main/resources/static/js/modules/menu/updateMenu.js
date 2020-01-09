@@ -52,13 +52,18 @@ function getValue() {
                         $("#menuNames").html("");
                         $("#menuNames").append("<label class='col-sm-3 control-label'>一级菜单：</label>");
                         $("#menuNames").append("<div class='col-sm-8'>");
+                        var level = "";
+                        level += "<div class='col-sm-8'>";
                         for (var i = 0; i < data.data.menuNames.length; i++){
-                            var level = "";
+                            if (i % 3 === 0 && i !== 0) {
+                                level += "</div>";
+                                $("#menuNames").append(level);
+                                level = "";
+                                level += "<div class='col-sm-8' style='margin-left: 33%'>";
+                            }
                             level += "<input type='radio' name='menuName' checked='' style='margin-left: 2%;margin-top: 1.3%' value='"+data.data.menuNames[i]+"'>"+data.data.menuNames[i];
-                            $("#menuNames").append(level);
-                            level = "";
                         }
-                        $("#menuNames").append("</div></div>");
+                        $("#menuNames").append(level);
                     }
                 }
             });
