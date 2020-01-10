@@ -16,6 +16,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -50,6 +51,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         // 查询权限
         SysRole sysRole = sysRoleService.findByUserId(sysUser.getId());
         authorities.add(new SimpleGrantedAuthority(sysRole.getAuthority()));
+
         return new UsernamePasswordAuthenticationToken(name,password,authorities);
     }
 

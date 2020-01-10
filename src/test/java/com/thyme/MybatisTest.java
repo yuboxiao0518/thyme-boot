@@ -1,18 +1,28 @@
 package com.thyme;
 
 import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.io.resource.ClassPathResource;
 import cn.hutool.http.HttpRequest;
 import com.alibaba.fastjson.JSONObject;
+import com.thyme.common.base.Constants;
+import com.thyme.common.utils.FileUtils;
 import com.thyme.system.dao.SysUserDao;
 import com.thyme.system.entity.SysUser;
 import lombok.extern.slf4j.Slf4j;
+import nl.bitwalker.useragentutils.Browser;
+import nl.bitwalker.useragentutils.OperatingSystem;
+import nl.bitwalker.useragentutils.UserAgent;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.lionsoul.ip2region.DataBlock;
+import org.lionsoul.ip2region.DbConfig;
+import org.lionsoul.ip2region.DbSearcher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.io.File;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.UUID;
@@ -66,5 +76,26 @@ public class MybatisTest {
                 .execute().body();
         JSONObject jsonObject = JSONObject.parseObject(body);
         System.out.println(jsonObject);
+    }
+
+    @Test
+    public void testIp() throws Exception{
+        DbConfig config = new DbConfig();
+        String path = "config/ip2region.db";
+        String name = "ip2region.db";
+        File file = FileUtils.inputStreamToFile(new ClassPathResource(path).getStream(), name);
+        DbSearcher searcher = new DbSearcher(config, file.getPath());
+        DataBlock dataBlock = searcher.btreeSearch("127.0.0.1");
+        String address = dataBlock.getRegion().replace("0|","");
+        if(address.charAt(address.length()-1) == '|'){
+            address = address.substring(0,address.length() - 1);
+        }
+        String s = address.equals(Constants.REGION) ? "内网IP" : address;
+        System.out.println(s);
+    }
+
+    @Test
+    public void testSystem(){
+
     }
 }

@@ -61,6 +61,10 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 
     private final CustomExpiredSessionStrategy customExpiredSessionStrategy;
 
+    private final AuthenticationSuccessHandler authenticationSuccessHandler;
+
+    private final AuthenticationFailureHandler authenticationFailureHandler;
+
     @Autowired
     private SessionRegistry sessionRegistry;
 
@@ -81,8 +85,8 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
             .formLogin()
                 .loginProcessingUrl(Constants.LOGIN_URL)
                 .loginPage(Constants.LOGIN_URL)
-                .successHandler(new AuthenticationSuccessHandler())
-                .failureHandler(new AuthenticationFailureHandler())
+                .successHandler(authenticationSuccessHandler)
+                .failureHandler(authenticationFailureHandler)
                 .permitAll()
                 .and()
                 .csrf().disable()
@@ -90,7 +94,6 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
                 .and()
             .logout()
                 .logoutUrl(Constants.LOGOUT_URL)
-                .logoutSuccessHandler(customLogoutSuccessHandler)
                 //.logoutSuccessUrl(Constants.LOGIN_URL)
                 .invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID")

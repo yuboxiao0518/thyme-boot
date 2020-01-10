@@ -1,6 +1,16 @@
 package com.thyme.common.utils;
 
+import cn.hutool.core.io.resource.ClassPathResource;
+import com.thyme.common.base.Constants;
+import nl.bitwalker.useragentutils.Browser;
+import nl.bitwalker.useragentutils.OperatingSystem;
+import nl.bitwalker.useragentutils.UserAgent;
+import org.lionsoul.ip2region.DataBlock;
+import org.lionsoul.ip2region.DbConfig;
+import org.lionsoul.ip2region.DbSearcher;
+
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
@@ -59,5 +69,40 @@ public class IpInfoUtils {
         } catch (UnknownHostException e) {
         }
         return "未知";
+    }
+
+    /**
+     * 获取ip地址
+     */
+    public static String getipSource(String ip) throws Exception{
+        DbConfig config = new DbConfig();
+        String path = "config/ip2region.db";
+        String name = "ip2region.db";
+        File file = FileUtils.inputStreamToFile(new ClassPathResource(path).getStream(), name);
+        DbSearcher searcher = new DbSearcher(config, file.getPath());
+        DataBlock dataBlock = searcher.btreeSearch(ip);
+        String address = dataBlock.getRegion().replace("0|","");
+        if(address.charAt(address.length()-1) == '|'){
+            address = address.substring(0,address.length() - 1);
+        }
+       return address.equals(Constants.REGION) ? Constants.INTRANET_IP : address;
+    }
+
+    /**
+     * 获取浏览器名称
+     */
+    public static String getBrowser(HttpServletRequest request){
+        UserAgent userAgent = UserAgent.parseUserAgentString(request.getHeader("User-Agent"));
+        Browser browser = userAgent.getBrowser();
+        return browser.getName();
+    }
+
+    /**
+     * 获取系统名称
+     */
+    public static String getSystemName(HttpServletRequest request){
+        //转成UserAgent对象
+        UserAgent userAgent = UserAgent.parseUserAgentString(request.getHeader("User-Agent"));
+        return userAgent.getOperatingSystem().getName();
     }
 }
