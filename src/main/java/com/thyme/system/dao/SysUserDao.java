@@ -55,7 +55,7 @@ public interface SysUserDao extends BaseMapper<SysUser> {
      * @param sysUser 用户
      * @return 返回值
      */
-    @Update("update sys_user set name = #{name}, password = #{password}, nickName = #{nickName}, sex = #{sex}, mobile = #{mobile}, email = #{email}, " +
+    @Update("update sys_user set name = #{name}, nickName = #{nickName}, sex = #{sex}, mobile = #{mobile}, email = #{email}, " +
             "birthday = #{birthday}, hobby = #{hobby}, live_address = #{liveAddress}, update_time = #{updateTime} where id = #{id}")
     int updateUser(SysUser sysUser);
 

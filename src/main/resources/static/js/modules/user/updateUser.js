@@ -1,12 +1,13 @@
 $().ready(function(){
-    initradio("sex",$("#sex").val());
-    var app = new Vue({
-        el: '#app',
-        data:{
-            value1: ''
-        }
-    });
+    $("[name='sex'][value="+$("#sex").val()+"]").prop("checked", "checked");
     validateRule();
+});
+
+var app = new Vue({
+    el: '#app',
+    data:{
+        value1: ''
+    }
 });
 
 $.validator.setDefaults({
@@ -17,7 +18,6 @@ $.validator.setDefaults({
 
 function updateUser(){
     var id=$("#id").val();
-    var password=CryptoJS.SHA256($("#password").val()).toString();
     var name=$("#name").val();
     var nickName=$("#nickName").val();
     var sex=$('input:radio:checked').val()===undefined?"":$('input:radio:checked').val();
@@ -34,7 +34,6 @@ function updateUser(){
             data :{
                 "id":id,
                 "name":name,
-                "password":password,
                 "nickName":nickName,
                 "sex":sex,
                 "mobile":mobile,
@@ -56,7 +55,6 @@ function updateUser(){
                     var index = parent.layer.getFrameIndex(window.name); // 获取窗口索引
                     parent.layer.close(index);
                 }
-                // window.location.reload();
             }
         });
     }
@@ -113,14 +111,4 @@ function isMobileEmailDate(mobile,email,birthday) {
         }
     }
     return flag;
-}
-
-function initradio(rName,rValue){
-    var rObj = document.getElementsByName(rName);
-
-    for(var i = 0;i < rObj.length;i++){
-        if(rObj[i].value == rValue){
-            rObj[i].checked =  'checked';
-        }
-    }
 }

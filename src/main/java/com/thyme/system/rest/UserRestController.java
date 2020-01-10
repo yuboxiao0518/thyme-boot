@@ -77,7 +77,6 @@ public class UserRestController {
     @GetMapping("/updateUser")
     public ApiResponse updateRole(@RequestParam("id")String id,
                                   @RequestParam("name")String name,
-                                  @RequestParam("password")String password,
                                   @RequestParam("nickName")String nickName,
                                   @RequestParam("sex")String sex,
                                   @RequestParam("mobile")String mobile,
@@ -86,7 +85,7 @@ public class UserRestController {
                                   @RequestParam("hobby")String hobby,
                                   @RequestParam("liveAddress")String liveAddress){
         JSONObject jsonObject = new JSONObject();
-        SysUser sysUser = new SysUser(id, name, new BCryptPasswordEncoder().encode(password), nickName, sex, mobile, email, birthday, hobby, liveAddress, null, new Date());
+        SysUser sysUser = new SysUser(id, name, null, nickName, sex, mobile, email, birthday, hobby, liveAddress, null, new Date());
         try {
             if (userService.updateUser(sysUser) > 0){
                 jsonObject.put("code",200);
