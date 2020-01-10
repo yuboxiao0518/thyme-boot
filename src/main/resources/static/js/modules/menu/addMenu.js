@@ -56,11 +56,13 @@ function getValue() {
                             level += "<input type='radio' name='menuName' checked='' style='margin-left: 2%;margin-top: 1.3%' value='"+data.data.menuNames[i]+"'>"+data.data.menuNames[i];
                         }
                         $("#menuNames").append(level);
+                        $("#menuHrefs").show();
                     }
                 }
             });
         } else {
             $("#menuNames").hide();
+            $("#menuHrefs").hide();
         }
     });
 }
