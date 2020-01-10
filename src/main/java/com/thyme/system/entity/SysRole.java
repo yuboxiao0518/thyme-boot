@@ -25,7 +25,6 @@ public class SysRole implements Serializable {
 
     private String name;
 
-    @JsonFormat(timezone = "GMT+8", shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     public SysRole(String id, String name, String authority, Date createTime){
