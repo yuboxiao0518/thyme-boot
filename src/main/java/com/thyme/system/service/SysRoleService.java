@@ -23,29 +23,6 @@ public interface SysRoleService {
     IPage<SysRole> getAll(Page page);
 
     /**
-     * 删除角色
-     * @param id id
-     * @return 返回值
-     */
-    int deleteRole(String id);
-
-    /**
-     * 修改角色
-     * @param id id
-     * @param name 角色名称
-     * @param authority 角色权限
-     * @return 返回值
-     */
-    int updateRole(String id, String name, String authority);
-
-    /**
-     * 添加角色
-     * @param sysRole 角色实例
-     * @return 返回值
-     */
-    int addRole(SysRole sysRole);
-
-    /**
      * 根据名称查角色
      * @param name 名称
      * @return 角色

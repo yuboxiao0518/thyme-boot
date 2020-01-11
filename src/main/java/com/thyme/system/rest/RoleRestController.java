@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.thyme.common.base.ApiResponse;
 import com.thyme.common.utils.UUIDUtils;
+import com.thyme.system.dao.SysRoleDao;
 import com.thyme.system.entity.SysMenu;
 import com.thyme.system.entity.SysMenuRole;
 import com.thyme.system.entity.SysRole;
@@ -34,6 +35,8 @@ public class RoleRestController {
 
     private final SysRoleService sysRoleService;
 
+    private final SysRoleDao sysRoleDao;
+
     private final SysMenuService sysMenuService;
 
     private final SysMenuRoleService sysMenuRoleService;
@@ -56,7 +59,7 @@ public class RoleRestController {
         JSONObject jsonObject = new JSONObject();
         try{
             sysMenuRoleService.deleteByRoleId(id);
-            sysRoleService.deleteRole(id);
+            sysRoleDao.deleteById(id);
             jsonObject.put("code",200);
         }catch (Exception e) {
             jsonObject.put("code", 500);
@@ -78,7 +81,11 @@ public class RoleRestController {
                 SysMenuRole sysMenuRole = new SysMenuRole(menuId, id);
                 sysMenuRoleService.addMenuRole(sysMenuRole);
             }
-            sysRoleService.updateRole(id, name ,authority);
+            SysRole sysRole = new SysRole();
+            sysRole.setId(id);
+            sysRole.setName(name);
+            sysRole.setAuthority(authority);
+            sysRoleDao.updateById(sysRole);
             jsonObject.put("code", 200);
         }catch (Exception e) {
             jsonObject.put("code", 500);
@@ -102,7 +109,7 @@ public class RoleRestController {
                     sysMenuRoleService.addMenuRole(sysMenuRole);
                 }
                 SysRole sysRole = new SysRole(id, name, authority, new Date());
-                sysRoleService.addRole(sysRole);
+                sysRoleDao.insert(sysRole);
                 jsonObject.put("code",200);
             } else {
                 // 501 角色已存在

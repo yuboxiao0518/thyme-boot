@@ -33,32 +33,6 @@ public interface SysRoleDao extends BaseMapper<SysRole> {
     IPage<SysRole> getAll(Page page);
 
     /**
-     * 删除角色
-     * @param id id
-     * @return 返回值
-     */
-    @Delete("delete from sys_role where id = #{id}")
-    int deleteRole(@Param("id")String id);
-
-    /**
-     * 修改角色
-     * @param id id
-     * @param name 角色名称
-     * @param authority 角色权限
-     * @return 返回值
-     */
-    @Update("update sys_role set name = #{name},authority = #{authority} where id = #{id}")
-    int updateRole(@Param("id")String id, @Param("name")String name, @Param("authority")String authority);
-
-    /**
-     * 添加角色
-     * @param sysRole 角色实例
-     * @return 返回值
-     */
-    @Insert("insert into sys_role (`id`,`name`,`authority`,`create_time`) values (#{id},#{name},#{authority},#{createTime})")
-    int addRole(SysRole sysRole);
-
-    /**
      * 根据名称查角色
      * @param name 名称
      * @return 角色

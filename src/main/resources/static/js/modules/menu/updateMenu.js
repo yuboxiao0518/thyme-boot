@@ -1,7 +1,11 @@
 $().ready(function(){
     getMenuLevel();
     getValue();
-    initradio("isShow",$("#isShow").val());
+    if ($("#isShow").val() === "true"){
+        $(":radio[name='isShow'][value='1']").prop("checked", "checked");
+    } else {
+        $(":radio[name='isShow'][value='0']").prop("checked", "checked");
+    }
     if ($("#menuLevel").val() !== "1"){
         $("#menuHrefs").show();
     }
@@ -34,6 +38,7 @@ function getMenuLevel(){
                 }
             }
             document.getElementById("menuLevel")[ $("#menuLevels").val()].selected=true;
+            pdMenuLevel($("#menuLevel").val());
         }
     });
 }
@@ -41,41 +46,46 @@ function getMenuLevel(){
 function getValue() {
     $("#menuLevel").change(function(){
         var menuLevel =  $(this).children('option:selected').val();
-        if (menuLevel !== "1") {
-            $.ajax({
-                cache: true,
-                type: "GET",
-                url: context + 'menu/getPreviousMenu?menuLevel=' + menuLevel,
-                error: function (request) {
-                    parent.layer.alert("Connection error");
-                },
-                success: function (data) {
-                    if (data.code === 200) {
-                        $("#menuNames").show();
-                        $("#menuNames").html("");
-                        $("#menuNames").append("<label class='col-sm-3 control-label'>一级菜单：</label>");
-                        $("#menuNames").append("<div class='col-sm-8'>");
-                        var level = "";
-                        level += "<div class='col-sm-8'>";
-                        for (var i = 0; i < data.data.menuNames.length; i++){
-                            if (i % 3 === 0 && i !== 0) {
-                                level += "</div>";
-                                $("#menuNames").append(level);
-                                level = "";
-                                level += "<div class='col-sm-8' style='margin-left: 33%'>";
-                            }
-                            level += "<input type='radio' name='menuName' checked='' style='margin-left: 2%;margin-top: 1.3%' value='"+data.data.menuNames[i]+"'>"+data.data.menuNames[i];
-                        }
-                        $("#menuNames").append(level);
-                        $("#menuHrefs").show();
-                    }
-                }
-            });
-        } else {
-            $("#menuNames").hide();
-            $("#menuHrefs").hide();
-        }
+        pdMenuLevel(menuLevel);
     });
+}
+
+function pdMenuLevel(menuLevel) {
+    if (menuLevel !== "1" && menuLevel !== null) {
+        $.ajax({
+            cache: true,
+            type: "GET",
+            url: context + 'menu/getPreviousMenu?menuLevel=' + menuLevel,
+            error: function (request) {
+                parent.layer.alert("Connection error");
+            },
+            success: function (data) {
+                if (data.code === 200) {
+                    $("#menuNames").show();
+                    $("#menuNames").html("");
+                    $("#menuNames").append("<label class='col-sm-3 control-label'>一级菜单：</label>");
+                    $("#menuNames").append("<div class='col-sm-8'>");
+                    var level = "";
+                    level += "<div class='col-sm-8'>";
+                    for (var i = 0; i < data.data.menuNames.length; i++){
+                        if (i % 3 === 0 && i !== 0) {
+                            level += "</div>";
+                            $("#menuNames").append(level);
+                            level = "";
+                            level += "<div class='col-sm-8' style='margin-left: 33%'>";
+                        }
+                        level += "<input type='radio' name='menuName' style='margin-left: 2%;margin-top: 1.3%' value='"+data.data.menuNames[i].id+"'>"+data.data.menuNames[i].menuName;
+                    }
+                    $("#menuNames").append(level);
+                    $(":radio[name='menuName'][value='"+$("#parentId").val()+"']").prop("checked", "checked");
+                    $("#menuHrefs").show();
+                }
+            }
+        });
+    } else {
+        $("#menuNames").hide();
+        $("#menuHrefs").hide();
+    }
 }
 
 function updateUser(){
@@ -89,7 +99,7 @@ function updateUser(){
         menuNames = $('#menuNames input:radio:checked').val();
     }
     var menuWeight=$("#menuWeight").val();
-    var isShow=$('#isShow input:radio:checked').val()===undefined?"":$('input:radio:checked').val();
+    var isShow=$('#show input:radio:checked').val()===undefined?"":$('#show input:radio:checked').val();
     $.ajax({
         cache : true,
         type : "GET",
@@ -141,18 +151,4 @@ function validateRule() {
             }
         }
     })
-}
-
-function initradio(rName,rValue){
-    if (rValue === "true"){
-        rValue = 1;
-    } else {
-        rValue = 0;
-    }
-    var rObj = document.getElementsByName(rName);
-    for(var i = 0;i < rObj.length;i++){
-        if(rObj[i].value === rValue){
-            rObj[i].checked =  'checked';
-        }
-    }
 }

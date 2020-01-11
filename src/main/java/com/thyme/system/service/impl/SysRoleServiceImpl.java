@@ -32,21 +32,6 @@ public class SysRoleServiceImpl implements SysRoleService {
     }
 
     @Override
-    public int deleteRole(String id) {
-        return sysRoleDao.deleteRole(id);
-    }
-
-    @Override
-    public int updateRole(String id, String name, String authority) {
-        return sysRoleDao.updateRole(id, name, authority);
-    }
-
-    @Override
-    public int addRole(SysRole sysRole) {
-        return sysRoleDao.addRole(sysRole);
-    }
-
-    @Override
     public SysRole getByName(String name) {
         return sysRoleDao.getByName(name);
     }

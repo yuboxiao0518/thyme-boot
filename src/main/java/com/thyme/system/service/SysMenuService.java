@@ -3,9 +3,9 @@ package com.thyme.system.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.thyme.system.entity.SysMenu;
+import com.thyme.system.vo.MenuNameVO;
 import com.thyme.system.vo.MenuVo;
 import com.thyme.system.vo.SysMenuVO;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -17,18 +17,11 @@ import java.util.List;
  */
 public interface SysMenuService {
 
-    public List<MenuVo> getMenuByUser(String username);
+    List<MenuVo> getMenuByUser(String username);
 
     IPage<SysMenu> findFirstMenu(Page page);
 
     List<SysMenu> findByParentId(String parentId);
-
-    /**
-     * 删除菜单
-     * @param id id
-     * @return 返回值
-     */
-    int deleteMenu(String id);
 
     /**
      * 修改菜单
@@ -84,7 +77,7 @@ public interface SysMenuService {
      * @param menuLevel 上级菜单层级
      * @return 上级菜单名称
      */
-    List<String> getPreviousMenu(String menuLevel);
+    List<MenuNameVO> getPreviousMenu(String menuLevel);
 
     /**
      * 根据菜单名称查询菜单id

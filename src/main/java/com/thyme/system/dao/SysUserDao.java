@@ -35,38 +35,12 @@ public interface SysUserDao extends BaseMapper<SysUser> {
     IPage<SysUser> getAll(Page page);
 
     /**
-     * 删除用户
-     * @param id id
-     * @return 返回值
-     */
-    @Delete("delete from sys_user where id = #{id}")
-    int deleteRole(@Param("id")String id);
-
-    /**
      * 根据id查用户
      * @param id id
      * @return 用户集合
      */
     @Select("select * from sys_user where id = #{id}")
     SysUser getById(@Param("id")String id);
-
-    /**
-     * 修改用户
-     * @param sysUser 用户
-     * @return 返回值
-     */
-    @Update("update sys_user set name = #{name}, nickName = #{nickName}, sex = #{sex}, mobile = #{mobile}, email = #{email}, " +
-            "birthday = #{birthday}, hobby = #{hobby}, live_address = #{liveAddress}, update_time = #{updateTime} where id = #{id}")
-    int updateUser(SysUser sysUser);
-
-    /**
-     * 添加用户
-     * @param sysUser 用户
-     * @return 返回值
-     */
-    @Insert("insert into sys_user (`id`, `name`, `password`, `nickname`, `sex`, `mobile`, `email`, `birthday`, `hobby`, `live_address`, `create_time`) values" +
-            "(#{id}, #{name}, #{password}, #{nickName}, #{sex}, #{mobile}, #{email}, #{birthday}, #{hobby}, #{liveAddress}, #{createTime})")
-    int addUser(SysUser sysUser);
 
     /**
      * 根据名称查询用户

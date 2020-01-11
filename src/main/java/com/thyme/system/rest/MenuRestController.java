@@ -7,14 +7,15 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.thyme.common.base.ApiResponse;
 import com.thyme.common.utils.SecurityUtils;
 import com.thyme.common.utils.UUIDUtils;
+import com.thyme.system.dao.SysMenuDao;
 import com.thyme.system.entity.SysMenu;
 import com.thyme.system.service.SysMenuService;
 import com.thyme.system.vo.MenuListVo;
+import com.thyme.system.vo.MenuNameVO;
 import com.thyme.system.vo.MenuVo;
 import com.thyme.system.vo.SysMenuVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,6 +37,8 @@ import java.util.List;
 public class MenuRestController {
 
     private final SysMenuService sysMenuService;
+
+    private final SysMenuDao sysMenuDao;
 
     @GetMapping("/getMenulist")
     public ApiResponse getMenulist(){
@@ -83,7 +86,7 @@ public class MenuRestController {
     public ApiResponse deleteMenu(@RequestParam("id")String id){
         JSONObject jsonObject = new JSONObject();
         try{
-            if (sysMenuService.deleteMenu(id) > 0){
+            if (sysMenuDao.deleteById(id) > 0){
                 jsonObject.put("code",200);
             }
         }catch (Exception e) {
@@ -152,7 +155,7 @@ public class MenuRestController {
     @GetMapping("/getPreviousMenu")
     public ApiResponse getPreviousMenu(@RequestParam("menuLevel")String menuLevel){
         JSONObject jsonObject = new JSONObject();
-        List<String> menuNames = sysMenuService.getPreviousMenu(String.valueOf((Integer.parseInt(menuLevel) - 1)));
+        List<MenuNameVO> menuNames = sysMenuService.getPreviousMenu(String.valueOf((Integer.parseInt(menuLevel) - 1)));
         jsonObject.put("menuNames",menuNames);
         return ApiResponse.ofSuccess(jsonObject);
     }

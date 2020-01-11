@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.thyme.system.entity.SysMenu;
-import com.thyme.system.entity.SysRole;
+import com.thyme.system.vo.MenuNameVO;
 import com.thyme.system.vo.SysMenuVO;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
@@ -29,14 +29,6 @@ public interface SysMenuDao extends BaseMapper<SysMenu> {
 
     @Select("SELECT * FROM sys_menu WHERE parent_id = #{parentId} ORDER BY menu_weight")
     List<SysMenu> findByParentId(@Param("parentId") String parentId);
-
-    /**
-     * 删除菜单
-     * @param id id
-     * @return 返回值
-     */
-    @Delete("delete from sys_menu where id = #{id}")
-    int deleteMenu(@Param("id") String id);
 
     /**
      * 修改菜单
@@ -104,8 +96,8 @@ public interface SysMenuDao extends BaseMapper<SysMenu> {
      * @param menuLevel 上级菜单层级
      * @return 上级菜单名称
      */
-    @Select("select menu_name from sys_menu where menu_level = #{menuLevel} order by create_date")
-    List<String> getPreviousMenu(@Param("menuLevel")String menuLevel);
+    @Select("select id, menu_name from sys_menu where menu_level = #{menuLevel} order by create_date")
+    List<MenuNameVO> getPreviousMenu(@Param("menuLevel")String menuLevel);
 
     /**
      * 根据菜单名称查询菜单id

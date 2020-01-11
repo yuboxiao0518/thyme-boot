@@ -7,8 +7,8 @@ import com.thyme.system.dao.SysRoleDao;
 import com.thyme.system.dao.SysUserDao;
 import com.thyme.system.entity.SysMenu;
 import com.thyme.system.entity.SysRole;
-import com.thyme.system.entity.SysUser;
 import com.thyme.system.service.SysMenuService;
+import com.thyme.system.vo.MenuNameVO;
 import com.thyme.system.vo.MenuVo;
 import com.thyme.system.vo.SysMenuVO;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -77,11 +76,6 @@ public class SysMenuServiceImpl implements SysMenuService {
     }
 
     @Override
-    public int deleteMenu(String id) {
-        return sysMenuDao.deleteMenu(id);
-    }
-
-    @Override
     public int updateMenu(SysMenuVO sysMenu) {
         return sysMenuDao.updateMenu(sysMenu);
     }
@@ -117,7 +111,7 @@ public class SysMenuServiceImpl implements SysMenuService {
     }
 
     @Override
-    public List<String> getPreviousMenu(String menuLevel) {
+    public List<MenuNameVO> getPreviousMenu(String menuLevel) {
         return sysMenuDao.getPreviousMenu(menuLevel);
     }
 

@@ -30,32 +30,11 @@ public interface SysUserService {
     IPage<SysUser> getAll(Page page);
 
     /**
-     * 删除用户
-     * @param id id
-     * @return 返回值
-     */
-    int deleteUser(String id);
-
-    /**
      * 根据id查用户
      * @param id id
      * @return 用户集合
      */
     SysUser getById(String id);
-
-    /**
-     * 修改用户
-     * @param sysUser 用户
-     * @return 返回值
-     */
-    int updateUser(SysUser sysUser);
-
-    /**
-     * 添加用户
-     * @param sysUser 用户
-     * @return 返回值
-     */
-    int addUser(SysUser sysUser);
 
     /**
      * 根据名称查询用户

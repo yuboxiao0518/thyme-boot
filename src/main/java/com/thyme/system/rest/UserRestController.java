@@ -69,7 +69,7 @@ public class UserRestController {
     public ApiResponse deleteUser(@RequestParam("id")String id){
         JSONObject jsonObject = new JSONObject();
         try{
-            if (userService.deleteUser(id) > 0){
+            if (sysUserDao.deleteById(id) > 0){
                 jsonObject.put("code", 200);
             }
         }catch (Exception e) {
@@ -91,7 +91,7 @@ public class UserRestController {
         JSONObject jsonObject = new JSONObject();
         SysUser sysUser = new SysUser(id, name, null, nickName, sex, mobile, email, birthday, hobby, liveAddress, null, new Date());
         try {
-            if (userService.updateUser(sysUser) > 0){
+            if (sysUserDao.updateById(sysUser) > 0){
                 jsonObject.put("code",200);
             }
         } catch (Exception e) {
@@ -114,7 +114,7 @@ public class UserRestController {
         SysUser user = userService.getByName(name);
         if (user == null){
             SysUser sysUser = new SysUser(UUIDUtils.getSixteenUUID(), name, new BCryptPasswordEncoder().encode(password), nickName, sex, mobile, email, birthday, hobby, liveAddress, new Date(), null);
-            if (userService.addUser(sysUser) > 0){
+            if (sysUserDao.insert(sysUser) > 0){
                 jsonObject.put("code", 200);
             } else {
                 jsonObject.put("code", 500);

@@ -32,23 +32,8 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
-    public int deleteUser(String id) {
-        return sysUserDao.deleteRole(id);
-    }
-
-    @Override
     public SysUser getById(String id) {
         return sysUserDao.getById(id);
-    }
-
-    @Override
-    public int updateUser(SysUser sysUser) {
-        return sysUserDao.updateUser(sysUser);
-    }
-
-    @Override
-    public int addUser(SysUser sysUser) {
-        return sysUserDao.addUser(sysUser);
     }
 
     @Override
