@@ -1,5 +1,7 @@
 $().ready(function(){
-    $("[name='sex'][value="+$("#sex").val()+"]").prop("checked", "checked");
+    if ($("#sex").val() !== "") {
+        $("[name='sex'][value="+$("#sex").val()+"]").prop("checked", "checked");
+    }
     validateRule();
 });
 
