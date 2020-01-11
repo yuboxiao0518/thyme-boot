@@ -53,6 +53,6 @@ public class SysRoleServiceImpl implements SysRoleService {
 
     @Override
     public int insert(SysRole sysRole) {
-        return insert(sysRole);
+        return sysRoleDao.insert(sysRole);
     }
 }

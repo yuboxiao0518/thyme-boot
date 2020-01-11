@@ -37,6 +37,9 @@ var app = new Vue({
         },
         getCheckedKeys:function () {
             return this.$refs.tree.getCheckedKeys();
+        },
+        getHalfCheckedKeys:function (value) {
+            return this.$refs.tree.getHalfCheckedKeys().concat(value);
         }
     }
 });
@@ -44,7 +47,8 @@ var app = new Vue({
 function addRole(){
     var name=$("#name").val();
     var authority=$("#authority").val();
-    var ids = app.getCheckedKeys();
+    var childrenId = app.getCheckedKeys();
+    var ids = app.getHalfCheckedKeys(childrenId);
     $.ajax({
         cache : true,
         type : "POST",
