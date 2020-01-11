@@ -42,4 +42,25 @@ public interface SysUserService {
      * @return 用户
      */
     SysUser getByName(String name);
+
+    /**
+     * 根据id删除用户
+     * @param id id
+     * @return 返回值
+     */
+    int deleteById(String id);
+
+    /**
+     * 根据id用户
+     * @param sysUser 用户
+     * @return 返回值
+     */
+    int updateById(SysUser sysUser);
+
+    /**
+     * 保存用户
+     * @param sysUser 用户
+     * @return 返回值
+     */
+    int insert(SysUser sysUser);
 }

@@ -119,4 +119,9 @@ public class SysMenuServiceImpl implements SysMenuService {
     public String getByMenuName(String menuNames) {
         return sysMenuDao.getByMenuName(menuNames);
     }
+
+    @Override
+    public int deleteById(String id) {
+        return sysUserDao.deleteById(id);
+    }
 }

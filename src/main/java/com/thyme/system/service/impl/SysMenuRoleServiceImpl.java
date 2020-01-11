@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author cuiyating
  * @date 2020/1/8 14:29
@@ -25,5 +27,10 @@ public class SysMenuRoleServiceImpl implements SysMenuRoleService {
     @Override
     public int deleteByRoleId(String roleId) {
         return sysMenuRoleDao.deleteByRoleId(roleId);
+    }
+
+    @Override
+    public List<String> getAllMenuId(String roleId, List<String> parentIds) {
+        return sysMenuRoleDao.getAllMenuId(roleId, parentIds);
     }
 }

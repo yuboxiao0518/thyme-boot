@@ -47,7 +47,7 @@ function addRole(){
     var ids = app.getCheckedKeys();
     $.ajax({
         cache : true,
-        type : "GET",
+        type : "POST",
         url : context + 'role/addRole',
         data :{
             "name":name,

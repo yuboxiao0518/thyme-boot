@@ -19,10 +19,7 @@ import com.thyme.system.vo.MenuListVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author cuiyating
@@ -34,8 +31,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class RoleRestController {
 
     private final SysRoleService sysRoleService;
-
-    private final SysRoleDao sysRoleDao;
 
     private final SysMenuService sysMenuService;
 
@@ -59,7 +54,7 @@ public class RoleRestController {
         JSONObject jsonObject = new JSONObject();
         try{
             sysMenuRoleService.deleteByRoleId(id);
-            sysRoleDao.deleteById(id);
+            sysRoleService.deleteById(id);
             jsonObject.put("code",200);
         }catch (Exception e) {
             jsonObject.put("code", 500);
@@ -68,7 +63,7 @@ public class RoleRestController {
         return ApiResponse.ofSuccess(jsonObject);
     }
 
-    @GetMapping("/updateRole")
+    @PostMapping("/updateRole")
     @Transactional(rollbackFor={RuntimeException.class, Exception.class})
     public ApiResponse updateRole(@RequestParam("id")String id,
                                   @RequestParam("name")String name,
@@ -85,7 +80,7 @@ public class RoleRestController {
             sysRole.setId(id);
             sysRole.setName(name);
             sysRole.setAuthority(authority);
-            sysRoleDao.updateById(sysRole);
+            sysRoleService.updateById(sysRole);
             jsonObject.put("code", 200);
         }catch (Exception e) {
             jsonObject.put("code", 500);
@@ -94,7 +89,7 @@ public class RoleRestController {
         return ApiResponse.ofSuccess(jsonObject);
     }
 
-    @GetMapping("/addRole")
+    @PostMapping("/addRole")
     @Transactional(rollbackFor={RuntimeException.class, Exception.class})
     public ApiResponse addRole(@RequestParam("name")String name,
                                @RequestParam("authority")String authority,
@@ -109,7 +104,7 @@ public class RoleRestController {
                     sysMenuRoleService.addMenuRole(sysMenuRole);
                 }
                 SysRole sysRole = new SysRole(id, name, authority, new Date());
-                sysRoleDao.insert(sysRole);
+                sysRoleService.insert(sysRole);
                 jsonObject.put("code",200);
             } else {
                 // 501 角色已存在
@@ -134,8 +129,10 @@ public class RoleRestController {
     public ApiResponse getRoleMenu(@RequestParam("roleId")String roleId){
         JSONObject jsonObject = new JSONObject();
         List<MenuListVo> listVoList = getMenu();
-        List<String> roleMenuIds = sysMenuService.getRoleMenu(roleId);
+        List<String> parentIds = sysMenuService.getRoleMenu(roleId);
+        List<String> roleMenuIds = sysMenuRoleService.getAllMenuId(roleId, parentIds);
         jsonObject.put("ids", roleMenuIds);
+        jsonObject.put("parentIds", parentIds);
         jsonObject.put("menuList",listVoList);
         return ApiResponse.ofSuccess(jsonObject);
     }

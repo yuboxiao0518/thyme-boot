@@ -75,9 +75,9 @@ public interface SysMenuDao extends BaseMapper<SysMenu> {
     List<SysMenu> getFirstMenu();
 
     /**
-     * 根据角色id查询所有菜单
+     * 根据角色id查询所有父级菜单id
      * @param roleId 角色id
-     * @return 菜单
+     * @return 父级菜单id
      */
     @Select("SELECT id FROM sys_menu sm WHERE sm.menu_level = 1 and id in " +
             "(select mr.menu_id from sys_menu_role mr left join sys_menu m on mr.menu_id = m.id where mr.role_id = #{roleId})" +

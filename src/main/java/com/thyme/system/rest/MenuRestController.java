@@ -38,8 +38,6 @@ public class MenuRestController {
 
     private final SysMenuService sysMenuService;
 
-    private final SysMenuDao sysMenuDao;
-
     @GetMapping("/getMenulist")
     public ApiResponse getMenulist(){
         //获取当前用户登录用户
@@ -86,7 +84,7 @@ public class MenuRestController {
     public ApiResponse deleteMenu(@RequestParam("id")String id){
         JSONObject jsonObject = new JSONObject();
         try{
-            if (sysMenuDao.deleteById(id) > 0){
+            if (sysMenuService.deleteById(id) > 0){
                 jsonObject.put("code",200);
             }
         }catch (Exception e) {

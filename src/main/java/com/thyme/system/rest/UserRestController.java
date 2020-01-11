@@ -36,8 +36,6 @@ public class UserRestController {
 
     private final SysRoleService sysRoleService;
 
-    private final SysUserDao sysUserDao;
-
     @GetMapping("/getUserInfo")
     public ApiResponse getUserInfo(@RequestParam("page") int page,
                                    @RequestParam("page_size") int pageSize) {
@@ -69,7 +67,7 @@ public class UserRestController {
     public ApiResponse deleteUser(@RequestParam("id")String id){
         JSONObject jsonObject = new JSONObject();
         try{
-            if (sysUserDao.deleteById(id) > 0){
+            if (userService.deleteById(id) > 0){
                 jsonObject.put("code", 200);
             }
         }catch (Exception e) {
@@ -91,7 +89,7 @@ public class UserRestController {
         JSONObject jsonObject = new JSONObject();
         SysUser sysUser = new SysUser(id, name, null, nickName, sex, mobile, email, birthday, hobby, liveAddress, null, new Date());
         try {
-            if (sysUserDao.updateById(sysUser) > 0){
+            if (userService.updateById(sysUser) > 0){
                 jsonObject.put("code",200);
             }
         } catch (Exception e) {
@@ -114,7 +112,7 @@ public class UserRestController {
         SysUser user = userService.getByName(name);
         if (user == null){
             SysUser sysUser = new SysUser(UUIDUtils.getSixteenUUID(), name, new BCryptPasswordEncoder().encode(password), nickName, sex, mobile, email, birthday, hobby, liveAddress, new Date(), null);
-            if (sysUserDao.insert(sysUser) > 0){
+            if (userService.insert(sysUser) > 0){
                 jsonObject.put("code", 200);
             } else {
                 jsonObject.put("code", 500);
@@ -133,7 +131,7 @@ public class UserRestController {
         sysUser.setId(id);
         sysUser.setPassword(new BCryptPasswordEncoder().encode(Constants.CZMM));
         try{
-            if (sysUserDao.updateById(sysUser) > 0){
+            if (userService.updateById(sysUser) > 0){
                 jsonObject.put("code", 200);
             }
         }catch (Exception e) {

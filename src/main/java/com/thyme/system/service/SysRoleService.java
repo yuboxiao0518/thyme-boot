@@ -35,4 +35,26 @@ public interface SysRoleService {
      * @return 角色名称
      */
     String getById(String id);
+
+    /**
+     * 根据id删除角色
+     * @param id id
+     * @return 返回值
+     */
+    int deleteById(String id);
+
+    /**
+     * 根据id修改角色
+     * @param sysRole 角色
+     * @return 返回值
+     */
+    int updateById(SysRole sysRole);
+
+    /**
+     * 保存角色
+     * @param sysRole 角色
+     * @return 返回值
+     */
+    int insert(SysRole sysRole);
+
 }

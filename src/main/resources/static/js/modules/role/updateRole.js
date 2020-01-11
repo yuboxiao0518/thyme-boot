@@ -20,7 +20,7 @@ var app = new Vue({
         },
         expandAll:true,
         expandedKeys:[],
-        checkedKeys:[]
+        checkedKeys:[]  //所有被选中的子节点
     },
     methods:{
         getData: function() {
@@ -37,7 +37,7 @@ var app = new Vue({
                 success : function(data) {
                     if (data.code === 200) {
                         app.data = data.data.menuList;
-                        app.expandedKeys = data.data.ids;
+                        app.expandedKeys = data.data.parentIds;
                         app.checkedKeys = data.data.ids;
                     }
                 }
@@ -45,6 +45,9 @@ var app = new Vue({
         },
         getCheckedKeys:function () {
             return this.$refs.tree.getCheckedKeys();
+        },
+        getHalfCheckedKeys:function (value) {
+            return this.$refs.tree.getHalfCheckedKeys().concat(value);
         }
     }
 });
@@ -52,10 +55,11 @@ var app = new Vue({
 function updateRole(){
     var name=$("#name").val();
     var authority=$("#authority").val();
-    var ids = app.getCheckedKeys();
+    var childrenId = app.getCheckedKeys();
+    var ids = app.getHalfCheckedKeys(childrenId);
     $.ajax({
         cache : true,
-        type : "GET",
+        type : "POST",
         url : context + 'role/updateRole',
         data :{
             "id":id,

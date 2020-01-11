@@ -35,19 +35,25 @@ $().ready(function(){
                 });
             },
             editPassword:function(row) {
-                $.ajax({
-                    url: context + 'user/editPassword?id='+row.id,
-                    type: 'GET',
-                    success: function (res) {
-                        if (res.code === 200){
-                            if (res.data.code === 200){
-                                layer.msg("重置密码操作成功");
-                                vm.getUserList();
-                            } else if(res.data.code === 500){
-                                layer.msg("重置密码操作失败");
+                layer.confirm('该用户密码将重置为123456，是否确认？', {
+                    btn: ['确认','取消'] //按钮
+                }, function(){
+                    $.ajax({
+                        url: context + 'user/editPassword?id='+row.id,
+                        type: 'GET',
+                        success: function (res) {
+                            if (res.code === 200){
+                                if (res.data.code === 200){
+                                    layer.msg("重置密码操作成功");
+                                    vm.getUserList();
+                                } else if(res.data.code === 500){
+                                    layer.msg("重置密码操作失败");
+                                }
                             }
                         }
-                    }
+                    });
+                }, function(){
+
                 });
             },
             handleDelete:function(row) {

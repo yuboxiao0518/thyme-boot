@@ -40,4 +40,19 @@ public class SysRoleServiceImpl implements SysRoleService {
     public String getById(String id) {
         return sysRoleDao.getById(id);
     }
+
+    @Override
+    public int deleteById(String id) {
+        return sysRoleDao.deleteById(id);
+    }
+
+    @Override
+    public int updateById(SysRole sysRole) {
+        return sysRoleDao.updateById(sysRole);
+    }
+
+    @Override
+    public int insert(SysRole sysRole) {
+        return insert(sysRole);
+    }
 }

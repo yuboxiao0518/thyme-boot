@@ -40,4 +40,19 @@ public class SysUserServiceImpl implements SysUserService {
     public SysUser getByName(String name) {
         return sysUserDao.getByName(name);
     }
+
+    @Override
+    public int deleteById(String id) {
+        return sysUserDao.deleteById(id);
+    }
+
+    @Override
+    public int updateById(SysUser sysUser) {
+        return sysUserDao.updateById(sysUser);
+    }
+
+    @Override
+    public int insert(SysUser sysUser) {
+        return sysUserDao.insert(sysUser);
+    }
 }

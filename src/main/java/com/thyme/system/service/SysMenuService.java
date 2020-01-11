@@ -85,4 +85,11 @@ public interface SysMenuService {
      * @return 菜单id
      */
     String getByMenuName(String menuNames);
+
+    /**
+     * 根据id删除菜单
+     * @param id id
+     * @return 返回值
+     */
+    int deleteById(String id);
 }
