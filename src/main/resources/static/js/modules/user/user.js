@@ -22,7 +22,6 @@ $().ready(function(){
                 });
             },
             handleEdit: function(row) {
-                console.log(row);
                 layer.open({
                     type: 2,
                     title: '编辑',
@@ -32,6 +31,22 @@ $().ready(function(){
                     content: context + 'user/update?id='+row.id,
                     end: function () {
                         vm.getUserList();
+                    }
+                });
+            },
+            editPassword:function(row) {
+                $.ajax({
+                    url: context + 'user/editPassword?id='+row.id,
+                    type: 'GET',
+                    success: function (res) {
+                        if (res.code === 200){
+                            if (res.data.code === 200){
+                                layer.msg("重置密码操作成功");
+                                vm.getUserList();
+                            } else if(res.data.code === 500){
+                                layer.msg("重置密码操作失败");
+                            }
+                        }
                     }
                 });
             },

@@ -4,7 +4,9 @@ import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.thyme.common.base.ApiResponse;
+import com.thyme.common.base.Constants;
 import com.thyme.common.utils.UUIDUtils;
+import com.thyme.system.dao.SysUserDao;
 import com.thyme.system.entity.SysUser;
 import com.thyme.system.service.SysRoleService;
 import com.thyme.system.service.SysUserService;
@@ -33,6 +35,8 @@ public class UserRestController {
     private final SysUserService userService;
 
     private final SysRoleService sysRoleService;
+
+    private final SysUserDao sysUserDao;
 
     @GetMapping("/getUserInfo")
     public ApiResponse getUserInfo(@RequestParam("page") int page,
@@ -121,4 +125,21 @@ public class UserRestController {
         }
         return ApiResponse.ofSuccess(jsonObject);
     }
+
+    @GetMapping("/editPassword")
+    public ApiResponse editPassword(String id){
+        JSONObject jsonObject = new JSONObject();
+        SysUser sysUser = new SysUser();
+        sysUser.setId(id);
+        sysUser.setPassword(new BCryptPasswordEncoder().encode(Constants.CZMM));
+        try{
+            if (sysUserDao.updateById(sysUser) > 0){
+                jsonObject.put("code", 200);
+            }
+        }catch (Exception e) {
+            jsonObject.put("code", 500);
+        }
+        return ApiResponse.ofSuccess(jsonObject);
+    }
+
 }
