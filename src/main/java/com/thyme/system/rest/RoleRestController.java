@@ -8,7 +8,6 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.thyme.common.base.ApiResponse;
 import com.thyme.common.utils.UUIDUtils;
-import com.thyme.system.dao.SysRoleDao;
 import com.thyme.system.entity.SysMenu;
 import com.thyme.system.entity.SysMenuRole;
 import com.thyme.system.entity.SysRole;
@@ -98,7 +97,7 @@ public class RoleRestController {
         try{
             SysRole role = sysRoleService.getByName(name);
             if (role == null){
-                String id = UUIDUtils.getSixteenUUID();
+                String id = UUIDUtils.getUUID();
                 for (String menuId : ids){
                     SysMenuRole sysMenuRole = new SysMenuRole(menuId, id);
                     sysMenuRoleService.addMenuRole(sysMenuRole);

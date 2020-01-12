@@ -7,7 +7,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.thyme.common.base.ApiResponse;
 import com.thyme.common.utils.SecurityUtils;
 import com.thyme.common.utils.UUIDUtils;
-import com.thyme.system.dao.SysMenuDao;
 import com.thyme.system.entity.SysMenu;
 import com.thyme.system.service.SysMenuService;
 import com.thyme.system.vo.MenuListVo;
@@ -127,7 +126,7 @@ public class MenuRestController {
         JSONObject jsonObject = new JSONObject();
         SysMenu menu = sysMenuService.getByName(menuName, menuCode, menuHref);
         if (menu == null) {
-            SysMenuVO sysMenuVO = new SysMenuVO(UUIDUtils.getSixteenUUID(),sysMenuService.getByMenuName(menuNames),menuName,menuCode,menuHref,null,menuLevel,menuWeight,isShow,new Date(),"admin");
+            SysMenuVO sysMenuVO = new SysMenuVO(UUIDUtils.getUUID(),sysMenuService.getByMenuName(menuNames),menuName,menuCode,menuHref,null,menuLevel,menuWeight,isShow,new Date(),"admin");
             try{
                 if (sysMenuService.addMenu(sysMenuVO) > 0){
                     jsonObject.put("code",200);

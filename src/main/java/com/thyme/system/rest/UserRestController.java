@@ -122,7 +122,7 @@ public class UserRestController {
         SysUser user = userService.getByName(name);
         if (user == null){
             //用户id
-            String userId = UUIDUtils.getSixteenUUID();
+            String userId = UUIDUtils.getUUID();
             //角色id
             SysUserRole sysUserRole = new SysUserRole();
             sysUserRole.setRoleId(sysRoleService.getIdByName(userRole));
