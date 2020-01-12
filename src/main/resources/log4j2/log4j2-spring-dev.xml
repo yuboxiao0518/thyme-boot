@@ -15,7 +15,7 @@
             <!--输出日志的格式-->
             <PatternLayout pattern="${LOG_PATTERN}"/>
             <!--控制台只输出level及其以上级别的信息（onMatch），其他的直接拒绝（onMismatch）-->
-            <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
+            <ThresholdFilter level="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>
         </console>
         <RollingFile name="DAY-FILE-OUT" fileName="${DAY_FILE_PATH}/${FILE_NAME}.log"
                      filePattern="${DAY_FILE_PATH}/${FILE_NAME}-%d{yyyy-MM-dd}.log">
@@ -49,6 +49,22 @@
         </RollingFile>
     </appenders>
     <loggers>
+        <!--过滤掉spring和hibernate的一些无用的debug信息-->
+        <logger name="org.springframework" level="INFO">
+        </logger>
+        <logger name="io.netty" level="INFO">
+        </logger>
+        <logger name="io.lettuce" level="INFO">
+        </logger>
+        <logger name="org.hibernate" level="INFO">
+        </logger>
+        <logger name="org.mybatis" level="INFO">
+        </logger>
+        <logger name="com.baomidou" level="INFO">
+        </logger>
+        <logger name="com.thyme.system.dao" level="debug" additivity="false">
+            <appender-ref ref="CONSOLE"/>
+        </logger>
         <root level="ALL">
             <appender-ref ref="CONSOLE"/>
             <!--<appender-ref ref="SIZE_FILE-OUT"/>-->
