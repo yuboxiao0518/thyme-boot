@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.thyme.system.entity.SysRole;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * @author thyme
  * @ClassName SysRoleService
@@ -56,5 +58,18 @@ public interface SysRoleService {
      * @return 返回值
      */
     int insert(SysRole sysRole);
+
+    /**
+     * 获取所有的角色名称
+     * @return 所有角色名称
+     */
+    List<String> getAllRoleName();
+
+    /**
+     * 根据角色名称查询角色id
+     * @param name 角色名称
+     * @return 角色id
+     */
+    String getIdByName(String name);
 
 }

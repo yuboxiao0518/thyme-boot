@@ -6,14 +6,16 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.thyme.common.base.ApiResponse;
 import com.thyme.common.base.Constants;
 import com.thyme.common.utils.UUIDUtils;
-import com.thyme.system.dao.SysUserDao;
 import com.thyme.system.entity.SysUser;
+import com.thyme.system.entity.SysUserRole;
 import com.thyme.system.service.SysRoleService;
+import com.thyme.system.service.SysUserRoleService;
 import com.thyme.system.service.SysUserService;
 import com.thyme.system.vo.UserVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,6 +37,8 @@ public class UserRestController {
     private final SysUserService userService;
 
     private final SysRoleService sysRoleService;
+
+    private final SysUserRoleService sysUserRoleService;
 
     @GetMapping("/getUserInfo")
     public ApiResponse getUserInfo(@RequestParam("page") int page,
@@ -64,12 +68,13 @@ public class UserRestController {
     }
 
     @GetMapping("/deleteUser")
+    @Transactional(rollbackFor={RuntimeException.class, Exception.class})
     public ApiResponse deleteUser(@RequestParam("id")String id){
         JSONObject jsonObject = new JSONObject();
         try{
-            if (userService.deleteById(id) > 0){
-                jsonObject.put("code", 200);
-            }
+            sysUserRoleService.deleteByUserId(id);
+            userService.deleteById(id);
+            jsonObject.put("code", 200);
         }catch (Exception e) {
             jsonObject.put("code", 500);
         }
@@ -77,10 +82,12 @@ public class UserRestController {
     }
 
     @GetMapping("/updateUser")
+    @Transactional(rollbackFor={RuntimeException.class, Exception.class})
     public ApiResponse updateRole(@RequestParam("id")String id,
                                   @RequestParam("name")String name,
                                   @RequestParam("nickName")String nickName,
                                   @RequestParam("sex")String sex,
+                                  @RequestParam("userRole")String userRole,
                                   @RequestParam("mobile")String mobile,
                                   @RequestParam("email")String email,
                                   @RequestParam("birthday")String birthday,
@@ -89,9 +96,10 @@ public class UserRestController {
         JSONObject jsonObject = new JSONObject();
         SysUser sysUser = new SysUser(id, name, null, nickName, sex, mobile, email, birthday, hobby, liveAddress, null, new Date());
         try {
-            if (userService.updateById(sysUser) > 0){
-                jsonObject.put("code",200);
-            }
+            sysUserRoleService.deleteByUserId(id);
+            sysUserRoleService.insert(new SysUserRole(id,sysRoleService.getIdByName(userRole)));
+            userService.updateById(sysUser);
+            jsonObject.put("code",200);
         } catch (Exception e) {
             jsonObject.put("code", 500);
         }
@@ -99,10 +107,12 @@ public class UserRestController {
     }
 
     @GetMapping("/addUser")
+    @Transactional(rollbackFor={RuntimeException.class, Exception.class})
     public ApiResponse addRole(@RequestParam("name")String name,
                                @RequestParam("password")String password,
                                @RequestParam("nickName")String nickName,
                                @RequestParam("sex")String sex,
+                               @RequestParam("userRole")String userRole,
                                @RequestParam("mobile")String mobile,
                                @RequestParam("email")String email,
                                @RequestParam("birthday")String birthday,
@@ -111,7 +121,14 @@ public class UserRestController {
         JSONObject jsonObject = new JSONObject();
         SysUser user = userService.getByName(name);
         if (user == null){
-            SysUser sysUser = new SysUser(UUIDUtils.getSixteenUUID(), name, new BCryptPasswordEncoder().encode(password), nickName, sex, mobile, email, birthday, hobby, liveAddress, new Date(), null);
+            //用户id
+            String userId = UUIDUtils.getSixteenUUID();
+            //角色id
+            SysUserRole sysUserRole = new SysUserRole();
+            sysUserRole.setRoleId(sysRoleService.getIdByName(userRole));
+            sysUserRole.setUserId(userId);
+            sysUserRoleService.insert(sysUserRole);
+            SysUser sysUser = new SysUser(userId, name, new BCryptPasswordEncoder().encode(password), nickName, sex, mobile, email, birthday, hobby, liveAddress, new Date(), null);
             if (userService.insert(sysUser) > 0){
                 jsonObject.put("code", 200);
             } else {
@@ -137,6 +154,14 @@ public class UserRestController {
         }catch (Exception e) {
             jsonObject.put("code", 500);
         }
+        return ApiResponse.ofSuccess(jsonObject);
+    }
+
+    @GetMapping("/getAllRoleName")
+    public ApiResponse getAllRoleName(){
+        JSONObject jsonObject = new JSONObject();
+        List<String> allRoleName = sysRoleService.getAllRoleName();
+        jsonObject.put("allRoleName", allRoleName);
         return ApiResponse.ofSuccess(jsonObject);
     }
 

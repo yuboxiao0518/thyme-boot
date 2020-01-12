@@ -2,6 +2,7 @@ $().ready(function(){
     if ($("#sex").val() !== "") {
         $("[name='sex'][value="+$("#sex").val()+"]").prop("checked", "checked");
     }
+    getAllRoleName($("#roleName").val());
     validateRule();
 });
 
@@ -18,11 +19,41 @@ $.validator.setDefaults({
     }
 });
 
+function getAllRoleName(roleName) {
+    $.ajax({
+        cache : true,
+        type : "GET",
+        url : context + 'user/getAllRoleName',
+        error : function(request) {
+            parent.layer.alert("Connection error");
+        },
+        success : function(data) {
+            if (data.code === 200) {
+                $("#userRole").html("");
+                var level = "";
+                level += "<div style='position: relative; min-height: 1px;  padding-right: 15px;'>";
+                for (var i = 0; i < data.data.allRoleName.length; i++){
+                    if (i % 3 === 0 && i !== 0) {
+                        level += "</div>";
+                        $("#userRole").append(level);
+                        level = "";
+                        level += "<div style='position: relative; min-height: 1px;  padding-right: 15px;'>";
+                    }
+                    level += "<input type='radio' name='userRole' style='margin-left: 1%;margin-top: 1.3%' value='"+data.data.allRoleName[i]+"'>"+data.data.allRoleName[i];
+                }
+                $("#userRole").append(level);
+                $(":radio[name='userRole'][value='"+roleName+"']").prop("checked", "checked");
+            }
+        }
+    });
+}
+
 function updateUser(){
     var id=$("#id").val();
     var name=$("#name").val();
     var nickName=$("#nickName").val();
-    var sex=$('input:radio:checked').val()===undefined?"":$('input:radio:checked').val();
+    var sex=$('#sex input:radio:checked').val()===undefined?"":$('#sex input:radio:checked').val();
+    var userRole = $('#userRole input:radio:checked').val();
     var mobile=$("#mobile").val();
     var email=$("#email").val();
     var birthday=$("#birthday").val();
@@ -38,6 +69,7 @@ function updateUser(){
                 "name":name,
                 "nickName":nickName,
                 "sex":sex,
+                "userRole":userRole,
                 "mobile":mobile,
                 "email":email,
                 "birthday":birthday,

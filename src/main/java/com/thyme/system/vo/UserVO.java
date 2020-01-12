@@ -13,6 +13,10 @@ public class UserVO  extends SysUser {
 
     private String userRole;
 
+    public UserVO() {
+
+    }
+
     public UserVO(String userRole){
         this.userRole = userRole;
     }

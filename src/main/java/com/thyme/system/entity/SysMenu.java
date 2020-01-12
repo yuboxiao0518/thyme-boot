@@ -1,6 +1,5 @@
 package com.thyme.system.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 import lombok.Data;
 

@@ -7,6 +7,8 @@ import com.thyme.system.entity.SysRole;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * @author thyme
  * @ClassName SysRoleDao
@@ -45,7 +47,22 @@ public interface SysRoleDao extends BaseMapper<SysRole> {
      * @param id id
      * @return 角色名称
      */
-    @Select("select r.name from sys_role r left join sys_user_role ur on r.id = ur.role_id where ur.role_id = (\n" +
+    @Select("select distinct r.name from sys_role r left join sys_user_role ur on r.id = ur.role_id where ur.role_id = (\n" +
             "select urs.role_id from sys_user u left join sys_user_role urs on u.id = urs.user_id where u.id = #{id})")
     String getById(@Param("id") String id);
+
+    /**
+     * 获取所有的角色名称
+     * @return所有角色名称
+     */
+    @Select("select name from sys_role order by create_time")
+    List<String> getAllRoleName();
+
+    /**
+     * 根据角色名称查询角色id
+     * @param name 角色名称
+     * @return 角色id
+     */
+    @Select("select id from sys_role where name = #{name} order by create_time")
+   String getIdByName(@Param("name") String name);
 }

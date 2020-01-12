@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author thyme
  * @ClassName SysRoleServiceImpl
@@ -54,5 +56,15 @@ public class SysRoleServiceImpl implements SysRoleService {
     @Override
     public int insert(SysRole sysRole) {
         return sysRoleDao.insert(sysRole);
+    }
+
+    @Override
+    public List<String> getAllRoleName() {
+        return sysRoleDao.getAllRoleName();
+    }
+
+    @Override
+    public String getIdByName(String name) {
+        return sysRoleDao.getIdByName(name);
     }
 }

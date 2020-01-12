@@ -11,7 +11,6 @@
     <link th:href="@{/static/css/element-ui.2.13.0.css}" rel="stylesheet">
     <link th:href="@{/static/css/font-awesome.min.css}" rel="stylesheet">
 </head>
-<body>
 <body class="white-bg">
 <div class="wrapper wrapper-content animated fadeInRight" id="app">
     <div class="row">
@@ -42,6 +41,13 @@
                                        th:value="${sysUser.sex}">
                                 <input type="radio" name="sex" value="男" title="男">男
                                 <input type="radio" name="sex" value="女" title="女">女
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">用户权限：</label>
+                            <div class="col-sm-8" id="userRole">
+                                <input id="roleName" name="roleName" type="hidden"
+                                       th:value="${roleName}">
                             </div>
                         </div>
                         <div class="form-group">
