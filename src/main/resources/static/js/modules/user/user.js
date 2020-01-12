@@ -14,7 +14,7 @@ $().ready(function(){
                     title: '新增',
                     maxmin: true,
                     shadeClose: false, // 点击遮罩关闭层
-                    area: ['800px', '520px'],
+                    area: ['800px', '700px'],
                     content: context + 'user/add',
                     end: function () {
                         vm.getUserList();
@@ -27,7 +27,7 @@ $().ready(function(){
                     title: '编辑',
                     maxmin: true,
                     shadeClose: false, // 点击遮罩关闭层
-                    area: ['800px', '520px'],
+                    area: ['800px', '700px'],
                     content: context + 'user/update?id='+row.id,
                     end: function () {
                         vm.getUserList();
