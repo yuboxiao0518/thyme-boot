@@ -1,5 +1,6 @@
 package com.thyme.system.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.thyme.system.dao.SysMenuRoleDao;
 import com.thyme.system.entity.SysMenuRole;
 import com.thyme.system.service.SysMenuRoleService;
@@ -7,7 +8,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author cuiyating
@@ -31,6 +34,9 @@ public class SysMenuRoleServiceImpl implements SysMenuRoleService {
 
     @Override
     public List<String> getAllMenuId(String roleId, List<String> parentIds) {
-        return sysMenuRoleDao.getAllMenuId(roleId, parentIds);
+        QueryWrapper<SysMenuRole> queryWrapper = new QueryWrapper<>();
+        queryWrapper.select("menu_id").eq("role_id", roleId).notIn("menu_id", parentIds);
+        List<SysMenuRole> sysMenuRoles = sysMenuRoleDao.selectList(queryWrapper);
+        return sysMenuRoles.stream().map(o -> o.getMenuId()).collect(Collectors.toList());
     }
 }

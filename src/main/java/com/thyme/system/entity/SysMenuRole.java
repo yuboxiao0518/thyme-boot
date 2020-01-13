@@ -19,4 +19,8 @@ public class SysMenuRole {
         this.menuId = menuId;
         this.roleId = roleId;
     }
+
+    public SysMenuRole(String menuId){
+        this.menuId = menuId;
+    }
 }

@@ -1,6 +1,8 @@
 package com.thyme.system.dao;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.thyme.system.entity.SysMenuRole;
+import com.thyme.system.entity.SysRole;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
@@ -14,7 +16,7 @@ import java.util.List;
  * @date 2020/1/8 14:23
  */
 @Repository
-public interface SysMenuRoleDao {
+public interface SysMenuRoleDao extends BaseMapper<SysMenuRole> {
 
     /**
      * 添加角色和菜单的联系
@@ -47,6 +49,6 @@ public interface SysMenuRoleDao {
             "</foreach>",
             "</script>"
     })
-//   @Select("select menu_id from sys_menu_role where role_id = #{roleId} and menu_id not in (#{parentIds})")
+    //@Select("select menu_id from sys_menu_role where role_id = #{roleId} and menu_id not IN (${parentIds})")
     List<String> getAllMenuId(@Param("roleId")String roleId, @Param("parentIds")List<String> parentIds);
 }
