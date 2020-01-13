@@ -16,58 +16,48 @@
             <div class="layui-row layui-col-space15">
                 <div class="layui-col-sm12 layui-col-md12 layui-col-lg12">
                     <div class="layui-card">
-                        <span style="margin-left: 92%" @click="addMenu()" class="btn btn-primary">新增</span>
+                        <span style="margin-left: 92%" @click="reload()" class="btn btn-primary">刷新</span>
                         <div class="layui-card-body">
                             <el-table
                                     :data="tableData"
                                     style="width: 100%;margin-bottom: 20px;"
                                     row-key="id"
                                     border
-                                    default-expand-all
-                                    :tree-props="{children: 'children', hasChildren: 'hasChildren'}">
+                                    default-expand-all>
                                 <el-table-column
-                                        prop="menuName"
-                                        label="菜单名称"
+                                        prop="username"
+                                        label="登录用户名"
                                         align="center">
                                 </el-table-column>
                                 <el-table-column
-                                        prop="menuCode"
-                                        label="菜单别名"
+                                        prop="ipAddress"
+                                        label="登录IP"
                                         align="center">
                                 </el-table-column>
                                 <el-table-column
-                                        prop="menuHref"
-                                        label="菜单链接"
+                                        prop="ipSource"
+                                        label="IP地址"
                                         align="center">
                                 </el-table-column>
                                 <el-table-column
-                                        prop="menuWeight"
-                                        label="排序"
+                                        prop="browserName"
+                                        label="浏览器名称"
                                         align="center">
                                 </el-table-column>
                                 <el-table-column
-                                        prop="menuLevel"
-                                        label="菜单层级"
+                                        prop="systemName"
+                                        label="设备名称"
                                         align="center">
                                 </el-table-column>
                                 <el-table-column
-                                        prop="isShow"
-                                        :formatter="formatShow"
-                                        label="状态"
+                                        prop="message"
+                                        label="日志信息"
                                         align="center">
                                 </el-table-column>
-                                <el-table-column label="操作" align="center">
-                                    <template slot-scope="scope">
-                                        <el-button
-                                                size="mini"
-                                                @click="handleEdit(scope.row)">编辑
-                                        </el-button>
-                                        <el-button
-                                                size="mini"
-                                                type="danger"
-                                                @click="handleDelete(scope.row)">删除
-                                        </el-button>
-                                    </template>
+                                <el-table-column
+                                        prop="createDate"
+                                        label="创建时间"
+                                        align="center">
                                 </el-table-column>
                             </el-table>
                             <el-pagination
@@ -91,10 +81,9 @@
         </script>
         <script th:src="@{/static/js/jquery.1.12.4.min.js}"></script>
         <script th:src="@{/static/js/layui/layui.js}"></script>
-        <script th:src="@{/static/js/jquery.validate.min.js}"></script>
         <script th:src="@{/static/js/layui/lay/modules/layer.js}"></script>
         <script th:src="@{/static/js/vue.2.6.11.js}"></script>
         <script th:src="@{/static/js/element-ui.2.13.0.js}"></script>
-        <script th:src="@{/static/js/modules/menu/menu.js}"></script>
+        <script th:src="@{/static/js/modules/syslog/syslog.js}"></script>
     </body>
 </html>

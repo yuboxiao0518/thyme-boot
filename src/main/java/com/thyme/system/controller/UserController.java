@@ -41,4 +41,9 @@ public class UserController {
     public String add(){
         return "module/user/addUser";
     }
+
+    @GetMapping("/changePassword")
+    public String changePassword(){
+        return "module/user/changePassword";
+    }
 }

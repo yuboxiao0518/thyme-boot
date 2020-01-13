@@ -1,5 +1,7 @@
 package com.thyme.system.service.impl;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.thyme.common.utils.IpInfoUtils;
 import com.thyme.common.utils.UUIDUtils;
 import com.thyme.system.dao.SysLogDao;
@@ -56,5 +58,10 @@ public class SysLogServiceImpl implements SysLogService {
             e.printStackTrace();
         }
         return 0;
+    }
+
+    @Override
+    public IPage<SysLog> findSysLogPage(Page page) {
+        return sysLogDao.findSysLogPage(page);
     }
 }

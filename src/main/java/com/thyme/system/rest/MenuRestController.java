@@ -76,7 +76,6 @@ public class MenuRestController {
         jsonObject.put("page_size",firstMenu.getSize());
         jsonObject.put("menuList",listVoList);
         return ApiResponse.ofSuccess(jsonObject);
-
     }
 
     @GetMapping("/deleteMenu")

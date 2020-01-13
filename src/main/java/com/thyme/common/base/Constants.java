@@ -31,6 +31,14 @@ public class Constants {
     public static final String LOGIN_MAX_LIMIT = "登录超出最大限制";
 
     /**
+     * 五分钟需要之内允许修改密码错误三次
+     */
+    public static final Long PASSWORD_UPDATE_MINUTE = 300L;
+
+    public static final String PASSWORD_UPDATE = "PASSWORD_UPDATE";
+
+
+    /**
      * 用于IP定位转换
      */
     public static final String REGION = "内网IP|内网IP";

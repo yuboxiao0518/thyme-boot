@@ -29,9 +29,6 @@ public class IndexController {
     public String index(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         List<Object> allPrincipals = sessionRegistry.getAllPrincipals();
-        log.info("info.........");
-        log.debug("debug..........");
-        log.error("error..........");
         return "index";
     }
 

@@ -50,4 +50,11 @@ public interface SysUserDao extends BaseMapper<SysUser> {
     @Select("select * from sys_user where name = #{name}")
     SysUser getByName(String name);
 
+    /**
+     * 更新用户密码
+     */
+    @Update("update sys_user set password = #{password} where id = #{id}")
+    int updatePasswordById(@Param("password") String password,
+                           @Param("id") String id);
+
 }

@@ -2,7 +2,13 @@ package com.thyme.system.rest;
 
 import cn.hutool.core.util.IdUtil;
 import com.thyme.common.base.ApiResponse;
+import com.thyme.common.base.Constants;
+import com.thyme.common.utils.RedisUtils;
+import com.thyme.common.utils.SecurityUtils;
+import com.thyme.system.entity.SysUser;
 import com.thyme.system.service.RedisService;
+import com.thyme.system.service.SysLogService;
+import com.thyme.system.service.SysUserService;
 import com.thyme.system.vo.ImgResult;
 import com.wf.captcha.ArithmeticCaptcha;
 import lombok.RequiredArgsConstructor;
@@ -10,8 +16,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Date;
 
 /**
  * @author thyme
@@ -24,6 +35,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class IndexRestController {
 
     private final RedisService redisService;
+
+    private final RedisUtils redisUtils;
+
+    private final SysUserService sysUserService;
 
     /**
      * 验证码 宽度
@@ -56,6 +71,42 @@ public class IndexRestController {
         redisService.saveCode(uuid,result);
         return new ImgResult(captcha.toBase64(),uuid);
     }
+
+    @PostMapping("/updatePassword")
+    public ApiResponse updatePassword(@RequestParam("oldPass") String oldPass,
+                                      @RequestParam("pass") String pass){
+        //获取用户
+        Authentication authentication = SecurityUtils.getCurrentUserAuthentication();
+        String username = (String)authentication.getPrincipal();
+        String usernameRedisKey = Constants.PASSWORD_UPDATE + username;
+        // 校验用户是否被锁定
+        if (redisUtils.exists(usernameRedisKey)) {
+            if (redisUtils.sGetSetSize(usernameRedisKey) >= 3L){
+                return ApiResponse.fail("旧密码错误次数太多了，请稍后重试");
+            }
+        }
+        // 判断旧密码是否正确
+        SysUser sysUser = sysUserService.findByName(username);
+        if (sysUser != null){
+            if (!new BCryptPasswordEncoder().matches(oldPass,sysUser.getPassword())){
+                redisUtils.sSetAndTime(usernameRedisKey,Constants.PASSWORD_UPDATE_MINUTE, new Date());
+                return ApiResponse.fail("旧密码不匹配,还有"+ (3-redisUtils.sGetSetSize(usernameRedisKey)) +"次机会");
+            } else {
+                //更新密码
+                sysUserService.updatePasswordById(new BCryptPasswordEncoder().encode(pass), sysUser.getId());
+                if (redisUtils.exists(usernameRedisKey)) {
+                   redisUtils.remove(usernameRedisKey);
+                }
+                return ApiResponse.success("更新成功");
+            }
+        } else {
+            return ApiResponse.fail("获取用户信息出错，请稍后重试");
+        }
+    }
+
+
+
+
     
     /*@GetMapping("/getUserInfo")
     public ApiResponse getUserInfo(){

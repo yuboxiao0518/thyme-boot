@@ -63,4 +63,12 @@ public interface SysUserService {
      * @return 返回值
      */
     int insert(SysUser sysUser);
+
+    /**
+     * 根据用户id,更新密码
+     * @param password
+     * @param id
+     * @return
+     */
+    int updatePasswordById(String password, String id);
 }

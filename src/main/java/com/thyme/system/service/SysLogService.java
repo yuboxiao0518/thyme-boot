@@ -1,5 +1,9 @@
 package com.thyme.system.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.thyme.system.entity.SysLog;
+
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -11,4 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 public interface SysLogService {
 
     int saveLoginLog(HttpServletRequest request,String message,String name);
+
+
+    IPage<SysLog> findSysLogPage(Page page);
+
 }
