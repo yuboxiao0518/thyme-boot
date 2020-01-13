@@ -122,6 +122,6 @@ public class SysMenuServiceImpl implements SysMenuService {
 
     @Override
     public int deleteById(String id) {
-        return sysUserDao.deleteById(id);
+        return sysMenuDao.deleteById(id);
     }
 }
