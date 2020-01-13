@@ -55,7 +55,8 @@ public interface SysMenuDao extends BaseMapper<SysMenu> {
      * @param menuHref 菜单链接
      * @return 返回值
      */
-    @Select("select * from sys_menu where menu_name = #{menuName} or menu_code = #{menuCode} or menu_href = #{menuHref}")
+    @Select({"<script>select * from sys_menu where menu_name = #{menuName} or menu_code = #{menuCode} " +
+            "<when test=\"menuHref != null and menuHref != ''\"> or menu_href = #{menuHref}</when></script>"})
     SysMenu getByName(@Param("menuName")String menuName, @Param("menuCode")String menuCode, @Param("menuHref")String menuHref);
 
 
@@ -106,4 +107,12 @@ public interface SysMenuDao extends BaseMapper<SysMenu> {
      */
     @Select("select id from sys_menu where menu_name = #{menuNames}")
     String getByMenuName(@Param("menuNames")String menuNames);
+
+    /**
+     * 根据id删除菜单(若为一级菜单id删除其子菜单)
+     * @param id id
+     * @return 返回值
+     */
+    @Delete("delete from sys_menu where id = #{id} or parent_id = #{id}")
+    int deleteMenuById(String id);
 }

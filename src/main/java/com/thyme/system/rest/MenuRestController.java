@@ -82,7 +82,7 @@ public class MenuRestController {
     public ApiResponse deleteMenu(@RequestParam("id")String id){
         JSONObject jsonObject = new JSONObject();
         try{
-            if (sysMenuService.deleteById(id) > 0){
+            if (sysMenuService.deleteMenuById(id) > 0){
                 jsonObject.put("code",200);
             }
         }catch (Exception e) {

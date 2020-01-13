@@ -1,8 +1,3 @@
-$().ready(function(){
-    app.getData();
-    validateRule();
-});
-
 $.validator.setDefaults({
     submitHandler : function() {
         updateRole();
@@ -48,7 +43,32 @@ var app = new Vue({
         },
         getHalfCheckedKeys:function (value) {
             return this.$refs.tree.getHalfCheckedKeys().concat(value);
+        },
+        validateRule:function () {
+            var icon = "<i class='fa fa-times-circle'></i> ";
+            $("#signupForm").validate({
+                rules : {
+                    id : {
+                        required : true
+                    }, name : {
+                        required : true
+                    }, authority : {
+                        required : true
+                    }
+                },
+                messages : {
+                    name : {
+                        required : icon + "请输入角色名称"
+                    }, authority : {
+                        required : icon + "请输入角色权限"
+                    }
+                }
+            })
         }
+    },
+    mounted:function () {
+        this.getData();
+        this.validateRule();
     }
 });
 
@@ -82,25 +102,4 @@ function updateRole(){
             }
         }
     });
-}
-function validateRule() {
-    var icon = "<i class='fa fa-times-circle'></i> ";
-    $("#signupForm").validate({
-        rules : {
-            id : {
-                required : true
-            }, name : {
-                required : true
-            }, authority : {
-                required : true
-            }
-        },
-        messages : {
-            name : {
-                required : icon + "请输入角色名称"
-            }, authority : {
-                required : icon + "请输入角色权限"
-            }
-        }
-    })
 }

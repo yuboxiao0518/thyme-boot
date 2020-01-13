@@ -37,11 +37,6 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
-    public SysUser getByName(String name) {
-        return sysUserDao.getByName(name);
-    }
-
-    @Override
     public int deleteById(String id) {
         return sysUserDao.deleteById(id);
     }

@@ -1,92 +1,112 @@
-$().ready(function(){
-    getMenuLevel();
-    getValue();
-    if ($("#isShow").val() === "true"){
-        $(":radio[name='isShow'][value='1']").prop("checked", "checked");
-    } else {
-        $(":radio[name='isShow'][value='0']").prop("checked", "checked");
-    }
-    if ($("#menuLevel").val() !== "1"){
-        $("#menuHrefs").show();
-    }
-    validateRule();
-});
-
 $.validator.setDefaults({
     submitHandler : function() {
         updateUser();
     }
 });
 
-function getMenuLevel(){
-    $.ajax({
-        cache : true,
-        type : "GET",
-        url : context + 'menu/getMenuLevel',
-        error : function(request) {
-            parent.layer.alert("Connection error");
-        },
-        success : function(data) {
-            if (data.code === 200) {
-                $("#menuLevel").html("");
-                $("#menuLevel").append("<option value='0'>请选择菜单层级</option>");
-                for (var i = 0; i < data.data.menuLevel.length; i++) {
-                    var level = "";
-                    level += "<option value='"+data.data.menuLevel[i]+"'>"+data.data.menuLevel[i]+"</option>";
-                    $("#menuLevel").append(level);
-                    level = "";
-                }
-            }
-            document.getElementById("menuLevel")[ $("#menuLevels").val()].selected=true;
-            pdMenuLevel($("#menuLevel").val());
-        }
-    });
-}
+var app = new Vue({
+    el:"#app",
+    data:{
 
-function getValue() {
-    $("#menuLevel").change(function(){
-        var menuLevel =  $(this).children('option:selected').val();
-        pdMenuLevel(menuLevel);
-    });
-}
-
-function pdMenuLevel(menuLevel) {
-    if (menuLevel !== "1" && menuLevel !== null) {
-        $.ajax({
-            cache: true,
-            type: "GET",
-            url: context + 'menu/getPreviousMenu?menuLevel=' + menuLevel,
-            error: function (request) {
-                parent.layer.alert("Connection error");
-            },
-            success: function (data) {
-                if (data.code === 200) {
-                    $("#menuNames").show();
-                    $("#menuNames").html("");
-                    $("#menuNames").append("<label class='col-sm-3 control-label'>一级菜单：</label>");
-                    $("#menuNames").append("<div class='col-sm-8'>");
-                    var level = "";
-                    level += "<div class='col-sm-8'>";
-                    for (var i = 0; i < data.data.menuNames.length; i++){
-                        if (i % 3 === 0 && i !== 0) {
-                            level += "</div>";
-                            $("#menuNames").append(level);
+    },
+    methods:{
+        getMenuLevel:function() {
+            $.ajax({
+                cache : true,
+                type : "GET",
+                url : context + 'menu/getMenuLevel',
+                error : function(request) {
+                    parent.layer.alert("Connection error");
+                },
+                success : function(data) {
+                    if (data.code === 200) {
+                        $("#menuLevel").html("");
+                        for (var i = 0; i < data.data.menuLevel.length; i++) {
+                            var level = "";
+                            level += "<option value='"+data.data.menuLevel[i]+"'>"+data.data.menuLevel[i]+"</option>";
+                            $("#menuLevel").append(level);
                             level = "";
-                            level += "<div class='col-sm-8' style='margin-left: 33%'>";
                         }
-                        level += "<input type='radio' name='menuName' style='margin-left: 2%;margin-top: 1.3%' value='"+data.data.menuNames[i].id+"'>"+data.data.menuNames[i].menuName;
                     }
-                    $("#menuNames").append(level);
-                    $(":radio[name='menuName'][value='"+$("#parentId").val()+"']").prop("checked", "checked");
-                    $("#menuHrefs").show();
+                    $("#menuLevel option[value='"+$("#menuLevels").val()+"']").attr("selected","selected");
+                    app.pdMenuLevel($("#menuLevel").val());
                 }
+            });
+        },
+        getValue:function() {
+            $("#menuLevel").change(function(){
+                var menuLevel =  $(this).children('option:selected').val();
+                app.pdMenuLevel(menuLevel);
+            });
+        },
+        pdMenuLevel:function(menuLevel) {
+            if (menuLevel !== "1" && menuLevel !== null) {
+                $.ajax({
+                    cache: true,
+                    type: "GET",
+                    url: context + 'menu/getPreviousMenu?menuLevel=' + menuLevel,
+                    error: function (request) {
+                        parent.layer.alert("Connection error");
+                    },
+                    success: function (data) {
+                        if (data.code === 200) {
+                            $("#menuNames").show();
+                            $("#menuNames").html("");
+                            $("#menuNames").append("<label class='col-sm-3 control-label'>一级菜单：</label>");
+                            var level = "";
+                            level += "<div class='layui-input-inline'>";
+                            level += "<select id='menuLevel' name='modules' lay-verify='required' lay-search='' style='width: 235px;height: 33.9px;border: 1px solid #ccc;border-radius: 4px;margin-left: 6%;'>";
+                            for (var i = 0; i < data.data.menuNames.length; i++){
+                                level += "<option value='"+data.data.menuNames[i].id+"'>"+data.data.menuNames[i].menuName+"</option>";
+                            }
+                            level += "</select></div></div>";
+                            $("#menuNames").append(level);
+                            $("#menuLevel option[value='"+$("#parentId").val()+"']").attr("selected","selected");
+                            $("#menuHrefs").show();
+                        }
+                    }
+                });
+            } else {
+                $("#menuNames").hide();
+                $("#menuHrefs").hide();
             }
-        });
-    } else {
-        $("#menuNames").hide();
-        $("#menuHrefs").hide();
+        },
+        validateRule:function() {
+            var icon = "<i class='fa fa-times-circle'></i> ";
+            $("#signupForm").validate({
+                rules : {
+                    id : {
+                        required : true
+                    }, name : {
+                        required : true
+                    }, password : {
+                        required : true
+                    }
+                },
+                messages : {
+                    name : {
+                        required : icon + "请输入用户名"
+                    }, password : {
+                        required : icon + "请输入密码"
+                    }
+                }
+            })
+        }
+    },
+    mounted:function() {
+        this.getMenuLevel();
+        this.getValue();
+        if ($("#isShow").val() === "true"){
+            $(":radio[name='isShow'][value='1']").prop("checked", "checked");
+        } else {
+            $(":radio[name='isShow'][value='0']").prop("checked", "checked");
+        }
+        if ($("#menuLevel").val() !== "1"){
+            $("#menuHrefs").show();
+        }
+        this.validateRule();
     }
-}
+});
 
 function updateUser(){
     var id=$("#id").val();
@@ -96,10 +116,10 @@ function updateUser(){
     var menuLevel=$("#menuLevel").val();
     var menuNames = "";
     if (menuLevel !== "1"){
-        menuNames = $('#menuNames input:radio:checked').val();
+        menuNames = $('#menuNames option:selected').text();
     }
     var menuWeight=$("#menuWeight").val();
-    var isShow=$('#show input:radio:checked').val()===undefined?"":$('#show input:radio:checked').val();
+    var isShow=$('input:radio:checked').val()===undefined?"":$('input:radio:checked').val();
     $.ajax({
         cache : true,
         type : "GET",
@@ -129,26 +149,4 @@ function updateUser(){
             }
         }
     });
-}
-
-function validateRule() {
-    var icon = "<i class='fa fa-times-circle'></i> ";
-    $("#signupForm").validate({
-        rules : {
-            id : {
-                required : true
-            }, name : {
-                required : true
-            }, password : {
-                required : true
-            }
-        },
-        messages : {
-            name : {
-                required : icon + "请输入用户名"
-            }, password : {
-                required : icon + "请输入密码"
-            }
-        }
-    })
 }

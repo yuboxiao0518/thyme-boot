@@ -33,8 +33,6 @@ public class SysMenuServiceImpl implements SysMenuService {
 
     private final SysMenuDao sysMenuDao;
 
-    private final SysUserDao sysUserDao;
-
     private final SysRoleDao sysRoleDao;
 
 
@@ -121,7 +119,7 @@ public class SysMenuServiceImpl implements SysMenuService {
     }
 
     @Override
-    public int deleteById(String id) {
-        return sysMenuDao.deleteById(id);
+    public int deleteMenuById(String id) {
+        return sysMenuDao.deleteMenuById(id);
     }
 }

@@ -1,65 +1,84 @@
-$().ready(function(){
-    if ($("#sex").val() !== "") {
-        $("[name='sex'][value="+$("#sex").val()+"]").prop("checked", "checked");
+$.validator.setDefaults({
+    submitHandler : function() {
+        updateUser();
+
     }
-    getAllRoleName($("#roleName").val());
-    validateRule();
 });
 
 var app = new Vue({
     el: '#app',
     data:{
-        value1: ''
-    }
-});
-
-$.validator.setDefaults({
-    submitHandler : function() {
-        updateUser();
-    }
-});
-
-function getAllRoleName(roleName) {
-    $.ajax({
-        cache : true,
-        type : "GET",
-        url : context + 'user/getAllRoleName',
-        error : function(request) {
-            parent.layer.alert("Connection error");
-        },
-        success : function(data) {
-            if (data.code === 200) {
-                $("#userRole").html("");
-                var level = "";
-                level += "<div style='position: relative; min-height: 1px;  padding-right: 15px;'>";
-                for (var i = 0; i < data.data.allRoleName.length; i++){
-                    if (i % 3 === 0 && i !== 0) {
-                        level += "</div>";
+        birthday:''
+    },
+    methods:{
+        getAllRoleName:function(roleName,birthday) {
+            $.ajax({
+                cache : true,
+                type : "GET",
+                url : context + 'user/getAllRoleName',
+                error : function(request) {
+                    parent.layer.alert("Connection error");
+                },
+                success : function(data) {
+                    if (data.code === 200) {
+                        $("#userRole").html("");
+                        var level = "";
+                        level += "<div class='layui-input-inline'>";
+                        level += "<select id='menuLevel' name='modules' lay-verify='required' lay-search=''style='width: 235px;height: 33.9px;border: 1px solid #ccc;border-radius: 4px;'>";
+                        for (var i = 0; i < data.data.allRoleName.length; i++){
+                            level += "<option value='"+data.data.allRoleName[i]+"'>"+data.data.allRoleName[i]+"</option>";
+                        }
+                        level += "</select></div>";
                         $("#userRole").append(level);
-                        level = "";
-                        level += "<div style='position: relative; min-height: 1px;  padding-right: 15px;'>";
+                        $(":radio[name='userRole'][value='"+roleName+"']").prop("checked", "checked");
+                        app.birthday = birthday;
                     }
-                    level += "<input type='radio' name='userRole' style='margin-left: 1%;margin-top: 1.3%' value='"+data.data.allRoleName[i]+"'>"+data.data.allRoleName[i];
                 }
-                $("#userRole").append(level);
-                $(":radio[name='userRole'][value='"+roleName+"']").prop("checked", "checked");
-            }
+            });
+        },
+        validateRule:function() {
+            var icon = "<i class='fa fa-times-circle'></i> ";
+            $("#signupForm").validate({
+                rules : {
+                    id : {
+                        required : true
+                    }, name : {
+                        required : true
+                    }, password : {
+                        required : true
+                    }
+                },
+                messages : {
+                    name : {
+                        required : icon + "请输入用户名"
+                    }, password : {
+                        required : icon + "请输入密码"
+                    }
+                }
+            })
         }
-    });
-}
+    },
+    mounted:function () {
+        if ($("#sex").val() !== "") {
+            $("[name='sex'][value="+$("#sex").val()+"]").prop("checked", "checked");
+        }
+        this.getAllRoleName($("#roleName").val(),$("#birthday").val());
+        this.validateRule();
+    }
+});
 
 function updateUser(){
     var id=$("#id").val();
     var name=$("#name").val();
     var nickName=$("#nickName").val();
-    var sex=$('#sex input:radio:checked').val()===undefined?"":$('#sex input:radio:checked').val();
-    var userRole = $('#userRole input:radio:checked').val();
+    var sex=$('input:radio:checked').val()===undefined?"":$('input:radio:checked').val();
+    var userRole = $('#userRole option:selected').text();
     var mobile=$("#mobile").val();
     var email=$("#email").val();
-    var birthday=$("#birthday").val();
+    var birthday=$("#birth").val();
     var hobby=$("#hobby").val();
     var liveAddress=$("#liveAddress").val();
-    if (isMobileEmailDate(mobile, email, birthday)){
+    if (isMobileEmail(mobile, email)){
         $.ajax({
             cache : true,
             type : "GET",
@@ -92,31 +111,9 @@ function updateUser(){
             }
         });
     }
-
-}
-function validateRule() {
-    var icon = "<i class='fa fa-times-circle'></i> ";
-    $("#signupForm").validate({
-        rules : {
-            id : {
-                required : true
-            }, name : {
-                required : true
-            }, password : {
-                required : true
-            }
-        },
-        messages : {
-            name : {
-                required : icon + "请输入用户名"
-            }, password : {
-                required : icon + "请输入密码"
-            }
-        }
-    })
 }
 
-function isMobileEmailDate(mobile,email,birthday) {
+function isMobileEmail(mobile,email) {
     var flag = true;
     if (mobile !== ""){
         var phoneReg = /^[1][3,4,5,7,8][0-9]{9}$/;
@@ -133,14 +130,6 @@ function isMobileEmailDate(mobile,email,birthday) {
         if(!isok) {
             layer.msg("邮箱格式不正确，请重新输入！");
             document.getElementById("email").value = "";
-            flag = false;
-        }
-    }
-    if (birthday !== ""){
-        var dataReg = /^(\d{4})-(\d{2})-(\d{2})$/
-        if (!dataReg.test(birthday)) {
-            layer.msg("邮箱格式不正确，请重新输入！(日期格式:yyyy-MM-dd)");
-            document.getElementById("birthday").value = "";
             flag = false;
         }
     }

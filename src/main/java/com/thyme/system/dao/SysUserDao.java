@@ -43,14 +43,6 @@ public interface SysUserDao extends BaseMapper<SysUser> {
     SysUser getById(@Param("id")String id);
 
     /**
-     * 根据名称查询用户
-     * @param name 名称
-     * @return 用户
-     */
-    @Select("select * from sys_user where name = #{name}")
-    SysUser getByName(String name);
-
-    /**
      * 更新用户密码
      */
     @Update("update sys_user set password = #{password} where id = #{id}")

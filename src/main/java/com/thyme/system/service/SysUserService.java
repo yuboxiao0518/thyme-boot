@@ -37,13 +37,6 @@ public interface SysUserService {
     SysUser getById(String id);
 
     /**
-     * 根据名称查询用户
-     * @param name 名称
-     * @return 用户
-     */
-    SysUser getByName(String name);
-
-    /**
      * 根据id删除用户
      * @param id id
      * @return 返回值

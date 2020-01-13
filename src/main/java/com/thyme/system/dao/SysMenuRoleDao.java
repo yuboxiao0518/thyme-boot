@@ -38,7 +38,7 @@ public interface SysMenuRoleDao {
      * @param parentIds 菜单id
      * @return 所有菜单id
      */
-   /* @Select({
+    @Select({
             "<script>",
             "select menu_id from sys_menu_role",
             "where role_id = #{roleId} and menu_id not in",
@@ -46,7 +46,7 @@ public interface SysMenuRoleDao {
             "#{id}",
             "</foreach>",
             "</script>"
-    })*/
-   @Select("select menu_id from sys_menu_role where role_id = #{roleId} and menu_id not in (#{parentIds})")
+    })
+//   @Select("select menu_id from sys_menu_role where role_id = #{roleId} and menu_id not in (#{parentIds})")
     List<String> getAllMenuId(@Param("roleId")String roleId, @Param("parentIds")List<String> parentIds);
 }

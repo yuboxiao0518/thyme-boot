@@ -27,6 +27,7 @@ public interface SysMenuRoleService {
     /**
      * 根据角色id查询所有菜单id
      * @param roleId 角色id
+     * @param parentIds 菜单id
      * @return 所有菜单id
      */
     List<String> getAllMenuId(String roleId, List<String> parentIds);

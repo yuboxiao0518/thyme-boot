@@ -91,5 +91,5 @@ public interface SysMenuService {
      * @param id id
      * @return 返回值
      */
-    int deleteById(String id);
+    int deleteMenuById(String id);
 }

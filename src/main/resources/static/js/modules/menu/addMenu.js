@@ -1,75 +1,111 @@
-$().ready(function(){
-    getMenuLevel();
-    getValue();
-    validateRule();
-});
-
-function getMenuLevel(){
-    $.ajax({
-        cache : true,
-        type : "GET",
-        url : context + 'menu/getMenuLevel',
-        error : function(request) {
-            parent.layer.alert("Connection error");
-        },
-        success : function(data) {
-            if (data.code === 200) {
-                $("#menuLevel").html("");
-                $("#menuLevel").append("<option>请选择菜单层级</option>");
-                for (var i = 0; i < data.data.menuLevel.length; i++) {
-                    var level = "";
-                    level += "<option value='"+data.data.menuLevel[i]+"'>"+data.data.menuLevel[i]+"</option>";
-                    $("#menuLevel").append(level);
-                    level = "";
-                }
-            }
-
-        }
-    });
-}
-
-function getValue() {
-    $("#menuLevel").change(function(){
-        var menuLevel =  $(this).children('option:selected').val();
-        if (menuLevel !== "1") {
-            $.ajax({
-                cache: true,
-                type: "GET",
-                url: context + 'menu/getPreviousMenu?menuLevel=' + menuLevel,
-                error: function (request) {
-                    parent.layer.alert("Connection error");
-                },
-                success: function (data) {
-                    if (data.code === 200) {
-                        $("#menuNames").show();
-                        $("#menuNames").html("");
-                        $("#menuNames").append("<label class='col-sm-3 control-label'>一级菜单：</label>");
-                        var level = "";
-                        level += "<div class='col-sm-8'>";
-                        for (var i = 0; i < data.data.menuNames.length; i++){
-                            if (i % 3 === 0 && i !== 0) {
-                                level += "</div>";
-                                $("#menuNames").append(level);
-                                level = "";
-                                level += "<div class='col-sm-8' style='margin-left: 33%'>";
-                            }
-                            level += "<input type='radio' name='menuName' checked='' style='margin-left: 2%;margin-top: 1.3%' value='"+data.data.menuNames[i]+"'>"+data.data.menuNames[i];
-                        }
-                        $("#menuNames").append(level);
-                        $("#menuHrefs").show();
-                    }
-                }
-            });
-        } else {
-            $("#menuNames").hide();
-            $("#menuHrefs").hide();
-        }
-    });
-}
-
 $.validator.setDefaults({
     submitHandler : function() {
         addMenu();
+    }
+});
+
+var app = new Vue({
+    el:"#app",
+    data:{
+
+    },
+    methods:{
+        getMenuLevel:function() {
+            $.ajax({
+                cache : true,
+                type : "GET",
+                url : context + 'menu/getMenuLevel',
+                error : function(request) {
+                    parent.layer.alert("Connection error");
+                },
+                success : function(data) {
+                    if (data.code === 200) {
+                        $("#menuLevel").html("");
+                        for (var i = 0; i < data.data.menuLevel.length; i++) {
+                            var level = "";
+                            level += "<option value='"+data.data.menuLevel[i]+"'>"+data.data.menuLevel[i]+"</option>";
+                            $("#menuLevel").append(level);
+                            level = "";
+                        }
+                    }
+
+                }
+            });
+        },
+        getValue:function() {
+            $("#menuLevel").change(function(){
+                var menuLevel =  $(this).children('option:selected').val();
+                if (menuLevel !== "1") {
+                    $.ajax({
+                        cache: true,
+                        type: "GET",
+                        url: context + 'menu/getPreviousMenu?menuLevel=' + menuLevel,
+                        error: function (request) {
+                            parent.layer.alert("Connection error");
+                        },
+                        success: function (data) {
+                            if (data.code === 200) {
+                                $("#menuNames").show();
+                                $("#menuNames").html("");
+                                $("#menuNames").append("<label class='col-sm-3 control-label'>一级菜单：</label>");
+                                var level = "";
+                                level += "<div class='layui-input-inline'>";
+                                level += "<select id='menuLevel' name='modules' lay-verify='required' lay-search='' style='width: 235px;height: 33.9px;border: 1px solid #ccc;border-radius: 4px;margin-left: 6%;'>";
+                                for (var i = 0; i < data.data.menuNames.length; i++){
+                                    level += "<option value='"+data.data.menuNames[i].id+"'>"+data.data.menuNames[i].menuName+"</option>";
+                                }
+                                level += "</select></div></div>";
+                                $("#menuNames").append(level);
+                                $("#menuHrefs").show();
+                            }
+                        }
+                    });
+                } else {
+                    $("#menuNames").hide();
+                    $("#menuHrefs").hide();
+                }
+            });
+        },
+        validateRule:function() {
+            var icon = "<i class='fa fa-times-circle'></i> ";
+            $("#signupForm").validate({
+                rules : {
+                    menuName : {
+                        required : true
+                    }, menuCode : {
+                        required : true
+                    }, menuHref : {
+                        required : true
+                    }, menuLevel : {
+                        required : true
+                    }, menuWeight : {
+                        required : true
+                    }, isShow : {
+                        required : true
+                    }
+                },
+                messages : {
+                    menuName : {
+                        required : icon + "请输入菜单名称"
+                    }, menuCode : {
+                        required : icon + "请输入菜单别名"
+                    }, menuHref : {
+                        required : icon + "请输入菜单链接"
+                    }, menuLevel : {
+                        required : icon + "请输入菜单层级"
+                    }, menuWeight : {
+                        required : icon + "请输入排序"
+                    }, menuCode : {
+                        isShow : icon + "请输入状态"
+                    }
+                }
+            })
+        }
+    },
+    mounted:function () {
+        this.getMenuLevel();
+        this.getValue();
+        this.validateRule();
     }
 });
 
@@ -80,7 +116,7 @@ function addMenu(){
     var menuLevel=$("#menuLevel").val();
     var menuNames = "";
     if (menuLevel !== "1"){
-        menuNames = $('#menuNames input:radio:checked').val();
+        menuNames = $('#menuNames option:selected').text();
     }
     var menuWeight=$("#menuWeight").val();
     var isShow=$('#isShow input:radio:checked').val();
@@ -115,40 +151,4 @@ function addMenu(){
             }
         }
     });
-}
-
-function validateRule() {
-    var icon = "<i class='fa fa-times-circle'></i> ";
-    $("#signupForm").validate({
-        rules : {
-            menuName : {
-                required : true
-            }, menuCode : {
-                required : true
-            }, menuHref : {
-                required : true
-            }, menuLevel : {
-                required : true
-            }, menuWeight : {
-                required : true
-            }, isShow : {
-                required : true
-            }
-        },
-        messages : {
-            menuName : {
-                required : icon + "请输入菜单名称"
-            }, menuCode : {
-                required : icon + "请输入菜单别名"
-            }, menuHref : {
-                required : icon + "请输入菜单链接"
-            }, menuLevel : {
-                required : icon + "请输入菜单层级"
-            }, menuWeight : {
-                required : icon + "请输入排序"
-            }, menuCode : {
-                isShow : icon + "请输入状态"
-            }
-        }
-    })
 }

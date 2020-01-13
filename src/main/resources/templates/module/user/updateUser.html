@@ -67,8 +67,9 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label">出生日期：</label>
                             <div class="col-sm-8">
-                                <el-date-picker id="birthday" name="birthday"
-                                                v-model="value1"
+                                <input id="birthday" name="birthday" type="hidden"
+                                       th:value="${sysUser.birthday}">
+                                <el-date-picker id="birth" v-model="birthday"
                                                 type="date"
                                                 placeholder="选择日期">
                                 </el-date-picker>
