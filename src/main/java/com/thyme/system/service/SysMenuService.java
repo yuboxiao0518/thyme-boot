@@ -19,6 +19,9 @@ public interface SysMenuService {
 
     List<MenuVo> getMenuByUser(String username);
 
+
+    List<SysMenu> findMenuListByUser(String username);
+
     IPage<SysMenu> findFirstMenu(Page page);
 
     List<SysMenu> findByParentId(String parentId);
@@ -58,6 +61,11 @@ public interface SysMenuService {
      * @return 一级菜单
      */
     List<SysMenu> getFirstMenu();
+
+    /**
+     * 获取二级菜单
+     */
+    List<SysMenu> getSecondMenu();
 
     /**
      * 根据角色id查询所有菜单

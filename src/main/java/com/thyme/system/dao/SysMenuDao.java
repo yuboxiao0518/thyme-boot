@@ -76,6 +76,12 @@ public interface SysMenuDao extends BaseMapper<SysMenu> {
     List<SysMenu> getFirstMenu();
 
     /**
+     * 获取二级菜单
+     */
+    @Select("SELECT * FROM sys_menu WHERE menu_level = 2")
+    List<SysMenu> getSecondMenu();
+
+    /**
      * 根据角色id查询所有父级菜单id
      * @param roleId 角色id
      * @return 父级菜单id

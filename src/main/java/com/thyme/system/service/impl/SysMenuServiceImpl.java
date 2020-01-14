@@ -64,6 +64,13 @@ public class SysMenuServiceImpl implements SysMenuService {
     }
 
     @Override
+    public List<SysMenu> findMenuListByUser(String username) {
+        //获取用户Role
+        SysRole sysRole = sysRoleDao.findByName(username);
+        return sysMenuDao.findByRoleId(sysRole.getId());
+    }
+
+    @Override
     public IPage<SysMenu> findFirstMenu(Page page) {
         return sysMenuDao.findFirstMenu(page);
     }
@@ -96,6 +103,11 @@ public class SysMenuServiceImpl implements SysMenuService {
     @Override
     public List<SysMenu> getFirstMenu() {
         return sysMenuDao.getFirstMenu();
+    }
+
+    @Override
+    public List<SysMenu> getSecondMenu() {
+        return sysMenuDao.getSecondMenu();
     }
 
     @Override

@@ -20,7 +20,7 @@ public class Constants {
 
     public static final String STRING_PAGE_NOT_FOUND = "404";
 
-    public static final String REQUEST_MODE_POST = "post";
+    public static final String REQUEST_MODE_POST = "POST";
 
     public static final String LOGIN_SUCCESS = "登录成功";
 
@@ -36,6 +36,8 @@ public class Constants {
     public static final Long PASSWORD_UPDATE_MINUTE = 300L;
 
     public static final String PASSWORD_UPDATE = "PASSWORD_UPDATE";
+
+    public static final Integer ACCESS_AUTH_FILTER_ORDER = 10;
 
 
     /**

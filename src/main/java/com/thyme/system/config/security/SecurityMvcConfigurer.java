@@ -1,6 +1,6 @@
 package com.thyme.system.config.security;
 
-import com.thyme.system.config.interceptor.LogHandlerInterceptor;
+import com.thyme.system.config.interceptor.AccessAuthHandlerInterceptor;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -17,12 +17,13 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class SecurityMvcConfigurer implements WebMvcConfigurer {
 
-    private LogHandlerInterceptor logHandlerInterceptor;
+    //url访问权限验证拦截器
+    private AccessAuthHandlerInterceptor accessAuthHandlerInterceptor;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         //注册过滤器
-        //registry.addInterceptor(logHandlerInterceptor).addPathPatterns("/login");
+        registry.addInterceptor(accessAuthHandlerInterceptor).excludePathPatterns("/static/**").addPathPatterns("/**");
     }
 
 
@@ -32,6 +33,7 @@ public class SecurityMvcConfigurer implements WebMvcConfigurer {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/login").setViewName("/login.html");
+        registry.addViewController("/403").setViewName("/403.html");
     }
 
 }

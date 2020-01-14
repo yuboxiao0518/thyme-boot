@@ -79,7 +79,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
         http.addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
                 //放行所有的 css和js文件
-                .antMatchers("/static/**","/favicon.ico","/actuator/**","/code","/invalid_session","/expired","/logout","/system").permitAll()
+                .antMatchers("/static/**","/favicon.ico","/actuator/**","/code","/invalid_session","/expired","/logout","/403").permitAll()
                 .anyRequest().authenticated()
                 .and()
             .formLogin()
