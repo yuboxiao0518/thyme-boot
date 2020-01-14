@@ -57,6 +57,9 @@ var app = new Vue({
         }
     },
     mounted:function () {
+        if ($('input:radio:checked').val() === undefined){
+            $("[name='sex'][value='男']").prop("checked", "checked");
+        }
         this.getAllRoleName();
         this.validateRule();
     }
@@ -66,7 +69,7 @@ function addUser(){
     var name=$("#name").val();
     var password=CryptoJS.SHA256($("#password").val()).toString();
     var nickName=$("#nickName").val();
-    var sex=$('#sex input:radio:checked').val();
+    var sex=$('input:radio:checked').val();
     var userRole = $('#userRole option:selected').text();
     var mobile=$("#mobile").val();
     var email=$("#email").val();

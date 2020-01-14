@@ -63,8 +63,18 @@
                                     <div class="col-sm-8">
                                         <input id="isShow" name="isShow" type="hidden"
                                                th:value="${sysMenu.isShow}">
-                                        <input type="radio" name="isShow" value="1" title="显示">显示
-                                        <input type="radio" name="isShow" value="0" title="隐藏">隐藏
+                                        <div class="radio-beauty-container" id="Show">
+                                            <label>
+                                                <span class="radio-name">显示</span>
+                                                <input type="radio" value="1" name="isShow" id="xs" hidden/>
+                                                <label for="xs" class="radio-beauty"></label>
+                                            </label>
+                                            <label>
+                                                <span class="radio-name">隐藏</span>
+                                                <input type="radio" value="0" name="isShow" id="yc" hidden/>
+                                                <label for="yc" class="radio-beauty"></label>
+                                            </label>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-group">

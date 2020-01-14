@@ -7366,3 +7366,31 @@ body.skin-3 {
     border-color: #cccccc!important;
 }
 
+.radio-beauty-container {
+    font-size: 0;
+    margin-top: 1.5%;
+}
+.radio-beauty-container .radio-beauty:hover, .radio-beauty-container input[type="radio"]:checked + .radio-beauty {
+    padding: 2px;
+    background-color: #409eff;
+    background-clip: content-box;
+}
+.radio-beauty-container .radio-name {
+    vertical-align: middle;
+    font-size: 15px;
+}
+.radio-beauty-container .radio-beauty {
+    width: 18px;
+    height: 18px;
+    box-sizing: border-box;
+    display: inline-block;
+    border: 1px solid #409eff;
+    vertical-align: middle;
+    margin: 0 15px 0 3px;
+    border-radius: 50%;
+}
+.radio-beauty-container .radio-beauty:hover {
+    /*box-shadow: 0 0 7px green;*/
+    box-shadow: 0 0 7px #409eff;
+}
+

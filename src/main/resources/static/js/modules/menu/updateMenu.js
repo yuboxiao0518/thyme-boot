@@ -101,9 +101,6 @@ var app = new Vue({
         } else {
             $(":radio[name='isShow'][value='0']").prop("checked", "checked");
         }
-        if ($("#menuLevel").val() !== "1"){
-            $("#menuHrefs").show();
-        }
         this.validateRule();
     }
 });

@@ -105,6 +105,9 @@ var app = new Vue({
     mounted:function () {
         this.getMenuLevel();
         this.getValue();
+        if ($('input:radio:checked').val() === undefined){
+            $("[name='isShow'][value='1']").prop("checked", "checked");
+        }
         this.validateRule();
     }
 });
