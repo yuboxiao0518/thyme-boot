@@ -58,12 +58,12 @@
         <!-- 侧边菜单 -->
         <div class="layui-side layui-side-menu">
             <div class="layui-side-scroll">
-                <div class="layui-logo" lay-href="/console.html">
+                <div class="layui-logo">
                     <span>thyme-boot</span>
                 </div>
                 <ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY-system-side-menu"
                     lay-filter="layadmin-system-side-menu">
-                    <li v-for="menuVo in menuList" :data-name="menuVo.code" class="layui-nav-item layui-nav-itemed">
+                    <li v-for="menuVo in menuList" :data-name="menuVo.code" class="layui-nav-item">
                         <a href="javascript:;" :lay-tips="menuVo.name" lay-direction="2">
                             <i class="layui-icon layui-icon-home"></i>
                             <cite>{{menuVo.name}}</cite>
@@ -74,7 +74,7 @@
                             </dd>
                         </dl>
                     </li>
-                    <!--<li class="layui-nav-item layui-nav-itemed">
+                    <!--<li class="layui-nav-item">
                         <a href="javascript:;" lay-tips="主页" lay-direction="2">
                             <i class="layui-icon layui-icon-home"></i>
                             <cite>主页</cite>
