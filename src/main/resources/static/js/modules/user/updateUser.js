@@ -75,7 +75,7 @@ function updateUser(){
         'sex':$('input:radio:checked').val()===undefined?"":$('input:radio:checked').val(),
         'userRole':$('#userRole option:selected').text(),
         'mobile':$("#mobile").val(),
-        'email':$("#email").val,(),
+        'email':$("#email").val(),
         'birthday':$("#birthday").val(),
         'hobby':$("#hobby").val(),
         'liveAddress':$("#liveAddress").val()
