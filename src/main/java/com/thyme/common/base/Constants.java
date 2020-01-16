@@ -39,6 +39,8 @@ public class Constants {
 
     public static final Integer ACCESS_AUTH_FILTER_ORDER = 10;
 
+    public static final String MENU_ICON_PREFIX = "layui-icon ";
+
 
     /**
      * 用于IP定位转换

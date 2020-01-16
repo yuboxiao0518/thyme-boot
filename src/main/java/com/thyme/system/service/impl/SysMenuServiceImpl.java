@@ -2,6 +2,7 @@ package com.thyme.system.service.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.thyme.common.base.Constants;
 import com.thyme.system.dao.SysMenuDao;
 import com.thyme.system.dao.SysRoleDao;
 import com.thyme.system.dao.SysUserDao;
@@ -56,7 +57,7 @@ public class SysMenuServiceImpl implements SysMenuService {
             menuVoList.add(MenuVo.builder()
                     .name(sysMenu.getMenuName())
                     .code(sysMenu.getMenuCode())
-                    .icon(sysMenu.getMenuIcon())
+                    .icon(Constants.MENU_ICON_PREFIX + sysMenu.getMenuIcon())
                     .sysMenus(secodeMenuList)
                     .build());
         }

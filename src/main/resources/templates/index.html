@@ -65,7 +65,7 @@
                     lay-filter="layadmin-system-side-menu">
                     <li v-for="menuVo in menuList" :data-name="menuVo.code" class="layui-nav-item">
                         <a href="javascript:;" :lay-tips="menuVo.name" lay-direction="2">
-                            <i class="layui-icon layui-icon-home"></i>
+                            <i :class="menuVo.icon"></i>
                             <cite>{{menuVo.name}}</cite>
                         </a>
                         <dl class="layui-nav-child">
