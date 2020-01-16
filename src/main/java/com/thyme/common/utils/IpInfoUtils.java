@@ -3,7 +3,6 @@ package com.thyme.common.utils;
 import cn.hutool.core.io.resource.ClassPathResource;
 import com.thyme.common.base.Constants;
 import nl.bitwalker.useragentutils.Browser;
-import nl.bitwalker.useragentutils.OperatingSystem;
 import nl.bitwalker.useragentutils.UserAgent;
 import org.lionsoul.ip2region.DataBlock;
 import org.lionsoul.ip2region.DbConfig;
@@ -35,7 +34,7 @@ public class IpInfoUtils {
         }
         if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
             ip = request.getRemoteAddr();
-            if (ip.equals("127.0.0.1")) {
+            if (Constants.LOCAL_HOST.equals(ip)) {
                 //根据网卡取本机配置的IP
                 InetAddress inet = null;
                 try {
@@ -54,7 +53,7 @@ public class IpInfoUtils {
         }
 
         if ("0:0:0:0:0:0:0:1".equals(ip)) {
-            ip = "127.0.0.1";
+            ip = Constants.LOCAL_HOST;
         }
 
         return ip;

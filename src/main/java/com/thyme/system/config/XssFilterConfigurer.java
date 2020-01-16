@@ -27,7 +27,7 @@ public class XssFilterConfigurer {
         filterRegistrationBean.setOrder(Integer.MAX_VALUE-1);
         filterRegistrationBean.setEnabled(true);
         filterRegistrationBean.addUrlPatterns("/*");
-        Map<String, String> initParameters = new HashMap<>();
+        Map<String, String> initParameters = new HashMap<>(16);
         //excludes用于配置不需要参数过滤的请求url
         initParameters.put("excludes", "/favicon.ico,/img/*,/js/*,/css/*");
         //isIncludeRichText主要用于设置富文本内容是否需要过滤

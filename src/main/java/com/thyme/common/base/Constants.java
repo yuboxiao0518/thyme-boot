@@ -49,6 +49,8 @@ public class Constants {
 
     public static final String INTRANET_IP = "内网IP";
 
+    public static final String LOCAL_HOST = "127.0.0.1";
+
     /**
      * 重置密码  123456
      */

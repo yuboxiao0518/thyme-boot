@@ -30,7 +30,6 @@ public class MemInfo {
     /**
      * 使用率
      */
-    //private double usage;
 
     public double getTotal() {
         return NumberUtil.div(total, (1024 * 1024 * 1024), 2);
