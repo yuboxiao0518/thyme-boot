@@ -18,4 +18,9 @@ public class DevUtilsController {
     public String menuIcon() {
         return "/module/devutils/menuIcon";
     }
+
+    @GetMapping("/vCharts")
+    public String vcharts() {
+        return "/module/devutils/vCharts";
+    }
 }
