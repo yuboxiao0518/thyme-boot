@@ -73,20 +73,20 @@ var app = new Vue({
 });
 
 function updateRole(){
-    var name=$("#name").val();
-    var authority=$("#authority").val();
     var childrenId = app.getCheckedKeys();
-    var ids = app.getHalfCheckedKeys(childrenId);
+    var roleVO = {
+        'id':$("#id").val(),
+        'name':$("#name").val(),
+        "authority":$("#authority").val(),
+        'ids':app.getHalfCheckedKeys(childrenId)
+    };
     $.ajax({
         cache : true,
         type : "POST",
         url : context + 'role/updateRole',
-        data :{
-            "id":id,
-            "name":name,
-            "authority":authority,
-            "ids":ids
-        },
+        data :JSON.stringify(roleVO),
+        dataType : 'json',
+        contentType:'application/json',
         error : function(request) {
             parent.layer.alert("Connection error");
         },

@@ -78,23 +78,16 @@ public class UserRestController {
         return ApiResponse.ofSuccess(jsonObject);
     }
 
-    @GetMapping("/updateUser")
+    @PostMapping("/updateUser")
+    @ResponseBody
     @Transactional(rollbackFor={RuntimeException.class, Exception.class})
-    public ApiResponse updateRole(@RequestParam("id")String id,
-                                  @RequestParam("name")String name,
-                                  @RequestParam("nickName")String nickName,
-                                  @RequestParam("sex")String sex,
-                                  @RequestParam("userRole")String userRole,
-                                  @RequestParam("mobile")String mobile,
-                                  @RequestParam("email")String email,
-                                  @RequestParam("birthday")String birthday,
-                                  @RequestParam("hobby")String hobby,
-                                  @RequestParam("liveAddress")String liveAddress){
+    public ApiResponse updateRole(@RequestBody UserVO userVO){
         JSONObject jsonObject = new JSONObject();
-        SysUser sysUser = new SysUser(id, name, null, nickName, sex, mobile, email, birthday, hobby, liveAddress, null, new Date());
+        SysUser sysUser = new SysUser(userVO.getId(), userVO.getName(), null, userVO.getNickName(), userVO.getSex(), userVO.getMobile(),
+                userVO.getEmail(), userVO.getBirthday(), userVO.getHobby(), userVO.getLiveAddress(), null, new Date());
         try {
-            sysUserRoleService.deleteByUserId(id);
-            sysUserRoleService.insert(new SysUserRole(id,sysRoleService.getIdByName(userRole)));
+            sysUserRoleService.deleteByUserId(userVO.getId());
+            sysUserRoleService.insert(new SysUserRole(userVO.getId(),sysRoleService.getIdByName(userVO.getUserRole())));
             userService.updateById(sysUser);
             jsonObject.put("code",200);
         } catch (Exception e) {
@@ -103,29 +96,22 @@ public class UserRestController {
         return ApiResponse.ofSuccess(jsonObject);
     }
 
-    @GetMapping("/addUser")
+    @PostMapping("/addUser")
+    @ResponseBody
     @Transactional(rollbackFor={RuntimeException.class, Exception.class})
-    public ApiResponse addRole(@RequestParam("name")String name,
-                               @RequestParam("password")String password,
-                               @RequestParam("nickName")String nickName,
-                               @RequestParam("sex")String sex,
-                               @RequestParam("userRole")String userRole,
-                               @RequestParam("mobile")String mobile,
-                               @RequestParam("email")String email,
-                               @RequestParam("birthday")String birthday,
-                               @RequestParam("hobby")String hobby,
-                               @RequestParam("liveAddress")String liveAddress){
+    public ApiResponse addRole(@RequestBody UserVO userVO){
         JSONObject jsonObject = new JSONObject();
-        SysUser user = userService.findByName(name);
+        SysUser user = userService.findByName(userVO.getName());
         if (user == null){
             //用户id
             String userId = UUIDUtils.getUUID();
             //角色id
             SysUserRole sysUserRole = new SysUserRole();
-            sysUserRole.setRoleId(sysRoleService.getIdByName(userRole));
+            sysUserRole.setRoleId(sysRoleService.getIdByName(userVO.getUserRole()));
             sysUserRole.setUserId(userId);
             sysUserRoleService.insert(sysUserRole);
-            SysUser sysUser = new SysUser(userId, name, new BCryptPasswordEncoder().encode(password), nickName, sex, mobile, email, birthday, hobby, liveAddress, new Date(), null);
+            SysUser sysUser = new SysUser(userId, userVO.getName(), new BCryptPasswordEncoder().encode(userVO.getPassword()), userVO.getNickName(), userVO.getSex(),
+                    userVO.getMobile(), userVO.getEmail(), userVO.getBirthday(), userVO.getHobby(), userVO.getLiveAddress(), new Date(), null);
             if (userService.insert(sysUser) > 0){
                 jsonObject.put("code", 200);
             } else {
@@ -160,6 +146,29 @@ public class UserRestController {
         List<String> allRoleName = sysRoleService.getAllRoleName();
         jsonObject.put("allRoleName", allRoleName);
         return ApiResponse.ofSuccess(jsonObject);
+    }
+
+    @PostMapping("/editUser")
+    @ResponseBody
+    public ApiResponse editUser(@RequestBody UserVO userVO){
+        JSONObject jsonObject = new JSONObject();
+        SysUser sysUser = new SysUser();
+        sysUser.setId(userVO.getId());
+        sysUser.setName(userVO.getName());
+        sysUser.setNickName(userVO.getNickName());
+        sysUser.setEmail(userVO.getEmail());
+        sysUser.setSex(userVO.getSex());
+        sysUser.setMobile(userVO.getMobile());
+        sysUser.setBirthday(userVO.getBirthday());
+        sysUser.setHobby(userVO.getHobby());
+        sysUser.setLiveAddress(userVO.getLiveAddress());
+        sysUser.setUpdateTime(new Date());
+        if (userService.updateById(sysUser) > 0){
+            jsonObject.put("code", 200);
+            return ApiResponse.ofSuccess(jsonObject);
+        } else {
+            return ApiResponse.fail("更新基本资料失败");
+        }
     }
 
 }

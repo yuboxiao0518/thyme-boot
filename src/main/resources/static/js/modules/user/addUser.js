@@ -66,33 +66,26 @@ var app = new Vue({
 });
 
 function addUser(){
-    var name=$("#name").val();
-    var password=CryptoJS.SHA256($("#password").val()).toString();
-    var nickName=$("#nickName").val();
-    var sex=$('input:radio:checked').val();
-    var userRole = $('#userRole option:selected').text();
-    var mobile=$("#mobile").val();
-    var email=$("#email").val();
-    var birthday=$("#birthday").val();
-    var hobby=$("#hobby").val();
-    var liveAddress=$("#liveAddress").val();
-    if (isMobileEmail(mobile, email)){
+    var sysUser = {
+        'name':$("#name").val(),
+        'password':CryptoJS.SHA256($("#password").val()).toString(),
+        'nickName':$("#nickName").val(),
+        'sex':$('input:radio:checked').val(),
+        'userRole':$('#userRole option:selected').text(),
+        'mobile':$("#mobile").val(),
+        'email':$("#email").val(),
+        'birthday':$("#birthday").val(),
+        'hobby':$("#hobby").val(),
+        'liveAddress':$("#liveAddress").val()
+    };
+    if (isMobileEmail($("#mobile").val(), $("#email").val())){
         $.ajax({
             cache : true,
-            type : "GET",
+            type : "POST",
             url : context + 'user/addUser',
-            data :{
-                "name":name,
-                "password":password,
-                "nickName":nickName,
-                "sex":sex,
-                "userRole":userRole,
-                "mobile":mobile,
-                "email":email,
-                "birthday":birthday,
-                "hobby":hobby,
-                "liveAddress":liveAddress
-            },
+            data :JSON.stringify(sysUser),
+            dataType : 'json',
+            contentType:'application/json',
             error : function(request) {
                 parent.layer.alert("Connection error");
             },

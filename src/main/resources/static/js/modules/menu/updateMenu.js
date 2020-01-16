@@ -63,12 +63,14 @@ var app = new Vue({
                             $("#menuNames").append(level);
                             $("#menuLevel option[value='"+$("#parentId").val()+"']").attr("selected","selected");
                             $("#menuHrefs").show();
+                            $("#menuIcons").hide();
                         }
                     }
                 });
             } else {
                 $("#menuNames").hide();
                 $("#menuHrefs").hide();
+                $("#menuIcons").show();
             }
         },
         validateRule:function() {
@@ -106,31 +108,27 @@ var app = new Vue({
 });
 
 function updateUser(){
-    var id=$("#id").val();
-    var menuName=$("#menuName").val();
-    var menuCode=$("#menuCode").val();
-    var menuHref=$("#menuHref").val();
-    var menuLevel=$("#menuLevel").val();
-    var menuNames = "";
-    if (menuLevel !== "1"){
-        menuNames = $('#menuNames option:selected').text();
+    var menuVO = {
+        "id":$("#id").val(),
+        "menuName":$("#menuName").val(),
+        "menuCode":$("#menuCode").val(),
+        "menuHref":$("#menuHref").val(),
+        "menuLevel":$("#menuLevel").val(),
+        "menuIcon":$("#menuIcon").val(),
+        "menuNames":'',
+        "menuWeight":$("#menuWeight").val(),
+        "isShow":$('input:radio:checked').val()===undefined?"":$('input:radio:checked').val()
+    };
+    if (menuVO.menuLevel !== "1"){
+        menuVO.menuNames = $('#menuNames option:selected').text();
     }
-    var menuWeight=$("#menuWeight").val();
-    var isShow=$('input:radio:checked').val()===undefined?"":$('input:radio:checked').val();
     $.ajax({
         cache : true,
-        type : "GET",
+        type : "POST",
         url : context + 'menu/updateMenu',
-        data :{
-            "id":id,
-            "menuName":menuName,
-            "menuCode":menuCode,
-            "menuHref":menuHref,
-            "menuLevel":menuLevel,
-            "menuNames":menuNames,
-            "menuWeight":menuWeight,
-            "isShow":isShow
-        },
+        data :JSON.stringify(menuVO),
+        dataType : 'json',
+        contentType:'application/json',
         error : function(request) {
             parent.layer.alert("Connection error");
         },

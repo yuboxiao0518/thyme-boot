@@ -11,7 +11,6 @@ import java.util.Date;
  * @date 2020/1/5 17:38
  */
 @Data
-@Builder
 public class SysMenuVO implements Serializable {
 
     static final long serialVersionUID = 1L;
@@ -19,57 +18,61 @@ public class SysMenuVO implements Serializable {
     /**
      * 菜单主键
      */
-    private String id;
+    public String id;
 
     /**
      * 菜单父级
      */
-    private String parentId;
+    public String parentId;
 
     /**
      * 菜单名称
      */
-    private String menuName;
+    public String menuName;
 
     /**
      * 菜单别名
      */
-    private String menuCode;
+    public String menuCode;
 
     /**
      * 菜单链接
      */
-    private String menuHref;
+    public String menuHref;
 
     /**
      * 菜单图标
      */
-    private String menuIcon;
+    public String menuIcon;
 
     /**
      * 菜单级别
      */
-    private String menuLevel;
+    public String menuLevel;
 
     /**
      * 菜单权重
      */
-    private String menuWeight;
+    public String menuWeight;
 
     /**
      * 菜单是否显示
      */
-    private String isShow;
+    public String isShow;
 
     /**
      * 菜单创建时间
      */
-    private Date createDate;
+    public Date createDate;
 
     /**
      * 菜单创建人
      */
-    private String createBy;
+    public String createBy;
+
+    public SysMenuVO(){
+
+    }
 
     public SysMenuVO(String id, String parentId, String menuName, String menuCode, String menuHref, String menuIcon,
                    String menuLevel, String menuWeight, String isShow, Date createDate, String createBy) {

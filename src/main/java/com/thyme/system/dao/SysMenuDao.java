@@ -36,7 +36,7 @@ public interface SysMenuDao extends BaseMapper<SysMenu> {
      * @return 返回值
      */
     @Update("update sys_menu set parent_id = #{parentId}, menu_name = #{menuName}, menu_code = #{menuCode}, menu_href = #{menuHref}, " +
-            "menu_level = #{menuLevel}, is_show = #{isShow} where id = #{id}")
+            "menu_level = #{menuLevel}, menu_icon = #{menuIcon}, is_show = #{isShow} where id = #{id}")
     int updateMenu(SysMenuVO sysMenu);
 
     /**

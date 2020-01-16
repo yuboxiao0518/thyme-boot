@@ -9,17 +9,11 @@ import com.thyme.common.utils.SecurityUtils;
 import com.thyme.common.utils.UUIDUtils;
 import com.thyme.system.entity.SysMenu;
 import com.thyme.system.service.SysMenuService;
-import com.thyme.system.vo.MenuListVo;
-import com.thyme.system.vo.MenuNameVO;
-import com.thyme.system.vo.MenuVo;
-import com.thyme.system.vo.SysMenuVO;
+import com.thyme.system.vo.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -92,17 +86,12 @@ public class MenuRestController {
         return ApiResponse.ofSuccess(jsonObject);
     }
 
-    @GetMapping("/updateMenu")
-    public ApiResponse updateMenu(@RequestParam("id")String id,
-                                  @RequestParam("menuName")String menuName,
-                                  @RequestParam("menuCode")String menuCode,
-                                  @RequestParam("menuHref")String menuHref,
-                                  @RequestParam("menuLevel")String menuLevel,
-                                  @RequestParam("menuNames")String menuNames,
-                                  @RequestParam("menuWeight")String menuWeight,
-                                  @RequestParam("isShow")String isShow){
+    @PostMapping("/updateMenu")
+    @ResponseBody
+    public ApiResponse updateMenu(@RequestBody SysMenuNameVO sysMenuNameVO){
         JSONObject jsonObject = new JSONObject();
-        SysMenuVO sysMenu = new SysMenuVO(id,sysMenuService.getByMenuName(menuNames),menuName,menuCode,menuHref,null,menuLevel,menuWeight,isShow,null,null);
+        SysMenuVO sysMenu = new SysMenuVO(sysMenuNameVO.getId(),sysMenuService.getByMenuName(sysMenuNameVO.getMenuNames()),sysMenuNameVO.getMenuName(), sysMenuNameVO.getMenuCode(), sysMenuNameVO.getMenuHref(),sysMenuNameVO.getMenuIcon(),
+                sysMenuNameVO.getMenuLevel(),sysMenuNameVO.getMenuWeight(),sysMenuNameVO.getIsShow(),null,null);
         try{
             if (sysMenuService.updateMenu(sysMenu) > 0){
                 jsonObject.put("code",200);
@@ -114,18 +103,15 @@ public class MenuRestController {
         return ApiResponse.ofSuccess(jsonObject);
     }
 
-    @GetMapping("/addMenu")
-    public ApiResponse addMenu(@RequestParam("menuName")String menuName,
-                               @RequestParam("menuCode")String menuCode,
-                               @RequestParam("menuHref")String menuHref,
-                               @RequestParam("menuLevel")String menuLevel,
-                               @RequestParam("menuNames")String menuNames,
-                               @RequestParam("menuWeight")String menuWeight,
-                               @RequestParam("isShow")String isShow){
+    @PostMapping("/addMenu")
+    @ResponseBody
+    public ApiResponse addMenu(@RequestBody SysMenuNameVO sysMenuNameVO){
         JSONObject jsonObject = new JSONObject();
-        SysMenu menu = sysMenuService.getByName(menuName, menuCode, menuHref);
+        SysMenu menu = sysMenuService.getByName(sysMenuNameVO.getMenuName(), sysMenuNameVO.getMenuCode(), sysMenuNameVO.getMenuHref());
         if (menu == null) {
-            SysMenuVO sysMenuVO = new SysMenuVO(UUIDUtils.getUUID(),sysMenuService.getByMenuName(menuNames),menuName,menuCode,menuHref,null,menuLevel,menuWeight,isShow,new Date(),"admin");
+            Authentication authentication = SecurityUtils.getCurrentUserAuthentication();
+            SysMenuVO sysMenuVO = new SysMenuVO(UUIDUtils.getUUID(),sysMenuService.getByMenuName(sysMenuNameVO.getMenuNames()),sysMenuNameVO.getMenuName(), sysMenuNameVO.getMenuCode(), sysMenuNameVO.getMenuHref(),sysMenuNameVO.getMenuIcon(),
+                    sysMenuNameVO.getMenuLevel(),sysMenuNameVO.getMenuWeight(),sysMenuNameVO.getIsShow(),new Date(),(String)authentication.getPrincipal());
             try{
                 if (sysMenuService.addMenu(sysMenuVO) > 0){
                     jsonObject.put("code",200);

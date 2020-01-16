@@ -15,6 +15,7 @@ import com.thyme.system.service.SysMenuRoleService;
 import com.thyme.system.service.SysMenuService;
 import com.thyme.system.service.SysRoleService;
 import com.thyme.system.vo.MenuListVo;
+import com.thyme.system.vo.RoleVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -63,22 +64,20 @@ public class RoleRestController {
     }
 
     @PostMapping("/updateRole")
+    @ResponseBody
     @Transactional(rollbackFor={RuntimeException.class, Exception.class})
-    public ApiResponse updateRole(@RequestParam("id")String id,
-                                  @RequestParam("name")String name,
-                                  @RequestParam("authority")String authority,
-                                  @RequestParam("ids[]")String[] ids){
+    public ApiResponse updateRole(@RequestBody RoleVO roleVO){
         JSONObject jsonObject = new JSONObject();
         try{
-            sysMenuRoleService.deleteByRoleId(id);
-            for (String menuId : ids){
-                SysMenuRole sysMenuRole = new SysMenuRole(menuId, id);
+            sysMenuRoleService.deleteByRoleId(roleVO.getId());
+            for (String menuId : roleVO.getIds()){
+                SysMenuRole sysMenuRole = new SysMenuRole(menuId, roleVO.getId());
                 sysMenuRoleService.addMenuRole(sysMenuRole);
             }
             SysRole sysRole = new SysRole();
-            sysRole.setId(id);
-            sysRole.setName(name);
-            sysRole.setAuthority(authority);
+            sysRole.setId(roleVO.getId());
+            sysRole.setName(roleVO.getName());
+            sysRole.setAuthority(roleVO.getAuthority());
             sysRoleService.updateById(sysRole);
             jsonObject.put("code", 200);
         }catch (Exception e) {
@@ -89,20 +88,19 @@ public class RoleRestController {
     }
 
     @PostMapping("/addRole")
+    @ResponseBody
     @Transactional(rollbackFor={RuntimeException.class, Exception.class})
-    public ApiResponse addRole(@RequestParam("name")String name,
-                               @RequestParam("authority")String authority,
-                               @RequestParam("ids[]")String[] ids){
+    public ApiResponse addRole(@RequestBody RoleVO roleVO){
         JSONObject jsonObject = new JSONObject();
         try{
-            SysRole role = sysRoleService.getByName(name);
+            SysRole role = sysRoleService.getByName(roleVO.getName());
             if (role == null){
                 String id = UUIDUtils.getUUID();
-                for (String menuId : ids){
+                for (String menuId : roleVO.getIds()){
                     SysMenuRole sysMenuRole = new SysMenuRole(menuId, id);
                     sysMenuRoleService.addMenuRole(sysMenuRole);
                 }
-                SysRole sysRole = new SysRole(id, name, authority, new Date());
+                SysRole sysRole = new SysRole(id, roleVO.getName(), roleVO.getAuthority(), new Date());
                 sysRoleService.insert(sysRole);
                 jsonObject.put("code",200);
             } else {
