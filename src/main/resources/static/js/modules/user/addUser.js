@@ -23,7 +23,7 @@ var app = new Vue({
                         $("#userRole").html("");
                         var level = "";
                         level += "<div class='layui-input-inline'>";
-                        level += "<select id='menuLevel' name='modules' lay-verify='required' lay-search=''style='width: 235px;height: 33.9px;border: 1px solid #ccc;border-radius: 4px;'>";
+                        level += "<select id='userRole' name='modules' lay-verify='required' lay-search=''style='width: 235px;height: 33.9px;border: 1px solid #ccc;border-radius: 4px;'>";
                         for (var i = 0; i < data.data.allRoleName.length; i++){
                             level += "<option value='"+data.data.allRoleName[i]+"'>"+data.data.allRoleName[i]+"</option>";
                         }
