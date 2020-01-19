@@ -25,6 +25,9 @@ var app = new Vue({
                             $("#menuLevel").append(level);
                             level = "";
                         }
+                        if ($("#menuLevel").val() === "1"){
+                            $("#menuIcons").show();
+                        }
                     }
 
                 }
@@ -80,7 +83,7 @@ var app = new Vue({
                         required : true
                     }, menuWeight : {
                         required : true
-                    }, isShow : {
+                    }, menuIcon : {
                         required : true
                     }
                 },
@@ -95,8 +98,8 @@ var app = new Vue({
                         required : icon + "请输入菜单层级"
                     }, menuWeight : {
                         required : icon + "请输入排序"
-                    }, menuCode : {
-                        isShow : icon + "请输入状态"
+                    }, menuIcon : {
+                        required : icon + "请输入菜单图标"
                     }
                 }
             })

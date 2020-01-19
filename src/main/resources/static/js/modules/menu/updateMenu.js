@@ -77,19 +77,33 @@ var app = new Vue({
             var icon = "<i class='fa fa-times-circle'></i> ";
             $("#signupForm").validate({
                 rules : {
-                    id : {
+                    menuName : {
                         required : true
-                    }, name : {
+                    }, menuCode : {
                         required : true
-                    }, password : {
+                    }, menuHref : {
+                        required : true
+                    }, menuLevel : {
+                        required : true
+                    }, menuWeight : {
+                        required : true
+                    }, menuIcon : {
                         required : true
                     }
                 },
                 messages : {
-                    name : {
-                        required : icon + "请输入用户名"
-                    }, password : {
-                        required : icon + "请输入密码"
+                    menuName : {
+                        required : icon + "请输入菜单名称"
+                    }, menuCode : {
+                        required : icon + "请输入菜单别名"
+                    }, menuHref : {
+                        required : icon + "请输入菜单链接"
+                    }, menuLevel : {
+                        required : icon + "请输入菜单层级"
+                    }, menuWeight : {
+                        required : icon + "请输入排序"
+                    }, menuIcon : {
+                        required : icon + "请输入菜单图标"
                     }
                 }
             })
