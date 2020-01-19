@@ -16,11 +16,11 @@ public class DevUtilsController {
 
     @GetMapping("/menuIcon")
     public String menuIcon() {
-        return "/module/devutils/menuIcon";
+        return "module/devutils/menuIcon";
     }
 
     @GetMapping("/vCharts")
     public String vcharts() {
-        return "/module/devutils/vCharts";
+        return "module/devutils/vCharts";
     }
 }

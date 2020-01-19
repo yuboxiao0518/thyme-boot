@@ -32,8 +32,8 @@ public class SecurityMvcConfigurer implements WebMvcConfigurer {
      */
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/login").setViewName("/login.html");
-        registry.addViewController("/403").setViewName("/403.html");
+        registry.addViewController("/login").setViewName("login.html");
+        registry.addViewController("/403").setViewName("403.html");
     }
 
 }
