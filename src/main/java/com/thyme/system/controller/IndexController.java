@@ -37,6 +37,11 @@ public class IndexController {
         return "home";
     }
 
+    @RequestMapping("/introduce")
+    public String introduce(){
+        return "introduce";
+    }
+
     @RequestMapping("/admin")
     @ResponseBody
     @PreAuthorize("hasRole('ROLE_ADMIN')")

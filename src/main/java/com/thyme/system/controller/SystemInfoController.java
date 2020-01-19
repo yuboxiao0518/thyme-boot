@@ -19,4 +19,9 @@ public class SystemInfoController {
     public String serverInfo(){
         return "module/system/server";
     }
+
+    @RequestMapping("/introduce")
+    public String introduce(){
+        return "module/system/introduce";
+    }
 }
