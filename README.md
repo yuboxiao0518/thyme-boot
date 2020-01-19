@@ -46,4 +46,22 @@ thyme-boot 是一个 Java EE 企业级快速开发平台，基于（Spring Boot�
 后续随着功能完善将技术文档单独拎出来
 
 # 演示图
+<table>
+    <tr>
+        <td><img src="https://thymefree.oss-cn-hangzhou.aliyuncs.com/1.png"/></td>
+        <td><img src="https://thymefree.oss-cn-hangzhou.aliyuncs.com/2.png"/></td>
+    </tr>
+    <tr>
+        <td><img src="https://thymefree.oss-cn-hangzhou.aliyuncs.com/3.png"/></td>
+        <td><img src="https://thymefree.oss-cn-hangzhou.aliyuncs.com/4.png"/></td>
+    </tr>
+    <tr>
+         <td><img src="https://thymefree.oss-cn-hangzhou.aliyuncs.com/5.png"/></td>
+         <td><img src="https://thymefree.oss-cn-hangzhou.aliyuncs.com/6.png"/></td>
+    </tr>
+    <tr>
+         <td><img src="https://thymefree.oss-cn-hangzhou.aliyuncs.com/7.png"/></td>
+         <td><img src="https://thymefree.oss-cn-hangzhou.aliyuncs.com/8.png"/></td>
+    </tr>
+</table>
 
