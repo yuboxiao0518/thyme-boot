@@ -49,6 +49,5 @@ public interface SysMenuRoleDao extends BaseMapper<SysMenuRole> {
             "</foreach>",
             "</script>"
     })
-    //@Select("select menu_id from sys_menu_role where role_id = #{roleId} and menu_id not IN (${parentIds})")
     List<String> getAllMenuId(@Param("roleId")String roleId, @Param("parentIds")List<String> parentIds);
 }
