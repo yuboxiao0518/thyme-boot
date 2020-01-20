@@ -37,7 +37,7 @@ thyme-boot 是一个 Java EE 企业级快速开发平台，基于（Spring Boot�
 
 # 环境部署
 1. 前往Gitee下载页面(https://gitee.com/thyme-boot/thyme-boot)下载解压到工作目录
-2. 导入开发工具中
+2. 导入开发工具中(开发工具需要安装lombok插件)
 3. 创建数据库 并导入数据脚本/db/init.sql 文件
 4. 修改application-dev.yml文件中的 mysql和redis的连接信息
 5. 打开运行ThymeBootApplication.java

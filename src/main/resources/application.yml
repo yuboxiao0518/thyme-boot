@@ -18,8 +18,8 @@ spring:
   datasource:
     druid:
       stat-view-servlet:
-        login-username: ahhx
-        login-password: ahhx@123
+        login-username: admin
+        login-password: 2rtQ56tolp
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
