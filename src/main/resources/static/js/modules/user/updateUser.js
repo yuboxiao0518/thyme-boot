@@ -76,7 +76,7 @@ function updateUser(){
         'userRole':$('#userRole option:selected').text(),
         'mobile':$("#mobile").val(),
         'email':$("#email").val(),
-        'birthday':$("#birthday").val(),
+        'birthday':$("#birth").val(),
         'hobby':$("#hobby").val(),
         'liveAddress':$("#liveAddress").val()
     };
