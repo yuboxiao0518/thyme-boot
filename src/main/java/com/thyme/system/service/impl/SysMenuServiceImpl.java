@@ -2,6 +2,7 @@ package com.thyme.system.service.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.thyme.common.base.Constants;
 import com.thyme.system.dao.SysMenuDao;
 import com.thyme.system.dao.SysRoleDao;
@@ -30,7 +31,7 @@ import java.util.stream.Collectors;
  */
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-public class SysMenuServiceImpl implements SysMenuService {
+public class SysMenuServiceImpl extends ServiceImpl<SysMenuDao,SysMenu> implements SysMenuService {
 
     private final SysMenuDao sysMenuDao;
 

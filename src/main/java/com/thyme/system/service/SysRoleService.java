@@ -2,6 +2,7 @@ package com.thyme.system.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.thyme.system.entity.SysRole;
 import org.apache.ibatis.annotations.Param;
 
@@ -13,7 +14,7 @@ import java.util.List;
  * @Description TODO
  * @Date 2019/12/13 13:28
  */
-public interface SysRoleService {
+public interface SysRoleService extends IService<SysRole> {
 
     SysRole findByUserId(@Param("userId") String userId);
 
@@ -44,13 +45,6 @@ public interface SysRoleService {
      * @return 返回值
      */
     int deleteById(String id);
-
-    /**
-     * 根据id修改角色
-     * @param sysRole 角色
-     * @return 返回值
-     */
-    int updateById(SysRole sysRole);
 
     /**
      * 保存角色

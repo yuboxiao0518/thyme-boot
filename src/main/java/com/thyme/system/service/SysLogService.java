@@ -2,6 +2,7 @@ package com.thyme.system.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.thyme.system.entity.SysLog;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
  * @Description TODO
  * @Date 2020/1/9 16:23
  */
-public interface SysLogService {
+public interface SysLogService extends IService<SysLog> {
 
     int saveLoginLog(HttpServletRequest request,String message,String name);
 

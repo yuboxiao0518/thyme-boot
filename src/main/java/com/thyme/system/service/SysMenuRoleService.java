@@ -1,5 +1,6 @@
 package com.thyme.system.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.thyme.system.entity.SysMenuRole;
 
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.List;
  * @author cuiyating
  * @date 2020/1/8 14:29
  */
-public interface SysMenuRoleService {
+public interface SysMenuRoleService extends IService<SysMenuRole> {
 
     /**
      * 添加角色和菜单的联系

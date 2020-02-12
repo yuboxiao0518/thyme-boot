@@ -2,6 +2,7 @@ package com.thyme.system.service.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.thyme.common.utils.IpInfoUtils;
 import com.thyme.common.utils.UUIDUtils;
 import com.thyme.system.dao.SysLogDao;
@@ -27,7 +28,7 @@ import java.util.Date;
 @Service
 @Slf4j
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-public class SysLogServiceImpl implements SysLogService {
+public class SysLogServiceImpl extends ServiceImpl<SysLogDao,SysLog> implements SysLogService {
 
     private final SysLogDao sysLogDao;
 

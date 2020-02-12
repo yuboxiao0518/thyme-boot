@@ -2,6 +2,7 @@ package com.thyme.system.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.thyme.system.entity.SysMenu;
 import com.thyme.system.vo.MenuNameVO;
 import com.thyme.system.vo.MenuVo;
@@ -15,7 +16,7 @@ import java.util.List;
  * @Description TODO
  * @Date 2019/12/19 15:43
  */
-public interface SysMenuService {
+public interface SysMenuService extends IService<SysMenu> {
 
     List<MenuVo> getMenuByUser(String username);
 

@@ -61,14 +61,14 @@
                 <div class="layui-logo">
                     <span>thyme-boot</span>
                 </div>
-                <ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY-system-side-menu"
-                    lay-filter="layadmin-system-side-menu">
+                <ul class="layui-nav layui-nav-tree layui-nav-side" lay-shrink="all" id="LAY-system-side-menu"
+                    lay-filter="test">
                     <li v-for="menuVo in menuList" :data-name="menuVo.code" class="layui-nav-item">
-                        <a href="javascript:;" :lay-tips="menuVo.name" lay-direction="2">
+                        <a href="javascript:;" :lay-tips="menuVo.name">
                             <i :class="menuVo.icon"></i>
                             <cite>{{menuVo.name}}</cite>
                         </a>
-                        <dl class="layui-nav-child">
+                        <dl v-if="menuVo.sysMenus.length!==0" class="layui-nav-child">
                             <dd  v-for="menu in menuVo.sysMenus"  :data-name="menu.menuCode">
                                 <a :lay-href="menu.menuHref">{{menu.menuName}}</a>
                             </dd>

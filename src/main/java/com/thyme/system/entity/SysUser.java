@@ -1,7 +1,11 @@
 package com.thyme.system.entity;
 
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -13,11 +17,14 @@ import java.util.Date;
  * @Date 2019/12/12 21:44
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
-public class SysUser implements Serializable {
+public class SysUser extends Model<SysUser> {
 
     static final long serialVersionUID = 1L;
 
+    @TableId
     private String id;
 
     private String name;
@@ -41,25 +48,5 @@ public class SysUser implements Serializable {
     private Date createTime;
 
     private Date updateTime;
-
-    public SysUser(){
-
-    }
-
-    public SysUser(String id, String name, String password, String nickName, String sex, String mobile,
-                   String email, String birthday, String hobby, String liveAddress, Date createTime, Date updateTime){
-        this.id = id;
-        this.name = name;
-        this.password = password;
-        this.nickName = nickName;
-        this.sex = sex;
-        this.mobile = mobile;
-        this.email = email;
-        this.birthday = birthday;
-        this.hobby = hobby;
-        this.liveAddress = liveAddress;
-        this.createTime = createTime;
-        this.updateTime = updateTime;
-    }
 
 }

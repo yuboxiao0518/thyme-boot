@@ -12,7 +12,7 @@ import java.util.List;
  * @Description TODO
  * @Date 2019/12/17 20:07
  */
-public interface RedisService {
+public interface RedisService{
 
     /**
      * 查询验证码的值

@@ -1,7 +1,12 @@
 package com.thyme.system.entity;
 
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.sun.org.apache.xpath.internal.operations.Mod;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -13,14 +18,17 @@ import java.util.Date;
  * @Date 2020/1/9 16:18
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
-public class SysLog implements Serializable {
+public class SysLog extends Model<SysLog> {
 
     static final long serialVersionUID = 1L;
 
     /**
      * 主键id
      */
+    @TableId
     private String id;
 
     /**

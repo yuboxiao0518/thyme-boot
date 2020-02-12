@@ -1,7 +1,10 @@
 package com.thyme.system.entity;
 
+import com.baomidou.mybatisplus.extension.activerecord.Model;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -13,8 +16,9 @@ import java.util.Date;
  * @Date 2019/12/12 21:46
  */
 @Data
-@Builder
-public class SysRole implements Serializable {
+@AllArgsConstructor
+@NoArgsConstructor
+public class SysRole extends Model<SysRole> {
 
     static final long serialVersionUID = 1L;
 
@@ -26,15 +30,5 @@ public class SysRole implements Serializable {
 
     private Date createTime;
 
-    public SysRole(){
-
-    }
-
-    public SysRole(String id, String name, String authority, Date createTime){
-        this.id = id;
-        this.name = name;
-        this.authority = authority;
-        this.createTime = createTime;
-    }
 
 }

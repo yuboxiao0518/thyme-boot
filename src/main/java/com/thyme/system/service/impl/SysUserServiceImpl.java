@@ -2,6 +2,7 @@ package com.thyme.system.service.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.thyme.system.dao.SysUserDao;
 import com.thyme.system.entity.SysUser;
 import com.thyme.system.service.SysUserService;
@@ -17,7 +18,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-public class SysUserServiceImpl implements SysUserService {
+public class SysUserServiceImpl extends ServiceImpl<SysUserDao,SysUser> implements SysUserService {
 
     private final SysUserDao sysUserDao;
 
@@ -39,11 +40,6 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     public int deleteById(String id) {
         return sysUserDao.deleteById(id);
-    }
-
-    @Override
-    public int updateById(SysUser sysUser) {
-        return sysUserDao.updateById(sysUser);
     }
 
     @Override

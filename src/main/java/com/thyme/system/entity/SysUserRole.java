@@ -1,26 +1,22 @@
 package com.thyme.system.entity;
 
+import com.baomidou.mybatisplus.extension.activerecord.Model;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @author cuiyating
  * @date 2020/1/12 0:43
  */
 @Data
-@Builder
-public class SysUserRole {
+@AllArgsConstructor
+@NoArgsConstructor
+public class SysUserRole extends Model<SysUserRole> {
 
     private String userId;
 
     private String roleId;
 
-    public SysUserRole(){
-
-    }
-
-    public SysUserRole(String userId, String roleId){
-        this.userId = userId;
-        this.roleId = roleId;
-    }
 }

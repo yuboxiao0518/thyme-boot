@@ -2,6 +2,7 @@ package com.thyme.system.service.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.thyme.system.dao.SysRoleDao;
 import com.thyme.system.entity.SysRole;
 import com.thyme.system.service.SysRoleService;
@@ -19,7 +20,7 @@ import java.util.List;
  */
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-public class SysRoleServiceImpl implements SysRoleService {
+public class SysRoleServiceImpl extends ServiceImpl<SysRoleDao,SysRole> implements SysRoleService {
 
     private final SysRoleDao sysRoleDao;
 
@@ -46,11 +47,6 @@ public class SysRoleServiceImpl implements SysRoleService {
     @Override
     public int deleteById(String id) {
         return sysRoleDao.deleteById(id);
-    }
-
-    @Override
-    public int updateById(SysRole sysRole) {
-        return sysRoleDao.updateById(sysRole);
     }
 
     @Override

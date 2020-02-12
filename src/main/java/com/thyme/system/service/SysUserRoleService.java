@@ -1,12 +1,13 @@
 package com.thyme.system.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.thyme.system.entity.SysUserRole;
 
 /**
  * @author cuiyating
  * @date 2020/1/12 0:43
  */
-public interface SysUserRoleService {
+public interface SysUserRoleService extends IService<SysUserRole> {
 
     /**
      * 添加用户和角色的联系

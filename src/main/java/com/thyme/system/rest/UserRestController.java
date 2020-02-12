@@ -131,7 +131,7 @@ public class UserRestController {
         sysUser.setId(id);
         sysUser.setPassword(new BCryptPasswordEncoder().encode(Constants.CZMM));
         try{
-            if (userService.updateById(sysUser) > 0){
+            if (userService.updateById(sysUser)){
                 jsonObject.put("code", 200);
             }
         }catch (Exception e) {
@@ -163,7 +163,7 @@ public class UserRestController {
         sysUser.setHobby(userVO.getHobby());
         sysUser.setLiveAddress(userVO.getLiveAddress());
         sysUser.setUpdateTime(new Date());
-        if (userService.updateById(sysUser) > 0){
+        if (userService.updateById(sysUser)){
             jsonObject.put("code", 200);
             return ApiResponse.ofSuccess(jsonObject);
         } else {

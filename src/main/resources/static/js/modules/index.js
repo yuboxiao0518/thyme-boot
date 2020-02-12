@@ -8,7 +8,7 @@ var vm = new Vue({
         logout: function () {
             var localObj = window.location;
             var contextPath = localObj.pathname.split("/")[1];
-            location.href = 'http://' + location.host + "/" + contextPath +"/logout";
+            location.href = 'http://' + location.host + "/" + contextPath + "/logout";
         }
     },
     mounted: function () {

@@ -1,6 +1,7 @@
 package com.thyme.system.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.thyme.system.dao.SysMenuRoleDao;
 import com.thyme.system.entity.SysMenuRole;
 import com.thyme.system.service.SysMenuRoleService;
@@ -18,7 +19,7 @@ import java.util.stream.Collectors;
  */
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-public class SysMenuRoleServiceImpl implements SysMenuRoleService {
+public class SysMenuRoleServiceImpl extends ServiceImpl<SysMenuRoleDao,SysMenuRole> implements SysMenuRoleService {
 
     private final SysMenuRoleDao sysMenuRoleDao;
 

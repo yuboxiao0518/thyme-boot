@@ -1,5 +1,6 @@
 package com.thyme.system.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.thyme.system.entity.systeminfo.*;
 import oshi.hardware.CentralProcessor;
 import oshi.hardware.GlobalMemory;

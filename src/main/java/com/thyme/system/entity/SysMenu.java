@@ -1,7 +1,11 @@
 package com.thyme.system.entity;
 
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -13,14 +17,16 @@ import java.util.Date;
  * @Date 2019/12/19 15:37
  */
 @Data
-@Builder
-public class SysMenu implements Serializable {
+@AllArgsConstructor
+@NoArgsConstructor
+public class SysMenu extends Model<SysMenu> {
 
     static final long serialVersionUID = 1L;
 
     /**
      * 菜单主键
      */
+    @TableId
     private String id;
 
     /**
@@ -73,18 +79,4 @@ public class SysMenu implements Serializable {
      */
     private String createBy;
 
-    public SysMenu(String id, String parentId, String menuName, String menuCode, String menuHref, String menuIcon,
-                   String menuLevel, String menuWeight, Boolean isShow, Date createDate, String createBy){
-        this.id = id;
-        this.parentId = parentId;
-        this.menuName = menuName;
-        this.menuCode = menuCode;
-        this.menuHref = menuHref;
-        this.menuIcon = menuIcon;
-        this.menuLevel = menuLevel;
-        this.menuWeight = menuWeight;
-        this.isShow = isShow;
-        this.createDate = createDate;
-        this.createBy = createBy;
-    }
 }

@@ -2,10 +2,9 @@ package com.thyme.system.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.thyme.system.entity.SysUser;
 import org.apache.ibatis.annotations.Param;
-
-import java.util.List;
 
 /**
  * @author thyme
@@ -13,7 +12,7 @@ import java.util.List;
  * @Description TODO
  * @Date 2019/12/11 10:30
  */
-public interface SysUserService {
+public interface SysUserService extends IService<SysUser> {
 
     /**
      * 根据姓名查询
@@ -42,13 +41,6 @@ public interface SysUserService {
      * @return 返回值
      */
     int deleteById(String id);
-
-    /**
-     * 根据id用户
-     * @param sysUser 用户
-     * @return 返回值
-     */
-    int updateById(SysUser sysUser);
 
     /**
      * 保存用户
