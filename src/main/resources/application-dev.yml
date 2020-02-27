@@ -17,9 +17,9 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
 
   redis:
-    host: 192.168.38.128
+    host: 106.12.202.193
     port: 6379
-    #password: UcJyWk6GEKUx6p6V
+    password: 123456
     #timeout: 5000
 logging:
   config: classpath:log4j2/log4j2-spring-dev.xml

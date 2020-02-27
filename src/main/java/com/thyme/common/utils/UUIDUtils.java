@@ -1,5 +1,6 @@
 package com.thyme.common.utils;
 
+import java.util.HashMap;
 import java.util.UUID;
 
 /**
@@ -29,5 +30,10 @@ public class UUIDUtils {
      */
     public static String getSixteenUUID(){
         return UUID.randomUUID().toString().replace("-","").substring(16);
+    }
+
+    public static void main(String[] args) {
+        HashMap<Object, Object> map = new HashMap<>(16);
+        map.put("name","yubx");
     }
 }

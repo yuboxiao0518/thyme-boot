@@ -21,6 +21,10 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.stream.Collectors;
 
 /**
@@ -69,7 +73,10 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuDao,SysMenu> implemen
     public List<SysMenu> findMenuListByUser(String username) {
         //获取用户Role
         SysRole sysRole = sysRoleDao.findByName(username);
-        return sysMenuDao.findByRoleId(sysRole.getId());
+        List<SysMenu> byRoleId = sysMenuDao.findByRoleId(sysRole.getId());
+        ExecutorService executorService = Executors.newFixedThreadPool(3);
+        ReentrantReadWriteLock reentrantReadWriteLock = new ReentrantReadWriteLock();
+        return byRoleId;
     }
 
     @Override
