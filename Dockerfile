@@ -1,7 +1,5 @@
 FROM openjdk:8
 
-WORKDIR /thyme-boot
-
-ADD thyme-boot-0.0.1-SNAPSHOT.jar thyme-boot.jar
+WORKDIR /var/jenkins_home/workspace/web
 
 CMD java -jar thyme-boot.jar
