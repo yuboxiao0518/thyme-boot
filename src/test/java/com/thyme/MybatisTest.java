@@ -68,7 +68,7 @@ public class MybatisTest {
         headers.put("Content-Type","application/json; charset=utf-8");
         headers.put("Authorization","Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJCREE0RkRXeDQ5cWFyaTlyY1hsMDh6dWJrSzFORkxydiJ9.KH5Afj0s95NHDBAXiGxCKUNn1AT7z7NJuKc-xjQo2Ak");
         HashMap<String, Object> paramMap = new HashMap<>();
-        paramMap.put("image", FileUtil.file("E:\\1.jpg"));
+        paramMap.put("image", FileUtil.file(""));
         String url = "http://ai.aisino.com:28000/invoicev1";
         String body = HttpRequest.post(url)
                 .form(paramMap)
