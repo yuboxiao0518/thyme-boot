@@ -1,5 +1,5 @@
 FROM openjdk:8
 
-WORKDIR /var/jenkins_home/workspace/web
+WORKDIR /home/docker/jenkins/workspace/web
 
 CMD java -jar thyme-boot.jar
